@@ -1,11 +1,11 @@
 {
-  "name": "gatsby-starter-blog",
+  "name": "raresportan",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "Rares Portan's homepage",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Rares Portan <rares.portan@gmail.com>",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/raresportan/homepage/issues"
   },
   "dependencies": {
     "gatsby": "^2.21.22",
@@ -32,14 +32,12 @@
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
     "react-typography": "^0.16.19",
-    "typeface-ibm-plex-sans": "0.0.75",
-    "typeface-lato": "0.0.75",
-    "typeface-open-sans": "0.0.75"
+    "typeface-ibm-plex-sans": "0.0.75"
   },
   "devDependencies": {
     "prettier": "2.0.5"
   },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
+  "homepage": "https://github.com/raresportan/homepage",
   "keywords": [
     "gatsby"
   ],
@@ -47,12 +45,11 @@
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
+    "url": "git+https://github.com/raresportan/homepage.git"
   },
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
