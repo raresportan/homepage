@@ -167,7 +167,7 @@ And that you can change what you don’t like or what you think can be better.
 
 ## Your software is slow
 
- Sometimes the client says: *“Finally we were not able to find any defects, everything works correctly. Just a little issue, we think the app is too slow, it must run at least ten times faster.” *
+ Sometimes the client says: “Finally we were not able to find any defects, everything works correctly. Just a little issue, we think the app is too slow, it must run at least ten times faster.” 
 
 Your first priority should be to make the code work and that is correct. 
 But don’t ignore the performance. 

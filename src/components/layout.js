@@ -15,9 +15,10 @@ const Layout = ({ location, title, children }) => {
       <main>{children}</main>
 
       <footer>
-        <a href="https://twitter.com/raresportan" target="_blank">twitter</a>
-        <a href="https://github.com/raresportan" target="_blank">github</a>
-        <a href="www.linkedin.com/in/rares-portan" target="_blank">linkedin</a>
+        <a href="/rss.xml" target="_blank" rel="noreferrer">rss</a>
+        <a href="https://twitter.com/raresportan" target="_blank" rel="noreferrer">twitter</a>
+        <a href="https://github.com/raresportan" target="_blank" rel="noreferrer">github</a>
+        <a href="www.linkedin.com/in/rares-portan" target="_blank" rel="noreferrer">linkedin</a>
       </footer>
     </div >
   )

@@ -34,15 +34,12 @@ const BioFull = () => {
     }
   `)
 
-  const { author, social } = data.site.siteMetadata
+  const { author } = data.site.siteMetadata
   return (
     <div className='bio-full'>
       <Image
         fixed={data.avatar.childImageSharp.fixed}
         alt={author.name}
-      // imgStyle={{
-      //   borderRadius: `50%`,
-      // }}
       />
       <div style={{
         lineHeight: 1.2,

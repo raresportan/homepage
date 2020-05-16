@@ -5,8 +5,6 @@ import Lightbulb from "./lightbulb";
 
 
 const Header = ({ title, isOnHomePage }) => {
-    const rootPath = `${__PATH_PREFIX__}/`;
-
     let header;
     if (isOnHomePage) {
         header = <h1><Link to={`/`}>{title}</Link></h1>
