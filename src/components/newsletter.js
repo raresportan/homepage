@@ -8,7 +8,7 @@ const Newsletter = () => {
     return (
         <>
             <Helmet>
-                <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+                <script async src="https://f.convertkit.com/ckjs/ck.5.js"></script>
             </Helmet>
             <form
                 action="https://app.convertkit.com/forms/1396761/subscriptions"
