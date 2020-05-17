@@ -32,7 +32,7 @@ body.light {
 }
 
 body.dark {
-    --bg-color: #27292d;
+    --bg-color: #2d2f34;
     --color: rgba(255, 255, 255, .9);
     --small-color: rgba(255, 255, 255, .8);
     --header-color: rgba(255, 255, 255, .9);

@@ -66,3 +66,95 @@ Maybe there is no magic bullet to create perfect software. But let’s try to ge
 > We are simply never going to realise a state of software nirvana where everything is supremely satisfying. 
 That’s an important emotional realisation. The fundamental reward of an improvement process is the experience 
 of betterment, not some mythical destination.  - [Mark Slee](https://engineering.fb.com/uncategorized/thoughts-on-software-quality/) 
+
+
+
+```js
+'use strict';            
+
+/*    
+
+    As the other primitive values, Strings are immutable.
+    16 bits per character.
+    You can compare similar strings with ==
+
+    Can use double quotes (" ") and single quotes (' ') for strings.
+    For multiline strings use back-ticks (` `).
+
+    A string has lots of useful methods like:
+    - length
+    - indexOf 
+    - substring 
+    - toLowerCase & toUpperCase    
+
+    There's no char type, but you can work with a string's chars.
+
+*/
+
+const fix = "Have you tried turning it off and on again?";
+console.log(fix);
+
+// strings have methods
+console.log(fix.toUpperCase()); 
+console.log(fix.length); 
+
+// to combine several string into one you can use +
+const abc = "a" + "b" + "c";
+console.log(abc);
+
+const stringFromNumber = 1 + ""; 
+console.log(stringFromNumber); 
+
+// another way to transform primitives to string using String function
+const stringFromSomething = String(123);
+
+const hiragana = "\u3041";
+console.log(hiragana);
+
+const specialChars = "One\nTwo";
+console.log(specialChars);
+
+const multiline = `
+    Roses are red
+    Violets are blue
+    Unexpected } on line 32
+`
+console.log(multiline);
+
+// Strings enclosed by the back-tick are called template literals 
+// Template literals allow string interpolation
+const lang = "Java";
+const interpolated = ` 
+    - Honey, I can't open the jar!
+    - You need to download ${lang}!`
+console.log(interpolated);
+
+
+// -- Exercises --
+
+// Format a 10 digit phone number to a readable version: 0742552233 -> 0742.552.233
+// using substring 
+const formatPhoneNumber = phoneNumber => {
+    let result = '';
+    // your code here
+
+
+    return result;
+}
+console.log(formatPhoneNumber("0742552233")) // 0742.552.233
+
+
+// Black out word: Given a phrase and a word, replace each word's chars with *, 
+// leave all other words as they are. Use indexOf and substring
+const censor = (phrase, word) => {
+    let result = '';
+    // your code here
+
+    return result;
+}
+console.log(censor('JFK was killed by KGB', 'KGB')) // JFK was killed by ***
+
+
+
+
+```
