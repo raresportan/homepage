@@ -60,14 +60,7 @@ const BlogIndex = ({ data, location }: PageProps<Data>) => {
             </section>
           </article>
         )
-      })}
-      {/* <div className="light">
-        <div className="light-left">
-        </div>
-        <div className="light-right">
-        </div>
-        <div className="lamp"></div>
-      </div> */}
+      })}     
     </Layout >
   )
 }

@@ -1,20 +1,49 @@
+:root {
+    /* --main-bg-color: #fff;
+    --main-color: #444;
+    --main-small-color: #333;
+    --main-header-color: #222;
+    --main-separator-color: #eee;
+    --dark-bg-color: #27292d;
+    --dark-color: rgba(255, 255, 255, .9);
+    --dark-small-color: rgba(255, 255, 255, .8);
+    --dark-header-color: rgba(255, 255, 255, .9);
+    --dark-separator-color: rgba(255, 255, 255, .3); */
+    --yellow: #ffc100;
+    --yellow-light: #fee488;
+}
+
 html, body {
     margin: 0;
     padding: 0;
     font-size: 16px;
-    font-family: 'Open Sans';
     font-family: 'IBM Plex Sans';
-    color: #444;
+    min-height: 100vh;
+    color: var(--color);
+}
+
+body.light {
+    --bg-color: #fff;
+    --color: #444;
+    --small-color: #333;
+    --header-color: #222;
+    --separator-color: #eee;
+    --hover-bg-color: var(--yellow-light);
 }
 
 body.dark {
-    color: #fff;
-    background-color: #222;
+    --bg-color: #2d2f34;
+    --color: rgba(255, 255, 255, .9);
+    --small-color: rgba(255, 255, 255, .8);
+    --header-color: rgba(255, 255, 255, .9);
+    --separator-color: rgba(255, 255, 255, .3);
+    --hover-bg-color: #1A8FE3;
+    background-color: var(--bg-color);
 }
 
 h1, h2, h3, h4 {
-    font-family: 'IBM Plex Sans';
-    color: #222;
+    font-family: inherit;
+    color: var(--header-color);
 }
 
 h1 a, h2 a, h3 a, h4 a {
@@ -23,22 +52,26 @@ h1 a, h2 a, h3 a, h4 a {
     padding: 0.2rem 0.5rem;
 }
 
-.dark h1, .dark h2, .dark h3, .dark h4 {
-    color: #fff;
-}
+/* .dark h1, .dark h2, .dark h3, .dark h4 {
+    color: var(--color);
+} */
 
 a {
-    color: #222;
-}
-
-.dark a {
-    color: #fff;
+    color: var(--header-color);
 }
 
 a:hover {
-    color: #222;
-    background-color: #fee488;
+    background-color: var(--hover-bg-color);
     text-decoration: underline;
+}
+
+/* 
+.dark a:hover {
+    color: var(--header-color);
+} */
+
+form a:hover {
+    background-color: initial;
 }
 
 h1 {
@@ -60,7 +93,7 @@ hr {
     margin-bottom: 2rem;
     margin-top: 2rem;
     border: 0;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--separator-color);
 }
 
 nav ul {
@@ -85,7 +118,7 @@ blockquote {
 }
 
 small {
-    color: #888
+    color: var(--small-color)
 }
 
 .post h1 {
@@ -95,7 +128,7 @@ small {
 }
 
 .post h2 {
-    margin: 2rem 0 1rem 0;
+    margin: 3rem 0 1rem 0;
 }
 
 .main-header {
@@ -139,7 +172,7 @@ footer a {
     border-radius: 50%;
 }
 
-.light {
+.lightbulbstring {
     position: relative;
     margin-right: 1.5rem;
     top: 0;
@@ -152,7 +185,7 @@ footer a {
     display: flex;
     position: absolute;
     width: 46px;
-    height: 46px;
+    height: 48px;
     top: calc(100% - 2px);
     left: -23px;
     padding: 0;
@@ -182,32 +215,31 @@ footer a {
 }
 
 .dark .lightbulb svg path#bulbPath {
-    fill: #ffc100;
+    fill: var(--yellow);
 }
 
 .dark .lightbulb svg path#bgPath {
-    fill: #fee488;
+    fill: var(--yellow-light);
     fill-opacity: 1;
 }
 
-.lightbulb:hover svg path#bulbPath {
-    animation: flicker 0.6s ease-in-out;
-    animation-iteration-count: infinite;
-}
-
-.lightbulb:hover svg path#bgPath {
-    animation: flickerBg .6s ease-in-out;
-    animation-iteration-count: infinite;
-}
-
-.light:hover .lightcircle {
-    display: initial;
-    animation: flickerOpacify .6s ease-in-out;
-    animation-iteration-count: infinite;
-}
-
-.dark .lightbulb:hover svg path#bulbPath, .dark .lightbulb:hover svg path#bgPath {
-    animation: none;
+@media only screen and (min-width: 480px) {
+    .lightbulb:hover svg path#bulbPath {
+        animation: flicker 0.6s ease-in-out;
+        animation-iteration-count: infinite;
+    }
+    .lightbulb:hover svg path#bgPath {
+        animation: flickerBg .6s ease-in-out;
+        animation-iteration-count: infinite;
+    }
+    .lightbulbstring:hover .lightcircle {
+        display: initial;
+        animation: flickerOpacify .6s ease-in-out;
+        animation-iteration-count: infinite;
+    }
+    .dark .lightbulb:hover svg path#bulbPath, .dark .lightbulb:hover svg path#bgPath {
+        animation: none;
+    }
 }
 
 @keyframes flicker {
@@ -215,7 +247,7 @@ footer a {
         fill: #ccc;
     }
     25% {
-        fill: #ffc100;
+        fill: var(--yellow);
     }
     50% {
         fill: #ccc;
@@ -224,7 +256,7 @@ footer a {
         fill: #ccc;
     }
     100% {
-        fill: #ffc100;
+        fill: var(--yellow);
     }
 }
 
@@ -234,7 +266,7 @@ footer a {
         fill-opacity: 0.4;
     }
     25% {
-        fill: #fee488;
+        fill: var(--yellow-light);
         fill-opacity: 1;
     }
     50% {
@@ -246,7 +278,7 @@ footer a {
         fill-opacity: 0.4;
     }
     100% {
-        fill: #fee488;
+        fill: var(--yellow-light);
         fill-opacity: 1;
     }
 }
@@ -272,12 +304,11 @@ footer a {
 .lightcircle {
     display: none;
     position: absolute;
-    z-index: -1;
     top: calc(100% + 18px);
     left: -14px;
-    background: #fee488;
+    background: var(--yellow-light);
     border-radius: 100%;
-    box-shadow: 0 0 20px #fee488;
+    box-shadow: 0 0 20px var(--yellow-light);
     -webkit-filter: blur(2px);
     filter: blur(2px);
     width: 27px;
@@ -286,6 +317,10 @@ footer a {
 
 .dark .lightcircle {
     display: initial;
+}
+
+h4.form-header {
+    margin-bottom: 0.5rem;
 }
 
 @media only screen and (max-width: 480px) {
