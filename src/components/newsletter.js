@@ -21,6 +21,7 @@ const Newsletter = () => {
                 min-width="400 500 600 700 800">
                 <div data-style="clean">
                     <ul className="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
+                    <h4 style={{ marginBottom: '.5rem' }}>Want to become a better developer?</h4>
                     <div data-element="fields" data-stacked="false" className="seva-fields formkit-fields">
                         <label className="formkit-field">
                             <span>First name</span>

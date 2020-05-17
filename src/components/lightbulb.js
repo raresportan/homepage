@@ -1,14 +1,20 @@
 import React from "react"
 
+import useLocalStorage from '../hooks/useLocalStorage';
+
 
 const Ligthbulb = () => {
+    const [_, setTheme] = useLocalStorage('theme')
+
     const toggleTheme = () => {
         const body = document.querySelector('body');
-        body.classList.toggle('dark');
+        const newTheme = body.className === 'dark' ? 'light' : 'dark';
+        body.className = newTheme;
+        setTheme(newTheme);
     }
 
     return (
-        <div className='light'>
+        <div className='lightbulbstring'>
             <div className='lightcircle'></div>
             <button className="lightbulb" aria-label="Toggle theme" onClick={toggleTheme}>
                 <svg

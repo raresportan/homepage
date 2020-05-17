@@ -81,7 +81,7 @@ Don’t expect to write the best code of the bat, but be brutally honest with wh
 ##  You come up with lame excuses 
 
 Some people are so good at providing lame excuses. They can find an excuse for anything. 
-Nobody likes to deal with these people. These people never provide options.
+Nobody likes to deal with these people.  These people never provide options.
 
 They don’t think about the issue, they don’t try to find reasonable ways to handle the issue. 
 They never do something about it. 
