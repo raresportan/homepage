@@ -22,14 +22,16 @@ const Newsletter = () => {
                 <div data-style="clean">
                     <ul className="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
                     <div data-element="fields" data-stacked="false" className="seva-fields formkit-fields">
-                        <div className="formkit-field">
-                            <input className="formkit-input" aria-label="Your first name" name="fields[first_name]" placeholder="Your first name" type="text"
+                        <label className="formkit-field">
+                            <span>First name</span>
+                            <input className="formkit-input" name="first_name" aria-label="Your first name" placeholder="Your first name" type="text"
                                 style={{ color: 'rgb(0, 0, 0)', borderColor: 'rgb(227, 227, 227)', borderRadius: '4px', fontWeight: 400 }} />
-                        </div>
-                        <div className="formkit-field">
+                        </label>
+                        <label className="formkit-field">
+                            <span>Email address</span>
                             <input className="formkit-input" name="email_address" placeholder="Your email address" required="" type="email"
                                 style={{ color: 'rgb(0, 0, 0)', borderColor: 'rgb(227, 227, 227)', borderRadius: '4px', fontWeight: 400 }} />
-                        </div>
+                        </label>
                         <button data-element="submit" className="formkit-submit formkit-submit"
                             style={{ color: 'rgb(68, 68, 68)', backgroundColor: 'rgb(255, 193, 0)', borderRadius: '4px', fontWeight: 700 }}>
                             <div className="formkit-spinner"><div></div><div></div><div></div></div><span>Subscribe</span>
