@@ -18,7 +18,7 @@ const Layout = ({ location, title, children }) => {
         <a href="/rss.xml" target="_blank" rel="noreferrer">rss</a>
         <a href="https://twitter.com/raresportan" target="_blank" rel="noreferrer">twitter</a>
         <a href="https://github.com/raresportan" target="_blank" rel="noreferrer">github</a>
-        <a href="www.linkedin.com/in/rares-portan" target="_blank" rel="noreferrer">linkedin</a>
+        <a href="https://www.linkedin.com/in/rares-portan" target="_blank" rel="noreferrer">linkedin</a>
       </footer>
     </div >
   )
