@@ -4,7 +4,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 
 
 const Ligthbulb = () => {
-    const [_, setTheme] = useLocalStorage('theme')
+    const [, setTheme] = useLocalStorage('theme')
 
     const toggleTheme = () => {
         const body = document.querySelector('body');
