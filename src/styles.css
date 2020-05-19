@@ -42,10 +42,6 @@ h1 a, h2 a, h3 a, h4 a {
     padding: 0.2rem 0.5rem;
 }
 
-/* .dark h1, .dark h2, .dark h3, .dark h4 {
-    color: var(--color);
-} */
-
 a {
     color: var(--header-color);
 }
@@ -113,6 +109,12 @@ small {
     color: var(--small-color)
 }
 
+.content, .missing {
+    margin: 0 auto;
+    max-width: 42.5rem;
+    padding: 0 1rem;
+}
+
 .post header {
     margin-bottom: 1.6rem;
 }
@@ -159,6 +161,29 @@ main+footer {
 
 footer a {
     margin-right: .5rem;
+}
+
+.bio {
+    display: flex;
+    margin-bottom: 2.5rem
+}
+
+.bio>div:first-child {
+    margin-right: 1rem;
+    margin-bottom: 0;
+    min-width: 48px;
+    border-radius: 100%
+}
+
+.bio>div:nth-child(2) {
+    line-height: 1.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+
+.bio>div:nth-child(2) span {
+    font-size: smaller;
 }
 
 .bio-full {

@@ -32,38 +32,18 @@ const Bio = () => {
     }
   `)
 
-  const { author, description } = data.site.siteMetadata
+  const { author } = data.site.siteMetadata
   return (
-    <div
-      style={{
-        display: `flex`,
-        marginBottom: '2.5rem',
-      }}
-    >
+    <div className="bio">
       <Image
         fixed={data.avatar.childImageSharp.fixed}
         alt={author.name}
-        style={{
-          marginRight: '1rem',
-          marginBottom: 0,
-          minWidth: 48,
-          borderRadius: `100%`,
-        }}
-        imgStyle={{
-          borderRadius: `50%`,
-        }}
+
       />
-      <div style={{
-        lineHeight: 1.2,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center'
-      }}>
+      <div>
         Hey, I'm {author.name}
         <br />
-        <span style={{
-          fontSize: 'smaller'
-        }}>{author.summary}</span>
+        <span>{author.summary}</span>
       </div>
     </div>
   )
