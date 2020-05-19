@@ -23,18 +23,16 @@ const Bio = () => {
       site {
         siteMetadata {
           author {
-            name
+            name           
             summary
           }
-          social {
-            twitter
-          }
+          description
         }
       }
     }
   `)
 
-  const { author } = data.site.siteMetadata
+  const { author, description } = data.site.siteMetadata
   return (
     <div
       style={{
@@ -61,11 +59,11 @@ const Bio = () => {
         flexDirection: 'column',
         justifyContent: 'center'
       }}>
-        Hey, I'm Rares.
+        Hey, I'm {author.name}
         <br />
         <span style={{
           fontSize: 'smaller'
-        }}>Here I write about programming, mostly how to get better at it.</span>
+        }}>{author.summary}</span>
       </div>
     </div>
   )
