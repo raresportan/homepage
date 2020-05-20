@@ -1,0 +1,62 @@
+/**
+ * prism js dark theme, based on darcula
+ */
+
+code[class*="language-"], pre[class*="language-"] {
+	font-family: Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace;
+	font-size: .875rem;
+	text-shadow: none;
+}
+
+.dark code[class*="language-"], .dark pre[class*="language-"] {
+	color: #f8f8f2;
+	font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+}
+
+.dark :not(pre)>code[class*="language-"], .dark pre[class*="language-"] {
+	background: #1f2023;
+}
+
+.dark .token.comment, .dark .token.block-comment, .dark .token.prolog, .dark .token.doctype, .dark .token.cdata {
+	color: #6DCB77;
+}
+
+.dark .token.punctuation {
+	color: #ccc;
+}
+
+.dark .token.tag, .dark .token.attr-name, .dark .token.namespace, .dark .token.deleted {
+	color: #e2777a;
+}
+
+.dark .token.function-name {
+	color: #6196cc;
+}
+
+.dark .token.boolean, .dark .token.number {
+	color: #bd93f9;
+}
+
+.dark .token.function {
+	color: #8be9fd;
+}
+
+.dark .token.property, .dark .token.class-name, .dark .token.constant, .dark .token.symbol {
+	color: #f8c555;
+}
+
+.dark .token.selector, .dark .token.important, .dark .token.atrule, .dark .token.keyword, .dark .token.builtin {
+	color: #8be9fd;
+}
+
+.dark .token.string, .dark .token.char, .dark .token.attr-value, .dark .token.regex, .dark .token.variable {
+	color: #f1fa8c;
+}
+
+.dark .token.operator, .dark .token.entity, .dark .token.url {
+	color: #ff79c6;
+}
+
+.dark .token.inserted {
+	color: green;
+}

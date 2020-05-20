@@ -17,6 +17,9 @@ const SEO = ({ description, lang, meta, title }) => {
         site {
           siteMetadata {
             title
+            author {
+              summary
+            }
             description
             social {
               twitter
@@ -27,7 +30,7 @@ const SEO = ({ description, lang, meta, title }) => {
     `
   )
 
-  const metaDescription = description || site.siteMetadata.description
+  const metaDescription = description || (site.siteMetadata.author.summary + site.siteMetadata.description)
 
   return (
     <Helmet

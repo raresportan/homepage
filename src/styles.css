@@ -1,14 +1,4 @@
 :root {
-    /* --main-bg-color: #fff;
-    --main-color: #444;
-    --main-small-color: #333;
-    --main-header-color: #222;
-    --main-separator-color: #eee;
-    --dark-bg-color: #27292d;
-    --dark-color: rgba(255, 255, 255, .9);
-    --dark-small-color: rgba(255, 255, 255, .8);
-    --dark-header-color: rgba(255, 255, 255, .9);
-    --dark-separator-color: rgba(255, 255, 255, .3); */
     --yellow: #ffc100;
     --yellow-light: #fee488;
 }
@@ -28,7 +18,7 @@ body.light {
     --small-color: #333;
     --header-color: #222;
     --separator-color: #eee;
-    --hover-bg-color: var(--yellow-light);
+    --hover-color: #FF0054;
 }
 
 body.dark {
@@ -37,7 +27,7 @@ body.dark {
     --small-color: rgba(255, 255, 255, .8);
     --header-color: rgba(255, 255, 255, .9);
     --separator-color: rgba(255, 255, 255, .3);
-    --hover-bg-color: #1A8FE3;
+    --hover-color: var(--yellow);
     background-color: var(--bg-color);
 }
 
@@ -52,23 +42,21 @@ h1 a, h2 a, h3 a, h4 a {
     padding: 0.2rem 0.5rem;
 }
 
-/* .dark h1, .dark h2, .dark h3, .dark h4 {
-    color: var(--color);
-} */
-
 a {
     color: var(--header-color);
 }
 
 a:hover {
-    background-color: var(--hover-bg-color);
+    color: var(--hover-color);
     text-decoration: underline;
 }
 
-/* 
-.dark a:hover {
-    color: var(--header-color);
-} */
+p {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    margin-top: 0;
+    margin-bottom: 1.6rem;
+}
 
 form a:hover {
     background-color: initial;
@@ -121,6 +109,16 @@ small {
     color: var(--small-color)
 }
 
+.content, .missing {
+    margin: 0 auto;
+    max-width: 42.5rem;
+    padding: 0 1rem;
+}
+
+.post header {
+    margin-bottom: 1.6rem;
+}
+
 .post h1 {
     font-size: 2.5rem;
     margin-top: 1rem;
@@ -128,7 +126,7 @@ small {
 }
 
 .post h2 {
-    margin: 3rem 0 1rem 0;
+    margin: 3.2rem 0 0.8rem 0;
 }
 
 .main-header {
@@ -138,14 +136,23 @@ small {
 .four-oh-four {
     display: flex;
     flex-direction: column;
-    text-align: center;
-    justify-content: center;
     height: 60vh;
+    margin-top: -3rem;
 }
 
 .four-oh-four h1 {
     font-size: 7rem;
     margin-bottom: 1rem;
+}
+
+.missing .lightbulbstring {
+    height: 100px;
+}
+
+.dark .missing .lightbulbstring .lightcircle {
+    display: initial;
+    animation: flickerOpacify .6s ease-in-out;
+    animation-iteration-count: infinite;
 }
 
 main+footer {
@@ -154,6 +161,29 @@ main+footer {
 
 footer a {
     margin-right: .5rem;
+}
+
+.bio {
+    display: flex;
+    margin-bottom: 2.5rem
+}
+
+.bio>div:first-child {
+    margin-right: 1rem;
+    margin-bottom: 0;
+    min-width: 48px;
+    border-radius: 100%
+}
+
+.bio>div:nth-child(2) {
+    line-height: 1.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+
+.bio>div:nth-child(2) span {
+    font-size: smaller;
 }
 
 .bio-full {
@@ -166,6 +196,13 @@ footer a {
     margin-right: 1rem;
     margin-bottom: 0;
     min-width: 80px;
+}
+
+.bio-full>div:nth-child(2) {
+    line-height: 1.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .bio-full img {
@@ -221,6 +258,37 @@ footer a {
 .dark .lightbulb svg path#bgPath {
     fill: var(--yellow-light);
     fill-opacity: 1;
+}
+
+.gatsby-highlight {
+    overflow: auto;
+}
+
+@media only screen and (max-width: 670px) {
+    .gatsby-highlight {
+        margin-left: -1rem;
+        margin-right: -1rem;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    html, body {
+        font-size: 14px;
+    }
+    .bio-full {
+        flex-direction: column;
+        align-items: flex-end;
+        margin-top: -4.5rem;
+    }
+    .bio-full>div:first-child {
+        margin-right: 0;
+    }
+    .bio-full>div:nth-child(2) {
+        display: block;
+        margin-top: 1rem;
+        text-align: right;
+        font-size: 12px;
+    }
 }
 
 @media only screen and (min-width: 480px) {
@@ -336,9 +404,4 @@ h4.form-header {
     .post h2 {
         font-size: 1.5rem;
     }
-}
-
-code[class*="language-"], pre[class*="language-"] {
-    font-family: Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace;
-    font-size: .875rem;
 }

@@ -24,40 +24,24 @@ const BioFull = () => {
         siteMetadata {
           author {
             name
-            summary
+            summary            
           }
-          social {
-            twitter
-          }
+          description
         }
       }
     }
   `)
 
-  const { author } = data.site.siteMetadata
+  const { author, description } = data.site.siteMetadata
   return (
     <div className='bio-full'>
       <Image
         fixed={data.avatar.childImageSharp.fixed}
         alt={author.name}
       />
-      <div style={{
-        lineHeight: 1.2,
-        display: 'flex',
-        fontSize: '1.2rem',
-        flexDirection: 'column',
-        justifyContent: 'center'
-      }}>
-        Hey, I'm Rares.
-        <br />
-        <span style={{
-          fontSize: '1rem'
-        }}>
-          I'm a web designer and developer from Timisoara, Romania.
-          <br />
-          {/* I love JavaScript and functional programming.
-          <br /> */}
-          Here I write about programming, mostly how to get better at it.</span>
+      <div>
+        <span>{author.summary}</span>
+        <span>{description}</span>
       </div>
     </div>
   )

@@ -3,12 +3,14 @@ module.exports = {
     title: `Rares Portan`,
     author: {
       name: `Rares Portan`,
-      summary: ``,
+      summary: `Web designer & developer. JavaScript addict. JAMstack fan.`,
     },
-    description: `Hey, I'm Rares. I write about programming, mostly web related.`,
+    description: `Always looking to make better software.`,
     siteUrl: `https://raresportan.com`,
     social: {
       twitter: `raresportan`,
+      github: `raresportan`,
+      linkedin: `rares-portan`
     },
   },
   plugins: [

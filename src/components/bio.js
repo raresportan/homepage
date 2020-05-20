@@ -23,12 +23,10 @@ const Bio = () => {
       site {
         siteMetadata {
           author {
-            name
+            name           
             summary
           }
-          social {
-            twitter
-          }
+          description
         }
       }
     }
@@ -36,36 +34,16 @@ const Bio = () => {
 
   const { author } = data.site.siteMetadata
   return (
-    <div
-      style={{
-        display: `flex`,
-        marginBottom: '2.5rem',
-      }}
-    >
+    <div className="bio">
       <Image
         fixed={data.avatar.childImageSharp.fixed}
         alt={author.name}
-        style={{
-          marginRight: '1rem',
-          marginBottom: 0,
-          minWidth: 48,
-          borderRadius: `100%`,
-        }}
-        imgStyle={{
-          borderRadius: `50%`,
-        }}
+
       />
-      <div style={{
-        lineHeight: 1.2,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center'
-      }}>
-        Hey, I'm Rares.
+      <div>
+        Hey, I'm {author.name}
         <br />
-        <span style={{
-          fontSize: 'smaller'
-        }}>Here I write about programming, mostly how to get better at it.</span>
+        <span>{author.summary}</span>
       </div>
     </div>
   )

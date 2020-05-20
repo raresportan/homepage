@@ -1,44 +1,20 @@
 // Gatsby supports TypeScript natively!
 import React from "react"
-import { PageProps, Link, graphql } from "gatsby"
+import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import BioFull from "../components/bio-full"
 
-type Data = {
-  site: {
-    siteMetadata: {
-      title: string
-    }
-  }
-  allMarkdownRemark: {
-    edges: {
-      node: {
-        excerpt: string
-        frontmatter: {
-          title: string
-          date: string
-        }
-        fields: {
-          slug: string,
-          readingTime: {
-            text: string
-          }
-        }
-      }
-    }[]
-  }
-}
-
-const BlogIndex = ({ data, location }: PageProps<Data>) => {
-  const siteTitle = data.site.siteMetadata.title
+const BlogIndex = ({ data, location }) => {
+  const { title } = data.site.siteMetadata;
   const posts = data.allMarkdownRemark.edges
 
   return (
-    <Layout location={location} title={siteTitle}>
-      <SEO title="Rares Portan's posts" />
+    <Layout location={location} title={title}>
+      <SEO title="All posts" />
       <BioFull />
+
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug
         return (
@@ -60,7 +36,7 @@ const BlogIndex = ({ data, location }: PageProps<Data>) => {
             </section>
           </article>
         )
-      })}     
+      })}
     </Layout >
   )
 }
@@ -72,6 +48,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        description
       }
     }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
@@ -87,7 +64,6 @@ export const pageQuery = graphql`
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
             title
-            description
           }
         }
       }

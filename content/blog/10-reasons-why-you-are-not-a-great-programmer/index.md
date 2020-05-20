@@ -61,7 +61,7 @@ People use your code because they want to solve a problem not because they want 
 ## Your code is a mess 
 
 Sometimes we need to deliver the software ASAP and we must write fast trashy code to do that. 
-That it’s OK as long as we remember to rewrite that code when the things cool down a bit.  
+That it’s OK as long as we remember to rewrite that code when the things cool down a bit.
 
 But you forget and let trashy code pile up. 
 The more you have, the harder your life is. 
