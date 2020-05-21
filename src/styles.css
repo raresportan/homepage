@@ -36,6 +36,19 @@ h1, h2, h3, h4 {
     color: var(--header-color);
 }
 
+.main-header h1, .main-header h3 {
+    font-weight: normal;
+}
+
+.dark .main-header h1 a {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    background-size: 100%;
+    background-image: linear-gradient(72deg, rgba(254, 228, 136, 1) 0%, rgba(255, 255, 255, 1) 21%);
+}
+
 h1 a, h2 a, h3 a, h4 a {
     text-decoration: none;
     margin-left: -0.5rem;
@@ -51,11 +64,15 @@ a:hover {
     text-decoration: underline;
 }
 
+li {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+}
+
 p {
     font-size: 1.0625rem;
     line-height: 1.6;
-    margin-top: 0;
-    margin-bottom: 1.6rem;
+    margin: 0.8rem 0 0.8rem 0;
 }
 
 form a:hover {
@@ -75,6 +92,10 @@ h2 {
 h3 {
     font-size: 1.5rem;
     margin-top: 2.5rem;
+}
+
+.post h3 {
+    font-size: 1.3rem;
 }
 
 hr {
@@ -107,6 +128,10 @@ blockquote {
 
 small {
     color: var(--small-color)
+}
+
+header {
+    margin-bottom: 0.5rem;
 }
 
 .content, .missing {
