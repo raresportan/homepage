@@ -55,6 +55,7 @@ code[class*="language-"], pre[class*="language-"] {
 
 .dark .token.operator, .dark .token.entity, .dark .token.url {
 	color: #ff79c6;
+	background: transparent;
 }
 
 .dark .token.inserted {
