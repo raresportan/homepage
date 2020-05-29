@@ -33,7 +33,6 @@ const SEO = ({ description, lang, meta, title, twitterImage }) => {
 
   const metaDescription = description || (site.siteMetadata.author.summary + site.siteMetadata.description)
   const twitterImageUrl = (site.siteMetadata.siteUrl || '') + '/' + twitterImage;
-  console.log('???', twitterImageUrl)
   return (
     <Helmet
       htmlAttributes={{
