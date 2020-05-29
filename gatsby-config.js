@@ -54,6 +54,44 @@ module.exports = {
           `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
+          {
+            resolve: `gatsby-plugin-twitter-card`,
+            options: {
+              tinypngApiKey: process.env.TINY,
+              width: 1280,
+              height: 669,
+              templateImage: 'content/assets/twitter-card-template.jpg',
+              backgroundColor: '#fff',
+              fonts: [
+                {
+                  file: 'content/fonts/IBMPlexSans-SemiBold.ttf',
+                  family: 'IBM Plex Sans'
+                }
+              ],
+              texts: [
+                {
+                  text: '$title',
+                  color: '#222',
+                  font: '48pt "IBM Plex Sans"',
+                  x: 450,
+                  y: 669 / 2,
+                  maxWidth: 700,
+                  lineHeight: 60
+                },
+                {
+                  text: 'raresportan.com',
+                  font: '26pt "IBM Plex Sans"',
+                  x: 'center',
+                  y: 669 - 36,
+                  color: '#444',
+                }
+              ],
+              borderTop: {
+                width: 30,
+                color: '#fce000'
+              }
+            }
+          }
         ],
       },
     },
@@ -131,6 +169,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-advanced-sitemap`,
+    `gatsby-plugin-advanced-sitemap`
   ],
 }

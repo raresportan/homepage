@@ -25,9 +25,18 @@ code[class*="language-"], pre[class*="language-"] {
 	color: #ccc;
 }
 
-.dark .token.tag, .dark .token.attr-name, .dark .token.namespace, .dark .token.deleted {
-	color: #e2777a;
+.dark .token.tag {
+	color: #50fa7b;
+	color: #fff;
 }
+
+.dark .token.attr-name {
+	color: #ff79c6;
+}
+
+/* .dark .token.tag, .dark .token.attr-name, .dark .token.namespace, .dark .token.deleted {
+	color: #e2777a;
+} */
 
 .dark .token.function-name {
 	color: #6196cc;
