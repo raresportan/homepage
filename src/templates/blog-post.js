@@ -16,6 +16,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description}
+        twitterImage={post.fields.twitterCardImage}
       />
       <article className='post'>
         <header>
@@ -74,6 +75,7 @@ export const pageQuery = graphql`
         description     
       }
       fields {
+        twitterCardImage
         readingTime {
           text
         }
