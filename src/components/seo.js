@@ -21,6 +21,7 @@ const SEO = ({ description, lang, meta, title, twitterImage }) => {
               summary
             }
             description
+            siteUrl
             social {
               twitter
             }
@@ -31,8 +32,8 @@ const SEO = ({ description, lang, meta, title, twitterImage }) => {
   )
 
   const metaDescription = description || (site.siteMetadata.author.summary + site.siteMetadata.description)
-
-  console.log('???', twitterImage)
+  const twitterImageUrl = (site.siteMetadata.siteUrl || '') + '/' + twitterImage;
+  console.log('???', twitterImageUrl)
   return (
     <Helmet
       htmlAttributes={{
@@ -59,7 +60,7 @@ const SEO = ({ description, lang, meta, title, twitterImage }) => {
         },
         {
           property: `og:image`,
-          content: '/' + twitterImage,
+          content: twitterImageUrl,
         },
         {
           name: `twitter:card`,
