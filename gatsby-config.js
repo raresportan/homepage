@@ -82,7 +82,7 @@ module.exports = {
                   text: 'raresportan.com',
                   font: '26pt "IBM Plex Sans"',
                   x: 'center',
-                  y: 669 - 36,
+                  y: 669 - 66,
                   color: '#444',
                 }
               ],
