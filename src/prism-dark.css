@@ -8,9 +8,12 @@ code[class*="language-"], pre[class*="language-"] {
 	text-shadow: none;
 }
 
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string {
+	background: none;
+}
+
 .dark code[class*="language-"], .dark pre[class*="language-"] {
 	color: #f8f8f2;
-	font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
 }
 
 .dark :not(pre)>code[class*="language-"], .dark pre[class*="language-"] {
