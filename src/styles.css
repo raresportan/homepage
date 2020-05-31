@@ -84,7 +84,7 @@ a {
     text-decoration: none;
 }
 
-a:hover {
+a:active, a:hover {
     background-size: 100% 100%;
     text-decoration: none;
     color: #000;
@@ -111,7 +111,7 @@ h1 {
 }
 
 h2 {
-    font-size: 1.55rem;
+    font-size: 1.5rem;
     margin-bottom: 0;
     transform: scale(1);
 }
@@ -358,6 +358,10 @@ footer ul {
     html, body {
         font-size: 14px;
     }
+    h1 a, h2 a, h3 a, h4 a {
+        margin: 0;
+        padding: 0;
+    }
     .bio-full {
         flex-direction: column;
         align-items: flex-end;
@@ -373,7 +377,7 @@ footer ul {
         font-size: 12px;
     }
     .bio-full h1 {
-        font-size: 2.2rem;
+        font-size: 2rem;
     }
 }
 
@@ -479,7 +483,7 @@ h4.form-header {
 
 @media only screen and (max-width: 480px) {
     .main-header {
-        padding: 0 1rem;
+        padding: 0 2rem;
     }
     article:first-of-type {
         margin-top: 3rem;
@@ -643,12 +647,6 @@ a.gatsby-resp-image-link {
     margin-top: -180px;
 }
 
-@media only screen and (max-width: 480px) {
-    .post-footer .waves-container.footer {
-        margin-top: -155px;
-    }
-}
-
 .post-footer form {
     padding: 1rem 0;
 }
@@ -661,4 +659,13 @@ a.gatsby-resp-image-link {
 
 .dark .article footer {
     background-color: #000;
+}
+
+@media only screen and (max-width: 480px) {
+    .post-footer .waves-container.footer {
+        margin-top: -155px;
+    }
+    footer>ul li {
+        flex-grow: 1;
+    }
 }
