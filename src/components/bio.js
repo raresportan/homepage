@@ -41,8 +41,7 @@ const Bio = () => {
 
       />
       <div>
-        Hey, I'm {author.name}
-        <br />
+        <span>Hey, I'm {author.name}</span>
         <span>{author.summary}</span>
       </div>
     </div>

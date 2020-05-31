@@ -32,7 +32,7 @@ const SEO = ({ description, lang, meta, title, twitterImage }) => {
   )
 
   const metaDescription = description || (site.siteMetadata.author.summary + site.siteMetadata.description)
-  const twitterImageUrl = (site.siteMetadata.siteUrl || '') + '/' + twitterImage;
+  const twitterImageUrl = (site.siteMetadata.siteUrl || '') + '/' + (twitterImage || 'twitter-cards/raresportancom.jpg');
   return (
     <Helmet
       htmlAttributes={{
@@ -76,10 +76,6 @@ const SEO = ({ description, lang, meta, title, twitterImage }) => {
         {
           name: `twitter:description`,
           content: metaDescription,
-        },
-        {
-          name: `google-site-verification`,
-          content: `xDnpQH7jmHWkQ6saBRffZ-vUNSuucsqYyhdSd0PikSw`
         }
       ].concat(meta)}
     />

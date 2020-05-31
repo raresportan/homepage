@@ -256,8 +256,8 @@ footer ul {
     justify-content: center
 }
 
-.bio>div:nth-child(2) span {
-    font-size: smaller;
+* .bio>div:nth-child(2) span:first-child {
+    font-weight: 500;
 }
 
 .bio-full {
@@ -661,11 +661,39 @@ a.gatsby-resp-image-link {
     background-color: #000;
 }
 
+.twitter-share {
+    display: flex;
+    align-items: center;
+    background: var(--yellow-light);
+    padding: 1.5rem 1rem;
+    margin-top: 2rem;
+    border-radius: 4px;
+}
+
+.dark .twitter-share {
+    background-color: #000;
+}
+
+.twitter-share svg {
+    min-width: 3rem;
+    margin-top: -3.5rem;
+    margin-left: -2.5rem;
+}
+
+.twitter-share a {
+    font-style: italic;
+    margin: 0 auto;
+}
+
 @media only screen and (max-width: 480px) {
     .post-footer .waves-container.footer {
         margin-top: -155px;
     }
     footer>ul li {
         flex-grow: 1;
+    }
+    .twitter-share svg {
+        margin-top: -6rem;
+        margin-left: -2rem;
     }
 }
