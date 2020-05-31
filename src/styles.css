@@ -44,16 +44,11 @@ h1 a, h2 a, h3 a, h4 a {
 }
 
 .main-header h1 a:hover {
-    color: inherit;
     text-decoration: none;
 }
 
 .main-header h1, .main-header h3 {
     font-weight: 500;
-}
-
-.main-header h1 a, .main-header h3 a {
-    color: inherit
 }
 
 .dark .main-header h1 a {
@@ -71,13 +66,28 @@ h1 a, h2 a, h3 a, h4 a {
     padding: 0.2rem 0.5rem;
 }
 
-a {
-    color: var(--link-color);
+.post a, ul a {
+    border-bottom: 2px solid var(--yellow);
 }
 
-a:hover {
-    color: var(--hover-color);
-    text-decoration: underline;
+.dark footer>ul li {
+    color: #fff;
+}
+
+a {
+    color: inherit;
+    background-image: linear-gradient(120deg, var(--yellow) 0%, var(--yellow) 100%);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 0;
+    transition: all .125s ease-in-out;
+    text-decoration: none;
+}
+
+a:active, a:hover {
+    background-size: 100% 100%;
+    text-decoration: none;
+    color: #000;
 }
 
 li {
@@ -101,8 +111,9 @@ h1 {
 }
 
 h2 {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     margin-bottom: 0;
+    transform: scale(1);
 }
 
 h3 {
@@ -119,6 +130,11 @@ hr {
     margin-top: 2rem;
     border: 0;
     border-top: 1px solid var(--separator-color);
+}
+
+ul {
+    padding: 0 0 0 1rem;
+    list-style: square;
 }
 
 nav ul {
@@ -145,6 +161,15 @@ blockquote {
 
 small {
     color: var(--small-color)
+}
+
+small>em {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.1rem .5rem;
+}
+
+.dark small>em {
+    background: rgba(0, 0, 0, 0.5);
 }
 
 header {
@@ -333,6 +358,10 @@ footer ul {
     html, body {
         font-size: 14px;
     }
+    h1 a, h2 a, h3 a, h4 a {
+        margin: 0;
+        padding: 0;
+    }
     .bio-full {
         flex-direction: column;
         align-items: flex-end;
@@ -346,6 +375,9 @@ footer ul {
         margin-top: 1rem;
         text-align: right;
         font-size: 12px;
+    }
+    .bio-full h1 {
+        font-size: 2rem;
     }
 }
 
@@ -451,7 +483,7 @@ h4.form-header {
 
 @media only screen and (max-width: 480px) {
     .main-header {
-        padding: 0 1rem;
+        padding: 0 2rem;
     }
     article:first-of-type {
         margin-top: 3rem;
@@ -615,18 +647,13 @@ a.gatsby-resp-image-link {
     margin-top: -180px;
 }
 
-@media only screen and (max-width: 480px) {
-    .post-footer .waves-container.footer {
-        margin-top: -155px;
-    }
-}
-
 .post-footer form {
     padding: 1rem 0;
 }
 
 .article footer {
     padding-top: 3rem;
+    color: #fff;
     background-color: rgba(39, 41, 45, 1);
 }
 
@@ -634,14 +661,11 @@ a.gatsby-resp-image-link {
     background-color: #000;
 }
 
-nav ul a, .article footer a {
-    color: var(--yellow-light)
-}
-
-.dark nav ul a, .dark .article footer a {
-    color: var(--yellow-light)
-}
-
-nav ul a:hover, .article footer a:hover {
-    color: var(--yellow)
+@media only screen and (max-width: 480px) {
+    .post-footer .waves-container.footer {
+        margin-top: -155px;
+    }
+    footer>ul li {
+        flex-grow: 1;
+    }
 }

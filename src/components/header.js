@@ -7,7 +7,7 @@ import Lightbulb from "./lightbulb";
 const Header = ({ title, isOnHomePage }) => {
     let header;
     if (isOnHomePage) {
-        header = <h1><Link to={`/`}>{title}</Link></h1>
+        header = <h1>{title}</h1>
     } else {
         header = <h3><Link to={`/`}>{title}</Link></h3>
     }

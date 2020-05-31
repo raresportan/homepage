@@ -5,27 +5,36 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Newsletter from "../components/newsletter"
 import Bio from "../components/bio"
+import { MDXProvider } from "@mdx-js/react"
+import { MDXRenderer } from "gatsby-plugin-mdx"
+
+const shortcodes = { Link } // Provide common components here
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
-  const post = data.markdownRemark
+  const post = data.mdx;
+  const { frontmatter } = post;
+
   const { previous, next } = pageContext
 
   return (
     <Layout location={location} className='content article'>
       <SEO
-        title={post.frontmatter.title}
-        description={post.frontmatter.description}
+        title={frontmatter.title}
+        description={frontmatter.description}
         twitterImage={post.fields.twitterCardImage}
       />
       <article className='post centered-content'>
         <header>
           <h1>
-            {post.frontmatter.title}
+            {frontmatter.title}
           </h1>
-          <small>{post.frontmatter.date} • {post.fields.readingTime.text}</small>
+          <small>{frontmatter.date} • {post.timeToRead} min read
+          {frontmatter.keywords ? <> • <em> {frontmatter.keywords}</em></> : ''}
+          </small>
         </header>
-        <section dangerouslySetInnerHTML={{ __html: post.html }} />
-
+        <MDXProvider components={shortcodes}>
+          <MDXRenderer>{post.body}</MDXRenderer>
+        </MDXProvider>
         <Bio />
       </article>
 
@@ -80,22 +89,20 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {   
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+  query BlogPostBySlug($id: String!) {   
+    mdx(id: { eq: $id }) {
       id
-      excerpt(pruneLength: 160)
-      html
+      body
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")   
-        description     
+        description   
+        keywords  
       }
       fields {
         twitterCardImage
-        readingTime {
-          text
-        }
       }
+      timeToRead     
     }
   }
 `

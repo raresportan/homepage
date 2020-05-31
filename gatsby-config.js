@@ -18,7 +18,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/content/blog`,
-        name: `blog`,
+        name: `posts`,
       },
     },
     {
@@ -29,9 +29,10 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-transformer-remark`,
+      resolve: `gatsby-plugin-mdx`,
       options: {
-        plugins: [
+        extensions: [`.mdx`, `.md`],
+        gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
             options: {
@@ -50,50 +51,50 @@ module.exports = {
               target: "_blank",
             }
           },
-          `gatsby-remark-reading-time`,
           `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
+        ],
+        remarkPlugins: [require("remark-capitalize")],
+      }
+    },
+    {
+      resolve: `gatsby-plugin-twitter-card`,
+      options: {
+        tinypngApiKey: process.env.TINY,
+        width: 1280,
+        height: 669,
+        templateImage: 'content/assets/twitter-card-template.jpg',
+        backgroundColor: '#fff',
+        fonts: [
           {
-            resolve: `gatsby-plugin-twitter-card`,
-            options: {
-              tinypngApiKey: process.env.TINY,
-              width: 1280,
-              height: 669,
-              templateImage: 'content/assets/twitter-card-template.jpg',
-              backgroundColor: '#fff',
-              fonts: [
-                {
-                  file: 'content/fonts/IBMPlexSans-SemiBold.ttf',
-                  family: 'IBM Plex Sans'
-                }
-              ],
-              texts: [
-                {
-                  text: '$title',
-                  color: '#222',
-                  font: '48pt "IBM Plex Sans"',
-                  x: 450,
-                  y: 669 / 2,
-                  maxWidth: 700,
-                  lineHeight: 60
-                },
-                {
-                  text: 'raresportan.com',
-                  font: '26pt "IBM Plex Sans"',
-                  x: 'center',
-                  y: 669 - 66,
-                  color: '#444',
-                }
-              ],
-              borderTop: {
-                width: 30,
-                color: '#fce000'
-              }
-            }
+            file: 'content/fonts/IBMPlexSans-SemiBold.ttf',
+            family: 'IBM Plex Sans'
           }
         ],
-      },
+        texts: [
+          {
+            text: '$title',
+            color: '#222',
+            font: '48pt "IBM Plex Sans"',
+            x: 450,
+            y: 669 / 2,
+            maxWidth: 700,
+            lineHeight: 60
+          },
+          {
+            text: 'raresportan.com',
+            font: '26pt "IBM Plex Sans"',
+            x: 'center',
+            y: 669 - 66,
+            color: '#444',
+          }
+        ],
+        borderTop: {
+          width: 30,
+          color: '#fce000'
+        }
+      }
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
@@ -104,7 +105,7 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-feed`,
+      resolve: `gatsby-plugin-feed-mdx`,
       options: {
         query: `
           {
@@ -120,20 +121,20 @@ module.exports = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.edges.map(edge => {
+            serialize: ({ query: { site, allMdx } }) => {
+              return allMdx.edges.map(edge => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
                   date: edge.node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [{ "content:encoded": edge.node.html }],
-                })
-              })
+                  custom_elements: [{ "content:encoded": edge.node.html }]
+                });
+              });
             },
             query: `
               {
-                allMarkdownRemark(
+                allMdx(
                   sort: { order: DESC, fields: [frontmatter___date] },
                 ) {
                   edges {
@@ -152,9 +153,9 @@ module.exports = {
             `,
             output: "/rss.xml",
             title: "Rares Portan's RSS Feed",
-          },
-        ],
-      },
+          }
+        ]
+      }
     },
     {
       resolve: `gatsby-plugin-manifest`,
@@ -169,6 +170,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-advanced-sitemap`
+    `gatsby-plugin-sitemap`
   ],
 }

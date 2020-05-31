@@ -38,7 +38,7 @@ const Newsletter = () => {
                             <div className="formkit-spinner"><div></div><div></div><div></div></div><span>Subscribe</span>
                         </button>
                     </div>
-                    <a href="https://convertkit.com?utm_source=dynamic&amp;utm_medium=referral&amp;utm_campaign=poweredby&amp;utm_content=form" className="formkit-powered-by" data-element="powered-by" target="_blank" rel="noopener noreferrer">Powered By ConvertKit</a>
+                    {/* <a href="https://convertkit.com?utm_source=dynamic&amp;utm_medium=referral&amp;utm_campaign=poweredby&amp;utm_content=form" className="formkit-powered-by" data-element="powered-by" target="_blank" rel="noopener noreferrer">Powered By ConvertKit</a> */}
                 </div>
             </form>
         </>
