@@ -101,7 +101,7 @@ h1 {
 }
 
 h2 {
-    font-size: 1.75rem;
+    font-size: 1.55rem;
     margin-bottom: 0;
 }
 
@@ -119,6 +119,11 @@ hr {
     margin-top: 2rem;
     border: 0;
     border-top: 1px solid var(--separator-color);
+}
+
+ul {
+    padding: 0 0 0 1rem;
+    list-style: square;
 }
 
 nav ul {
@@ -145,6 +150,15 @@ blockquote {
 
 small {
     color: var(--small-color)
+}
+
+small>em {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.1rem .5rem;
+}
+
+.dark small>em {
+    background: rgba(0, 0, 0, 0.5);
 }
 
 header {

@@ -7,7 +7,7 @@ import SEO from "../components/seo"
 import BioFull from "../components/bio-full"
 
 const BlogIndex = ({ data, location }) => {
-  const posts = data.allMarkdownRemark.edges
+  const posts = data.allMdx.edges
 
   return (
     <Layout location={location}>
@@ -25,7 +25,9 @@ const BlogIndex = ({ data, location }) => {
                     {title}
                   </Link>
                 </h2>
-                <small>{node.frontmatter.date} • {node.fields.readingTime.text}</small>
+                <small>{node.frontmatter.date} • {node.timeToRead} min read
+                 {node.frontmatter.keywords ? <> • <em> {node.frontmatter.keywords}</em></> : ''}
+                </small>
               </header>
               <section>
                 <p
@@ -52,19 +54,18 @@ export const pageQuery = graphql`
         description
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
           excerpt
           fields {
-            slug
-            readingTime {
-              text
-            }
+            slug           
           }
+          timeToRead
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
             title
+            keywords
           }
         }
       }
