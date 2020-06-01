@@ -2,7 +2,10 @@ import React from "react"
 
 import useLocalStorage from '../hooks/useLocalStorage';
 
-
+/**
+ * Renders the lightbuld.
+ * Switches the theme when the lightbulb is clicked
+ */
 const Ligthbulb = () => {
     const [, setTheme] = useLocalStorage('theme')
 
