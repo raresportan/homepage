@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
 
-const Layout = ({ location, title, children, className = 'content' }) => {
+const Layout = ({ location, children, className = 'content' }) => {
 
   const data = useStaticQuery(graphql`
     query SocialQuery {     
@@ -21,6 +21,7 @@ const Layout = ({ location, title, children, className = 'content' }) => {
 
   const rootPath = `${__PATH_PREFIX__}/`;
   const { twitter, github, linkedin } = data.site.siteMetadata.social;
+
   return (
     <div className={className}>
       <Header title="raresportan.com" isOnHomePage={location.pathname === rootPath} />
