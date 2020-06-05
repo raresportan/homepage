@@ -33,7 +33,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             {frontmatter.title}
           </h1>
           <small>{frontmatter.date} • {post.timeToRead} min read
-          {frontmatter.keywords ? <> • <em> {frontmatter.keywords}</em></> : ''}
+          {frontmatter.keywords ? <> • <em> {frontmatter.keywords.join(', ')}</em></> : ''}
           </small>
         </header>
         <MDXProvider components={shortcodes}>
