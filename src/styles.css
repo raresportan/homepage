@@ -697,3 +697,12 @@ a.gatsby-resp-image-link {
         margin-left: -2rem;
     }
 }
+
+table {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+thead {
+    text-align: left;
+}
