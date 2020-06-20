@@ -16,7 +16,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allMdx {
+      allMdx(filter: {fields: {isFuturePost: {eq: false}}}) {
         edges {
           node {
             id
@@ -82,6 +82,15 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       name: `slug`,
       node,
       value,
+    })
+
+    // create a marker for future posts
+    const postDate = node.frontmatter.date;
+    const isFuturePost = !postDate || (new Date(postDate)).getTime() > Date.now()
+    createNodeField({
+      name: `isFuturePost`,
+      node,
+      value: isFuturePost,
     })
   }
 }

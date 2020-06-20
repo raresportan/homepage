@@ -54,7 +54,10 @@ export const pageQuery = graphql`
         description
       }
     }
-    allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMdx(
+      sort: { fields: [frontmatter___date], order: DESC },
+      filter: {fields: {isFuturePost: {eq: false}}}
+    ) {
       edges {
         node {
           excerpt

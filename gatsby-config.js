@@ -136,6 +136,7 @@ module.exports = {
               {
                 allMdx(
                   sort: { order: DESC, fields: [frontmatter___date] },
+                  filter: {fields: {isFuturePost: {eq: false}}}
                 ) {
                   edges {
                     node {
