@@ -6,6 +6,27 @@ import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
+
+// send analytics data
+function sendData() {
+  const sitedata = {
+    useragent: navigator.userAgent,
+    title: document.title,
+    origin: window.location.origin,
+    pathname: window.location.pathname,
+    search: window.location.search,
+    referrer: document.referrer,
+    language: navigator.language || navigator.userLanguage,
+    offset: new Date().getTimezoneOffset(),
+    screensize: window.screen.width * window.devicePixelRatio + "x" + window.screen.height * window.devicePixelRatio
+  }
+  return fetch('/.netlify/functions/send', {
+    body: JSON.stringify(sitedata),
+    method: 'POST'
+  })
+}
+
+
 const SEO = ({ description, lang, meta, title, twitterImage }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -31,6 +52,7 @@ const SEO = ({ description, lang, meta, title, twitterImage }) => {
   const twitterImageUrl = (site.siteMetadata.siteUrl || '') + '/' + (twitterImage || 'twitter-cards/raresportancom.jpg');
   return (
     <Helmet
+      onChangeClientState={() => sendData()}
       htmlAttributes={{
         lang,
       }}
