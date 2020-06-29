@@ -16,7 +16,10 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allMdx(filter: {fields: {isFuturePost: {eq: false}}}) {
+      allMdx(
+        sort: { order: DESC, fields: [frontmatter___date] },
+        filter: {fields: {isFuturePost: {eq: false}}}
+        ) {
         edges {
           node {
             id
