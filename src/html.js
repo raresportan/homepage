@@ -29,11 +29,30 @@ export default function HTML(props) {
 
               function toggleTheme() {
                 var body = document.querySelector('body');
-                var newTheme = body.className === 'dark' ? 'light' : 'dark';
+                var newTheme = body.className === 'dark' ? 'light' : 'dark';                
                 body.className = newTheme;
+                try {
+                  localStorage.setItem('theme', newTheme);
+                } catch (err) { }
               }
               window.addEventListener('DOMContentLoaded', (event) => {
-                document.querySelector('button.lightbulb').addEventListener('click', toggleTheme)
+                document.querySelector('button.lightbulb').addEventListener('click', toggleTheme);
+
+                var links = document.querySelectorAll('a[href^="/"')
+                links.forEach(function(link) {
+                  link.addEventListener('mouseover', function(e) {
+                    var l = e.target;
+                    var href = l.href; 
+                    var link = document.querySelector('link[href="'+href+'"]');
+                    if (!link) {
+                      var prefetchLink = document.createElement("link");
+                      prefetchLink.href = href;
+                      prefetchLink.rel = "prefetch";
+                      document.head.appendChild(prefetchLink);
+                    }
+                  })
+                });
+
               });              
             `,
           }}
