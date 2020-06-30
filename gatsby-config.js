@@ -167,7 +167,8 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-sitemap`
+    `gatsby-plugin-sitemap`,
+    `gatsby-plugin-no-javascript`
   ],
   developMiddleware: app => {
     app.use(

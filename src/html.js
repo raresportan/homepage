@@ -26,6 +26,15 @@ export default function HTML(props) {
                 theme = 'dark'
               }               
               document.body.className = theme || 'light';
+
+              function toggleTheme() {
+                var body = document.querySelector('body');
+                var newTheme = body.className === 'dark' ? 'light' : 'dark';
+                body.className = newTheme;
+              }
+              window.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelector('button.lightbulb').addEventListener('click', toggleTheme)
+              });              
             `,
           }}
         />
