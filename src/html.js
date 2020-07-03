@@ -26,6 +26,53 @@ export default function HTML(props) {
                 theme = 'dark'
               }               
               document.body.className = theme || 'light';
+
+              function toggleTheme() {
+                var body = document.querySelector('body');
+                var newTheme = body.className === 'dark' ? 'light' : 'dark';                
+                body.className = newTheme;
+                try {
+                  localStorage.setItem('theme', newTheme);
+                } catch (err) { }
+              }
+              window.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelector('button.lightbulb').addEventListener('click', toggleTheme);
+
+                var links = document.querySelectorAll('a[href^="/"')
+                links.forEach(function(link) {
+                  link.addEventListener('mouseover', function(e) {
+                    var l = e.target;
+                    var href = l.href; 
+                    var link = document.querySelector('link[href="'+href+'"]');
+                    if (!link) {
+                      var prefetchLink = document.createElement("link");
+                      prefetchLink.href = href;
+                      prefetchLink.rel = "prefetch";
+                      document.head.appendChild(prefetchLink);
+                    }
+                  })
+                });
+
+                // send analytics data
+                function sendData() {
+                  var sitedata = {
+                    useragent: navigator.userAgent,
+                    title: document.title,
+                    origin: window.location.origin,
+                    pathname: window.location.pathname,
+                    search: window.location.search,
+                    referrer: document.referrer,
+                    language: navigator.language || navigator.userLanguage,
+                    offset: new Date().getTimezoneOffset(),
+                    screensize: window.screen.width * window.devicePixelRatio + "x" + window.screen.height * window.devicePixelRatio
+                  }
+                  return fetch('/.netlify/functions/send', {
+                    body: JSON.stringify(sitedata),
+                    method: 'POST'
+                  })
+                }
+                sendData();
+              });              
             `,
           }}
         />

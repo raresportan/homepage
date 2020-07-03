@@ -1,25 +1,14 @@
 import React from "react"
 
-import useLocalStorage from '../hooks/useLocalStorage';
-
 /**
  * Renders the lightbuld.
  * Switches the theme when the lightbulb is clicked
  */
 const Ligthbulb = () => {
-    const [, setTheme] = useLocalStorage('theme')
-
-    const toggleTheme = () => {
-        const body = document.querySelector('body');
-        const newTheme = body.className === 'dark' ? 'light' : 'dark';
-        body.className = newTheme;
-        setTheme(newTheme);
-    }
-
     return (
         <div className='lightbulbstring'>
             <div className='lightcircle'></div>
-            <button className="lightbulb" aria-label="Toggle theme" onClick={toggleTheme}>
+            <button className="lightbulb" aria-label="Toggle theme">
                 <svg
                     width="1280.000000pt"
                     height="1280.000000pt"

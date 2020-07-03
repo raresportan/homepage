@@ -81,6 +81,7 @@ a {
     background-repeat: no-repeat;
     background-size: 100% 0;
     transition: all .125s ease-in-out;
+    transition-delay: 200ms;
     text-decoration: none;
 }
 
