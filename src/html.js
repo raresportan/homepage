@@ -53,6 +53,25 @@ export default function HTML(props) {
                   })
                 });
 
+                // send analytics data
+                function sendData() {
+                  var sitedata = {
+                    useragent: navigator.userAgent,
+                    title: document.title,
+                    origin: window.location.origin,
+                    pathname: window.location.pathname,
+                    search: window.location.search,
+                    referrer: document.referrer,
+                    language: navigator.language || navigator.userLanguage,
+                    offset: new Date().getTimezoneOffset(),
+                    screensize: window.screen.width * window.devicePixelRatio + "x" + window.screen.height * window.devicePixelRatio
+                  }
+                  return fetch('/.netlify/functions/send', {
+                    body: JSON.stringify(sitedata),
+                    method: 'POST'
+                  })
+                }
+                sendData();
               });              
             `,
           }}
