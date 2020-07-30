@@ -1,0 +1,62 @@
+---
+title: Using Fetch
+date: 2020-08-01
+description:  
+keywords: ['JavaScript']
+---
+
+For years, the default way to call [APIs](/what-is-an-application-programming-interface/) from a web page
+ was XMLHttpRequest. But working with XMLHttpRequest was not easy, so on top of it were build lots of popular libraries like [jQuery.ajax()](https://api.jquery.com/jquery.ajax/)
+ or [Axios](https://github.com/axios/axios) who wrapped the XMLHttpRequest functionality in a Promise based interface and also hidding away its complexities.
+
+These days browsers provide a better alternative to XMLHttpRequest: `fetch()`.
+
+
+## The simplest example
+
+```JavaScript
+
+fetch(url) // The only required parameter is the URL
+    .then(response => {
+        // do something with the response
+    })
+    .catch(error => {
+        // do something with the error
+    });
+
+```
+Fetch function returns a Promise.
+
+But any useful fetch() is a bit more complicated. 
+The response of a fetch() request is a stream, so depending on the type of data returned by the server, you need to get the data from the stream. 
+
+For example if the server response is JSON, you need to call `response.json()` that returns a Promise that resolves with 
+the result of parsing the body text as JSON.
+```JavaScript
+ 
+fetch(url) 
+    .then(response => response.json() // or .text(), .blob(), .arrayBuffer(), .formData()
+    .then(data => {
+        // do something with data    
+    })
+    .catch(error => {
+        // do something with the error
+    });
+```
+
+We can use fetch() to load all kind of data, like image files, audio or video files:
+```JavaScript
+fetch('/image.jpg')
+    .then(response => response.blob()) // returns promise
+    .then(blob => {
+        image.src = URL.createObjectURL(blob);
+    })
+    .catch(error => {
+        // do something with the error
+    });
+```
+
+Now here is something unexpected:
+
+`The Promise returned from fetch() won’t reject on HTTP error status even if the response is an HTTP 404 or 500. Instead, it will resolve normally (with ok status set to false), and it will only reject on network failure or if anything prevented the request from completing.`
+

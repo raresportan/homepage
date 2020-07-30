@@ -5,6 +5,7 @@ import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import BioFull from "../components/bio-full"
+import { formatDate } from "../common"
 
 const BlogIndex = ({ data, location }) => {
   const posts = data.allMdx.edges
@@ -25,7 +26,7 @@ const BlogIndex = ({ data, location }) => {
                     {title}
                   </Link>
                 </h2>
-                <small>{node.frontmatter.date} • {node.timeToRead} min read
+                <small>{formatDate(node.frontmatter.date)} • {node.timeToRead} min read
                  {node.frontmatter.keywords ? <> • <em> {node.frontmatter.keywords.join(', ')}</em></> : ''}
                 </small>
               </header>
@@ -66,7 +67,7 @@ export const pageQuery = graphql`
           }
           timeToRead
           frontmatter {
-            date(formatString: "MMMM DD, YYYY")
+            date
             title
             keywords
           }

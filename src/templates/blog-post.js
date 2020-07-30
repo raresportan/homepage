@@ -8,6 +8,7 @@ import SEO from "../components/seo"
 import Newsletter from "../components/newsletter"
 import TwitterShare from '../components/twitter-share'
 import Waves from "../components/waves"
+import { formatDate } from "../common"
 
 const shortcodes = { Link } // Provide common components here
 
@@ -32,7 +33,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <h1>
             {frontmatter.title}
           </h1>
-          <small>{frontmatter.date} • {post.timeToRead} min read
+          <small>{formatDate(frontmatter.date)} • {post.timeToRead} min read
           {frontmatter.keywords ? <> • <em> {frontmatter.keywords.join(', ')}</em></> : ''}
           </small>
         </header>
@@ -82,7 +83,7 @@ export const pageQuery = graphql`
       body
       frontmatter {
         title
-        date(formatString: "MMMM DD, YYYY")   
+        date
         description   
         keywords  
       }
