@@ -109,6 +109,9 @@ h2 + p,
 h3 + p {
     margin-top: 1rem;
 }
+section > p {
+    margin-top: 0;
+}
 
 p+ul {
     margin-top: 0.5rem;
