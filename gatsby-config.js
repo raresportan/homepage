@@ -78,8 +78,8 @@ module.exports = {
           {
             text: '$title',
             color: '#222',
-            font: '48pt "IBM Plex Sans"',
-            x: 450,
+            font: '54pt "IBM Plex Sans"',
+            x: 400,
             y: 669 / 2,
             maxWidth: 700,
             lineHeight: 60
