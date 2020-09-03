@@ -166,6 +166,12 @@ module.exports = {
         icon: `content/assets/raresportanicon.png`,
       },
     },
+    {
+      resolve: `gatsby-plugin-canonical-urls`,
+      options: {
+        siteUrl: `https://raresportan.com`,
+      },
+    },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-no-javascript`

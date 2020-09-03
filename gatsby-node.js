@@ -79,6 +79,9 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   if (node.internal.type === `MarkdownRemark` || node.internal.type === `Mdx`) {
     // sadly remark-capitalize doesn't capitalize frontmatter title
     node.frontmatter.title = title(node.frontmatter.title);
+    if (node.frontmatter.part) {
+      node.frontmatter.title += ' -  Part ' + node.frontmatter.part;
+    }
 
     const value = createFilePath({ node, getNode })
     createNodeField({
