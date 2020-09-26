@@ -26,9 +26,9 @@ const BlogIndex = ({ data, location }) => {
                     {title}
                   </Link>
                 </h2>
-                <small>{formatDate(node.frontmatter.date)} • {node.timeToRead} min read
+                <time dateTime={node.frontmatter.date}>{formatDate(node.frontmatter.date)} • {node.timeToRead} min read
                  {node.frontmatter.keywords ? <> • <em> {node.frontmatter.keywords.join(', ')}</em></> : ''}
-                </small>
+                </time>
               </header>
               <section>
                 <p

@@ -14,6 +14,16 @@ export default function HTML(props) {
         {props.headComponents}
       </head>
       <body {...props.bodyAttributes}>
+        <a href="#main" style={{
+          position: 'absolute',
+          width: '1px',
+          height: '1px',
+          padding: 0,
+          overflow: 'hidden',
+          clip: 'rect(0,0,0,0)',
+          whiteSpace: 'nowrap',
+          border: 0
+        }}>Skip to main content</a>
         <script
           dangerouslySetInnerHTML={{
             __html: `

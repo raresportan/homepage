@@ -25,7 +25,7 @@ const Layout = ({ location, children, className = 'content' }) => {
   return (
     <div className={className}>
       <Header title="raresportan.com" isOnHomePage={location.pathname === rootPath} />
-      <main>{children}</main>
+      <main role="main" id="main">{children}</main>
 
       <footer>
         <ul className='centered-content'>
