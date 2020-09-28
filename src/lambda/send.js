@@ -1,3 +1,4 @@
+require("encoding");
 const { default: fetch } = require("node-fetch"); //See https://github.com/bitinn/node-fetch/issues/450
 
 // Based on https://github.com/dennishagemeier/d-hagemeier/blob/master/functions/send/send.js
