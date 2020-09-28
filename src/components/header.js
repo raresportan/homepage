@@ -11,8 +11,8 @@ import Waves from "./waves";
  */
 const Header = ({ title, isOnHomePage }) => {
     let header = isOnHomePage
-        ? <h1>{title}</h1>
-        : <h3><Link to={`/`}>{title}</Link></h3>
+        ? title
+        : <Link to={`/`}>{title}</Link>
 
     const waves = isOnHomePage
         ? <Waves id="gentle-wave-header" wave1X="48" wave2X="48" wave3X="48" wave4X="48" />
@@ -21,10 +21,10 @@ const Header = ({ title, isOnHomePage }) => {
     return (
         <>
             {waves}
-            <header className='main-header centered-content'>
+            <header role="banner" className='main-header centered-content'>
                 <Lightbulb />
-                {header}
-            </header >
+                <div className={"site-name"}>{header}</div>
+            </header>
         </>
     )
 }
