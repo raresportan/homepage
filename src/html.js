@@ -45,8 +45,9 @@ export default function HTML(props) {
                   localStorage.setItem('theme', newTheme);
                 } catch (err) { }
               }
-              window.addEventListener('DOMContentLoaded', (event) => {
-                document.querySelector('button.lightbulb').addEventListener('click', toggleTheme);
+              window.addEventListener('DOMContentLoaded', function(event) {
+                var lightbulb = document.querySelector('button.lightbulb');
+                if(lightbulb) lightbulb.addEventListener('click', toggleTheme);
 
                 var links = document.querySelectorAll('a[href^="/"')
                 links.forEach(function(link) {
