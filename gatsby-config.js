@@ -5,7 +5,7 @@ module.exports = {
     title: `Rares Portan`,
     author: {
       name: `Rares Portan`,
-      summary: `I'm a web developer & designer living in Timisoara, Romania 🇷🇴. I prefer to code in JavaScript and I love simple and fast software 🚀.`,
+      summary: `I'm a web developer & designer living in Timisoara, Romania 🇷🇴. I prefer to code in HTML, CSS & JavaScript and I love simple and fast software 🚀.`,
     },
     description: `Always looking to make better software.`,
     siteUrl: `https://raresportan.com`,
