@@ -5,7 +5,7 @@
     max-width: 100%;
     position: relative;    
     overflow: hidden;
-    --time: '0s';
+    --time: '';
 }
 .container > img, 
 .container1 > img,
@@ -44,10 +44,10 @@
     top: 1rem;
     left: 1rem;
     color: #fff;    
-    background-color: rgba(0, 0, 0, 0.9);
     padding: 0.2rem;
     clip-path:none;
     z-index: 1000;
+    text-shadow: 1px 1px 4px black;
 }
 
 
