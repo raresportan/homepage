@@ -1,0 +1,267 @@
+---
+title: The <picture> tag
+date: 2021-01-14
+description:  
+keywords: ['HTML']
+---
+
+When Steve Jobs unveiled the iPhone in January 2007, few understood its implications on the web future. 
+A couple of years later, millions had a smartphone and were browsing the web with it. It was clear soon enough 
+that it was not a great experience: Flash was not working, sites were not resizing correctly on the small screens, 
+the bandwidth was limited, and you could transfer just a few Gigabytes of data each month. A big part of those Gigabytes
+were images. 
+
+Later, the arrival of the retina displays complicated things even more. It was hard to serve bigger images only on
+those displays.
+
+The response to these problems was *responsive web design.* A responsive website means three things: 
+* _A flexible layout_: the website layout is adaptable to the screen size. The website is usable on all screen sizes.
+* _Flexible images and media_: the website serves different images, videos, etc., with different sizes appropriate for different screen sizes and resolutions.
+* _Media queries_: use different CSS styles for different screen sizes and orientations.
+
+The hardest was for a long time how to implement flexible images. How to serve small image sizes for mobile phones and large 
+ones for desktops? We used the &lt;img&gt; tag, which has an *src* attribute that points to the image URL, and that URL 
+is loaded by the browser no matter what. This happens before we can change it from JavaScript, before we can do something in CSS - 
+because the HTML is loaded first, before everything else. 
+
+A fix to the &lt;img&gt; tag is not possible because it will break the web, so a new tag is needed. The obvious choice
+is &lt;image&gt; tag, but it turns out some browsers handle &lt;image&gt; in the same way as  &lt;img&gt; - they assume 
+you meant to use &lt;img&gt;. Thank you for trusting me.
+
+In the end, the &lt;picture&gt; tag is chosen. Here is an example, in its full glory:
+```HTML
+<picture>
+  <source 
+    type="image/avif"
+    srcset="dog/large.avif  1280w, 
+            dog/medium.avif  640w,
+            dog/small.avif   320w"
+    sizes="(min-width: 640px) 50vw, 100vw">
+  <source 
+    type="image/jpg"
+    srcset="dog/large.jpg  1280w, 
+            dog/medium.jpg  640w,
+            dog/small.jpg   320w"
+    sizes="(min-width: 640px) 50vw, 100vw">     
+  <img src="dog/medium.jpg" 
+    alt="My pug, Bobby"
+    sizes="(min-width: 640px) 50vw, 100vw">
+</picture>
+```
+![My dog, Bobby, on multiple screens](./bobby_mockup.png "My dog, Bobby, on multiple screens")
+
+## How picture works
+
+By itself, the picture tag does nothing. It still needs an img tag inside it. Any styles that we want to apply to our rendered image need to be set on the img tag, not on the picture tag.
+The purpose of the picture tag is to provide _alternative sources_ for the img tag. The browser chooses _one of those alternatives_, downloads only that source, 
+and sets that as the image source.
+
+How the browser chooses the source to load? On a multitude of factors but based on the information provided in the picture tag. 
+
+For example, if the browser supports the AVIF image format, it uses the AVIF source. If not, it uses the JPEG source. 
+
+Based on the screen size, it uses use one of the _large_, _medium_, or _small_ images. You might expect to use the 1280px image 
+when the screen is 1280px wide, but that might not be correct because of the *sizes* attribute, which indicates that the image
+is displayed on half of the screen (1280/2=640), so it uses the 640px image. But if you're using a 
+high pixel display, the 1280px image is used. 
+
+As you can see, the picture tag is a bit complex, but we'll try to make it more understandable.
+
+
+## Picture use cases
+
+The simplest usage of the picture tag would be this, but it does nothing since there is no alternative source to choose from. 
+"medium.jpg" is always used.
+```HTML
+<picture>
+  <img src="dog/medium.jpg" 
+    alt="My pug, Bobby">
+</picture>
+```
+
+### 1. Superior compression, smaller images
+
+To make the picture tag useful, you need at least one alternative source. In the following example, we set
+as an alternative source, an AVIF image. AVIF is an image type that reduces the image size considerably but is not supported 
+by most of the browsers yet. 
+```HTML
+<picture>
+  <source 
+    type="image/avif"
+    srcset="dog/medium.avif">   
+  <img src="dog/medium.jpg" 
+    alt="My pug, Bobby">
+</picture>
+```
+*This is a huge advantage of using the picture tag: you can use bleeding-edge image types even if not all the browsers support them, and your site 
+will still work in ALL browsers! You cannot do this with img tag.*
+
+### 2. Image size according to screen size
+Another useful usage of the picture tag is to provide multiple sizes of the image:
+```HTML
+<picture>
+  <source 
+    type="image/jpg"
+    srcset="dog/large.jpg  1280w,
+            dog/medium.jpg  640w,
+            dog/small.jpg   320w">     
+  <img src="dog/medium.jpg" 
+    alt="My pug, Bobby">
+</picture>
+```
+Here, using the *srcset*, we provide three different images, each one of a different size. Note that beside each image URL,
+we also supply a _width descriptor_:
+```HTML
+dog/medium.jpg  640w
+```
+The _width descriptor_ is the actual image width, the image's real size. Instead of "px" (pixels), we need to use "w." Why?
+Because at some point in time, you could also set an "h" as the image height, but it was removed, so now you can only set the width. 
+
+
+### 3. Image size according to screen resolution
+Retina screens and others have a high pixel density. A regular screen and a retina screen can have the same size, but
+the retina screen requires a much larger image. 
+
+You can use the picture tag with the _x descriptor_ to handle different resolutions. In this example, _large.jpg_ 
+is used on retina displays (because we add "2x" next to it) and _medium.jpg_ on regular displays.
+```HTML
+<picture>
+  <source 
+    type="image/jpg"
+    srcset="dog/medium.jpg,
+            dog/large.jpg  2x">     
+  <img src="dog/medium.jpg" 
+    alt="My pug, Bobby">
+</picture>
+```
+
+### 4. Image size according to image spot on screen
+So far, our picture settings considered that the image is displayed full-screen (width), so the browser
+calculations are done using the screen width. But what if we need to render the image in a spot that is not full-screen width? Like only 50% of the screen width, or 300px?
+
+Let's come back to this example:
+```HTML
+<picture>
+  <source 
+    type="image/jpg"
+    srcset="dog/large.jpg  1280w,
+            dog/medium.jpg  640w,
+            dog/small.jpg   320w">     
+  <img src="dog/medium.jpg" alt="My pug, Bobby">
+</picture>
+```
+Assume we need the following responsive layout:
+* If the screen is less then 601 pixels, we show the image full-screen and some text under it (like a row layout)
+* Otherwise, we display the image on half of the screen. And some text next to it (like a column layout)
+
+The problem is that when we display the image on half of the screen we still download the full-screen version, e.g. 
+we download the 1280px version instead of the 640px version. 
+
+Can we fix that? Yes, we can fix it using "sizes" attributes:
+```HTML
+<picture>
+  <source 
+    srcset="dog/large.jpg  1280w, 
+            dog/medium.jpg  640w,
+            dog/small.jpg   320w"
+    sizes="(min-width: 600px) 50vw, 100vw">     
+  <img src="dog/medium.jpg" alt="My pug, Bobby">
+</picture>
+```
+The *sizes* attribute is a comma-separated list of sizes. Each size consists of a _media condition_ and _size_ value.
+Order matters, the first size is checked if matches the current screen size, then the second, and so on. The last size should be the default one.
+Also, the media conditions describe the viewport size, not the image size.
+
+Now, because we set the *sizes*, the browser knows that we plan to display the image on half the screen _50vw_ if the screen width
+is 601px or more _(min-width: 600px)_ and downloads the correct image, the 640px one.
+
+
+
+### 5. Art direction
+_Tailoring_ image content to fit specific environments is called *art direction.*
+Think how the same image looks on a phone in *portrait* mode and *landscape* mode. Think about what you do. 
+Well, I try to zoom it in one of the two modes - because it doesn't fit.
+
+For example, let's say that by default we show a landscape image of a dog (used on desktop and landscape orientation on phones),
+but when we use the portrait orientation on the phone, we display a close caption of the dog, a portrait image:
+```HTML
+<picture>
+  <source 
+    media="(max-width: 800px)" srcset="dog/portrait.jpg">     
+  <img src="dog/landscape.jpg" alt="My pug, Bobby">
+</picture>
+```
+We can do this using the *media* attribute of the source. It is very similar to the way we use media queries in CSS,
+but again, this has to be done in HTML, because the CSS is loaded too late after the image is already loading.
+Note that the value you put in *media* refers to the viewport, not the image size. So *(max-width: 800px)* means
+for screens smaller than 801px.
+
+Tip: If you use the *media* attribute, you should not use the *sizes* attribute.
+
+## Using everything together
+With the above use cases, we saw how the picture settings can be used to do one thing or another.
+But nothing stops us from using everything together. The only thing you should not do is to use *media* and *sizes*
+attributes together because they allow you to do similar things.
+
+```HTML
+<picture>
+  <source 
+    type="image/avif"
+    srcset="dog/large.avif  1280w, 
+            dog/medium.avif  640w,
+            dog/small.avif   320w"
+    sizes="(min-width: 640px) 50vw, 100vw">
+  <source 
+    type="image/jpg"
+    srcset="dog/large.jpg  1280w, 
+            dog/medium.jpg  640w,
+            dog/small.jpg   320w"
+    sizes="(min-width: 640px) 50vw, 100vw">     
+  <img src="dog/medium.jpg" 
+    alt="My pug, Bobby"
+    loading="lazy"
+    decoding="async"
+    sizes="(min-width: 640px) 50vw, 100vw">
+</picture>
+```
+Here is how this works:
+* If the picture tag is not supported, the img tag is used as a fallback.
+* If the browser supports AVIF, it will show one of the AVIF images, otherwise will use one of the JPG images
+* If the screen is retina:
+  * 640px image if the screen is less than 320px, image displayed full screen.
+  * 640px image if the screen is less than 640px (because we show the image on half the screen, 50vw).
+  * 1280px image if the other cases
+* If the screen is not retina will use:
+  * 320px image if the screen is less than 320px, image displayed full screen.
+  * 320px image if the screen is less than 640px (because we show the image on half the screen, 50vw).
+  * 640px image if the screen is less than 1280px
+  * 1280px image if the other cases
+
+
+## One more thing: Using picture with &lt;figure&gt;
+As you can use &lt;figure&gt; and &lt;figcaption&gt; with image, you can use them with the picture tag - in case you need to display a caption
+for the image:
+```HTML
+<figure>
+  <picture>
+    <source 
+      type="image/jpg"
+      srcset="dog/large.jpg   1280w, 
+              dog/medium.jpg   640w,
+              dog/small.jpg    320w">     
+    <img src="dog/medium.jpg" 
+      alt="My pug, Bobby"
+      sizes="(min-width: 640px) 50vw, 100vw">
+  </picture>
+  <figcaption>My pug, Bobby</figcaption>
+<figure>
+```
+
+
+
+## Resources
+* [MDN: The Picture element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture)
+* [MDN: Responsive images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)
+* [Responsive Images, WebP, and The Picture Element with Bruce Lawson](https://www.youtube.com/watch?v=45Ao058RMJA)
+* [Responsive Images in Practice](https://alistapart.com/article/responsive-images-in-practice/)
+* [AVIF has landed](https://jakearchibald.com/2020/avif-has-landed/)
