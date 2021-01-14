@@ -70,7 +70,7 @@ h1 a, h2 a, h3 a, h4 a {
     scroll-behavior: smooth;
 }
 
-.post a, .four-oh-four a, ul a {
+.post a:not([class]), .four-oh-four a, ul a {
     border-bottom: 2px solid var(--yellow);
 }
 
@@ -78,7 +78,11 @@ h1 a, h2 a, h3 a, h4 a {
     color: #fff;
 }
 
-a {
+a[class] > span {
+    background-image: none !important;
+}
+
+a:not([class]) {
     color: inherit;
     background-image: linear-gradient(120deg, var(--yellow) 0%, var(--yellow) 100%);
     background-position: 0 100%;
