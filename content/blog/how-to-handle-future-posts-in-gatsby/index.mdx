@@ -65,14 +65,14 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   if (node.internal.type === `MarkdownRemark` || node.internal.type === `Mdx`) {
     ...
 
-    // create a marker for future posts  // highlight-line
-    const postDate = node.frontmatter.date; // highlight-line
-    const isFuturePost = !postDate || (new Date(postDate)).getTime() > Date.now() // highlight-line
-    createNodeField({  // highlight-line
-      name: `isFuturePost`, // highlight-line
-      node,  // highlight-line
-      value: isFuturePost, // highlight-line
-    }) // highlight-line
+    // create a marker for future posts  
+    const postDate = node.frontmatter.date; 
+    const isFuturePost = !postDate || (new Date(postDate)).getTime() > Date.now() 
+    createNodeField({  
+      name: `isFuturePost`, 
+      node,  
+      value: isFuturePost, 
+    }) 
   }
 }
 ```
@@ -86,7 +86,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const result = await graphql(`
     query {
       //...
-      allMdx(filter: {fields: {isFuturePost: {eq: false}}}) { // highlight-line
+      allMdx(filter: {fields: {isFuturePost: {eq: false}}}) { 
         edges {
           node {
             id
@@ -120,7 +120,7 @@ export const pageQuery = graphql`
     }
     allMdx(
       sort: { fields: [frontmatter___date], order: DESC },
-      filter: {fields: {isFuturePost: {eq: false}}}  // highlight-line 
+      filter: {fields: {isFuturePost: {eq: false}}}   
     ) {
       edges {
         node {
@@ -159,7 +159,7 @@ feeds: [
     query: `{
         allMdx(
             sort: { order: DESC, fields: [frontmatter___date] },
-            filter: {fields: {isFuturePost: {eq: false}}} // highlight-line 
+            filter: {fields: {isFuturePost: {eq: false}}}  
         ) {
             edges {
             node {

@@ -149,7 +149,7 @@ description: Created using 11ty
     <title>{{ title }}</title>
     <meta name="description" content="{{ description }}">    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles.css" /> // highlight-line
+    <link rel="stylesheet" href="/styles.css" /> 
 </head>
 <body>
     <h1>{{ title }}</h1>
@@ -255,8 +255,8 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy("styles.css");
 
     return {
-        markdownTemplateEngine: "njk",// highlight-line
-	    templateFormats: ["html", "njk", "md"], // highlight-line
+        markdownTemplateEngine: "njk",
+	    templateFormats: ["html", "njk", "md"], 
     }
 }
 ```

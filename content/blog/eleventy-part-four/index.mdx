@@ -181,7 +181,7 @@ async function createImages(src) {
   const metadata = await Image(src, {
       widths: Object.keys(imageSizes).map(k => +k),
       formats: ["avif", "webp", "jpeg"],
-      filenameFormat: function (id, src, width, format, options) { // highlight-line
+      filenameFormat: function (id, src, width, format, options) { 
         const extension = path.extname(src);
         const name = path.basename(src, extension);
         const size = imageSizes[width+""];
@@ -196,7 +196,7 @@ Now, if our original image is `dog.jpg`, the names of the images will look like 
    [ { format: 'avif',
        width: 320,
        height: 213,
-       filename: 'dog_small.avif',  // highlight-line
+       filename: 'dog_small.avif',  
        outputPath: 'dist/img/dog_small.avif',
        url: '/img/dog_small.avif',
        sourceType: 'image/avif', 
@@ -205,7 +205,7 @@ Now, if our original image is `dog.jpg`, the names of the images will look like 
      { format: 'avif',
        width: 640,
        height: 426,
-       filename: 'dog_medium.avif', // highlight-line
+       filename: 'dog_medium.avif', 
        outputPath: 'dist/img/dog_medium.avif',
        url: '/img/dog_medium.avif',
        sourceType: 'image/avif',
@@ -214,7 +214,7 @@ Now, if our original image is `dog.jpg`, the names of the images will look like 
      { format: 'avif',
        width: 1280,
        height: 853,
-       filename: 'dog_large.avif', // highlight-line
+       filename: 'dog_large.avif', 
        outputPath: 'dist/img/dog_large.avif',
        url: '/img/dog_large.avif',
        sourceType: 'image/avif',
@@ -232,7 +232,7 @@ async function createImages(src) {
   const metadata = await Image(src, {
       widths: [320, 640, 1280],
       formats: ["avif", "webp", "jpeg"], 
-      outputDir: './dist/img' // highlight-line
+      outputDir: './dist/img' 
     });
 }  
 ```
@@ -359,19 +359,19 @@ shortcode implementation we check if the source starts with a dot and if not we 
 
 ```JavaScript
 async function imageShortcode(src, alt, sizes='', caption='') {
-  let imgSrc = src; // highlight-line
+  let imgSrc = src; 
 
   // handle same folder images, append the input path to make the path relative 
   // to project folder as 11ty requires it
-  if (!imgSrc.startsWith('.')) {   // highlight-line
-    const inputPath = this.page.inputPath;  // highlight-line
-    const pathParts = inputPath.split('/');  // highlight-line
-    pathParts.pop();  // highlight-line
-    imgSrc = pathParts.join('/') + '/' + src; // highlight-line
+  if (!imgSrc.startsWith('.')) {   
+    const inputPath = this.page.inputPath;  
+    const pathParts = inputPath.split('/');  
+    pathParts.pop();  
+    imgSrc = pathParts.join('/') + '/' + src; 
   }
 
   // create images and return the files metadata
-  const metadata = await Image(imgSrc, { // highlight-line
+  const metadata = await Image(imgSrc, { 
     widths: [320, 640, 1280],
     formats: ["avif", "webp", "jpeg"]
   });
