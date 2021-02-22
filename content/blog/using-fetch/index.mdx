@@ -103,14 +103,14 @@ We need to detect these errors and handle them. The `response` has an `ok` flag 
 when the server responds with an error, so we can use that flag:
 ```JavaScript
 fetch(url) 
-    .then(response => { // highlight-line
-        if(!response.ok) { // highlight-line
-            const error = new Error(response.statusText || 'Fetch failed') // highlight-line
-            error.response = response; // highlight-line
-            throw error; // highlight-line
-        } // highlight-line
-        return response; // highlight-line
-    }) // highlight-line
+    .then(response => { 
+        if(!response.ok) { 
+            const error = new Error(response.statusText || 'Fetch failed') 
+            error.response = response; 
+            throw error; 
+        } 
+        return response; 
+    }) 
     .then(response => response.json() // this is skipped for 4xx-5xx errors!
     .catch(error => {
         // this is now called for 4xx-5xx errors!
@@ -128,7 +128,7 @@ function checkForErrors(response) {
 }
 
 fetch(url) 
-    .then(checkForErrors) // highlight-line
+    .then(checkForErrors) 
     .then(response => response.json() // this is skipped for 4xx-5xx errors!
     .catch(error => {
         // this is now called for 4xx-5xx errors!
@@ -190,11 +190,11 @@ const data = { user: 'Jon', city: 'London'}
 
 fetch(url, 
     {  
-        method : 'POST'  // highlight-line
-        headers: { // highlight-line
-            'Content-Type': 'application/json', // highlight-line
-        }, // highlight-line
-        body: JSON.stringify(data), // highlight-line
+        method : 'POST'  
+        headers: { 
+            'Content-Type': 'application/json', 
+        }, 
+        body: JSON.stringify(data), 
     }) 
     .then(response => {})
     .catch(error => {});
@@ -206,7 +206,7 @@ The fetch mode can be cors, no-cors, or same-time.
 ```JavaScript
 fetch(url, 
     {  
-       mode: 'cors' // highlight-line
+       mode: 'cors' 
     }) 
     .then(response => {})
     .catch(error => {});
@@ -226,7 +226,7 @@ your requests include the credentials.
 ```JavaScript
 fetch(url, 
     {  
-       credentials: 'include' // highlight-line
+       credentials: 'include' 
     }) 
     .then(response => {})
     .catch(error => {});
@@ -265,7 +265,7 @@ function fetchTimeout(url, options, timeout = 5000)
 }
 
 // use the wrapper instead of fetch
-fetchTimeout(url, {}, 10000) // highlight-line
+fetchTimeout(url, {}, 10000) 
     .then(response => response.json() 
     .then(data => {
         // do something with data    
@@ -300,12 +300,12 @@ const { signal } = controller;
 
 fetch(url, 
     { 
-        signal  // highlight-line
+        signal  
     })
     .then(response => {})
     .catch(error => {
-        if (error.name === 'AbortError') { // highlight-line
-            console.log('Fetch aborted'); // highlight-line
+        if (error.name === 'AbortError') { 
+            console.log('Fetch aborted'); 
         } else {
             // error not caused by abort
         }

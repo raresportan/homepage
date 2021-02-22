@@ -203,9 +203,9 @@ some content. To indicate what is the content we use `<main>`:
   	...
   </head>
   <body>
-    <main>  // highlight-line
-		  CONTENT GOES HERE // highlight-line
-    </main> // highlight-line
+    <main>  
+		  CONTENT GOES HERE 
+    </main> 
   </body>
 </html>
 ```
@@ -219,8 +219,8 @@ jump straight to content:
     ...    
   </head>
   <body>
-    <a href="#content">Skip to content</a> // highlight-line
-    <main tabindex="-1" id="content">  // highlight-line
+    <a href="#content">Skip to content</a> 
+    <main tabindex="-1" id="content">  
 		  CONTENT GOES HERE 
     </main> 
   </body>
@@ -243,18 +243,18 @@ Usually, the header is displayed on every page.
   </head>
   <body>
     <a href="#content">Skip to content</a> 
-    <header role="banner"> // highlight-line
-        <a href="/" aria-label="Home"> // highlight-line
-          <svg aria-hidden="true" focusable="false">...</svg> // highlight-line
-        </a> // highlight-line
-        <nav aria-label="primary"> // highlight-line
-          <ul> // highlight-line
-            <li><a href="/">Home</a></li> // highlight-line
-            <li><a href="/about">About</a></li> // highlight-line
-            OTHER LINKS // highlight-line
-          </ul> // highlight-line
-        </nav> // highlight-line
-    </header> // highlight-line
+    <header role="banner"> 
+        <a href="/" aria-label="Home"> 
+          <svg aria-hidden="true" focusable="false">...</svg> 
+        </a> 
+        <nav aria-label="primary"> 
+          <ul> 
+            <li><a href="/">Home</a></li> 
+            <li><a href="/about">About</a></li> 
+            OTHER LINKS 
+          </ul> 
+        </nav> 
+    </header> 
     <main tabindex="-1" id="content"> 
 		  CONTENT GOES HERE 
     </main> 
@@ -294,21 +294,21 @@ Normally, the footer contains some links and copyright texts.
 		  CONTENT GOES HERE 
     </main> 
 
-    <footer> // highlight-line
-      <nav> // highlight-line
-        <ul> // highlight-line
-          <li> // highlight-line
-            <a href="https://twitter.com/my_twitter_name"  // highlight-line
-            target="_blank" rel="noreferrer">Twitter</a> // highlight-line
-          </li> // highlight-line
-          <li> // highlight-line
-            <a href="https://github.com/my_github_name"  // highlight-line
-            target="_blank" rel="noreferrer">Github</a> // highlight-line
-          </li> // highlight-line
-        </ul> // highlight-line
-      </nav> // highlight-line
-      <span>&copy; 2021 All rights reserved.</span> // highlight-line
-    </footer> // highlight-line
+    <footer> 
+      <nav> 
+        <ul> 
+          <li> 
+            <a href="https://twitter.com/my_twitter_name"  
+            target="_blank" rel="noreferrer">Twitter</a> 
+          </li> 
+          <li> 
+            <a href="https://github.com/my_github_name"  
+            target="_blank" rel="noreferrer">Github</a> 
+          </li> 
+        </ul> 
+      </nav> 
+      <span>&copy; 2021 All rights reserved.</span> 
+    </footer> 
   </body>
 </html>
 ```
@@ -332,12 +332,12 @@ Screen readers and search engines will have a better understanding of your page.
       ...
     </header> 
     <main tabindex="-1" id="content"> 
-      <article> // highlight-line
-        <h1>PAGE TITLE</h1> // highlight-line
-        ... // highlight-line
-        REST OF CONTENT // highlight-line
-        ... // highlight-line
-      </article> // highlight-line
+      <article> 
+        <h1>PAGE TITLE</h1> 
+        ... 
+        REST OF CONTENT 
+        ... 
+      </article> 
     </main> 
     <footer> 
       ...
@@ -372,15 +372,15 @@ In this case we use the `<aside>` element.
     <main tabindex="-1" id="content"> 
      ...
     </main> 
-    <aside> // highlight-line 
-      <h2>You might also like<h2> // highlight-line
-      <ul> // highlight-line
-        <li> // highlight-line
-          <a href="/intersting-article">Interesting article</a> // highlight-line
-        </li> // highlight-line
-        <li> // highlight-line
-          <a href="/must-read-article">Must read article</a> // highlight-line
-        </li> // highlight-line
+    <aside>  
+      <h2>You might also like<h2> 
+      <ul> 
+        <li> 
+          <a href="/intersting-article">Interesting article</a> 
+        </li> 
+        <li> 
+          <a href="/must-read-article">Must read article</a> 
+        </li> 
       </ul>    
     </aside>
     <footer> 

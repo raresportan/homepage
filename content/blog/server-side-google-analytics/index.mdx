@@ -39,11 +39,11 @@ this is optional.
 "scripts": {
     "build": "run-p build:**",  
     "build:app": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",  
-    "build:lamda": "netlify-lambda build src/lambda", // highlight-line
+    "build:lamda": "netlify-lambda build src/lambda", 
     "develop": "gatsby develop",
     "start": "run-p start:**",
     "start:app": "npm run develop",
-    "start:lambda": "netlify-lambda serve src/lambda", // highlight-line
+    "start:lambda": "netlify-lambda serve src/lambda", 
     ...
   }
 ```
@@ -112,23 +112,23 @@ Before all, you need to be able to call the functions while we're developing. To
 `gatsby-config.js`, assuming the functions run on port 9000 (which they do by default):
 
 ```javascript
-const { createProxyMiddleware } = require("http-proxy-middleware")   // highlight-line
+const { createProxyMiddleware } = require("http-proxy-middleware")   
 
 module.exports = {
     ...
     plugins: [
         ...
     ],
-    developMiddleware: app => {   // highlight-line
-        app.use(    // highlight-line
-            "/.netlify/functions/",   // highlight-line
-            createProxyMiddleware({    // highlight-line
-                target: "http://localhost:9000",   // highlight-line
-                pathRewrite: {    // highlight-line
-                    "/.netlify/functions/": "",   // highlight-line
-                },  // highlight-line
-            })  // highlight-line
-        )  // highlight-line
+    developMiddleware: app => {   
+        app.use(    
+            "/.netlify/functions/",   
+            createProxyMiddleware({    
+                target: "http://localhost:9000",   
+                pathRewrite: {    
+                    "/.netlify/functions/": "",   
+                },  
+            })  
+        )  
     },
 }    
 ```
@@ -161,7 +161,7 @@ because the page title was updated after `sendData` was called inside a `useEffe
 Finally I found that there is a callback that can be registered to React Helmet that is called after it did the updates:
 ```jsx
 <Helmet
-      onChangeClientState={() => sendData()}  // highlight-line
+      onChangeClientState={() => sendData()}  
       htmlAttributes={{
         lang,
       }}
