@@ -16,7 +16,7 @@
     "gatsby-plugin-canonical-urls": "^2.3.13",
     "gatsby-plugin-mdx": "^1.2.51",
     "gatsby-plugin-no-javascript": "^2.0.5",
-    "prismjs": "^1.22.0",
+    "prismjs": "^1.23.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-helmet": "^5.2.1"
