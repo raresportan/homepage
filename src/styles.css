@@ -6,7 +6,7 @@
 html, body {
     margin: 0;
     padding: 0;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-family: 'IBM Plex Sans', Arial, Helvetica, Verdana, sans-serif;
     min-height: 100vh;
     color: var(--color);
