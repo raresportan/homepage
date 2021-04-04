@@ -7,8 +7,8 @@ import React from "react"
 const Waves = ({ id, className, wave1X, wave2X, wave3X, wave4X }) => {
 
     return (
-        <div role="presentation" className={`waves-container ${className || ''}`}>
-            <svg className="waves" viewBox="0 24 150 28" preserveAspectRatio="none" shapeRendering="auto">
+        <div className={`waves-container ${className || ''}`}>
+            <svg role="presentation" className="waves" viewBox="0 24 150 28" preserveAspectRatio="none" shapeRendering="auto">
                 <defs>
                     <path id={id}
                         d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
