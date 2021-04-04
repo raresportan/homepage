@@ -28,7 +28,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         description={frontmatter.description}
         twitterImage={post.fields.twitterCardImage}
       />
-      <article className='post centered-content'>
+      <article className='post flow centered-content'>
         <header>
           <h1>
             {frontmatter.title}

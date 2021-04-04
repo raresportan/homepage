@@ -67,7 +67,7 @@
     cursor: pointer;
     display: inline-block;
     text-align: center;
-    font-size: 15px;
+    font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
     margin-bottom: 15px;
@@ -94,7 +94,7 @@
 
 .formkit-form .formkit-input {
     background: #ffffff;
-    font-size: 15px;
+    font-size: 1rem;
     padding: 12px;
     border: 1px solid #e3e3e3;
     -webkit-flex: 1 0 auto;
@@ -358,10 +358,6 @@
     padding: 10px 20px;
     margin: 0 0 20px;
     border-left: 5px solid #e1e1e1;
-}
-
-.formkit-form {
-    max-width: 700px;
 }
 
 .formkit-form [data-style="clean"] {
