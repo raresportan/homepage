@@ -4,7 +4,7 @@ import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Seo from "../components/seo"
 import Newsletter from "../components/newsletter"
 import TwitterShare from '../components/twitter-share'
 import Waves from "../components/waves"
@@ -23,7 +23,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 
   return (
     <Layout location={location} className='content article'>
-      <SEO
+      <Seo
         title={frontmatter.title}
         description={frontmatter.description}
         twitterImage={post.fields.twitterCardImage}
