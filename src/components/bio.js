@@ -3,7 +3,7 @@
  */
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import Image from "gatsby-image"
+import { Image } from "gatsby-plugin-image"
 
 
 const Bio = () => {
@@ -11,9 +11,7 @@ const Bio = () => {
     query BioQuery {
       avatar: file(absolutePath: { regex: "/avatar.jpg/" }) {
         childImageSharp {
-          fixed(width: 48, height: 48) {
-            ...GatsbyImageSharpFixed
-          }
+          gatsbyImageData(layout: FIXED)
         }
       }
       site {
