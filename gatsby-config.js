@@ -99,7 +99,16 @@ module.exports = {
       }
     },
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        defaults: {
+          quality: 70,
+          formats: ['auto', 'webp', 'avif'],
+          placeholder: 'blurred',
+        },
+      },
+    },
     {
       resolve: `gatsby-plugin-feed-mdx`,
       options: {
@@ -170,6 +179,15 @@ module.exports = {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
         siteUrl: `https://raresportan.com`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-postcss`,
+      options: {
+        cssLoaderOptions: {
+          camelCase: false,
+        },
+        postCssPlugins: [require(`postcss-preset-env`)({ stage: 0 })],
       },
     },
     `gatsby-plugin-react-helmet`,
