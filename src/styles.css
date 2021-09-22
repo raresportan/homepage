@@ -298,6 +298,7 @@ footer ul {
 
 .gatsby-highlight {
     overflow: auto;
+    margin: 0;
 }
 
 @media only screen and (max-width: 670px) {
