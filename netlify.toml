@@ -2,6 +2,3 @@
   command = "npm run build" # the command you run to build this file
   functions = "built-lambda" # netlify-lambda builds to this folder AND Netlify reads functions from here
   publish = "public" # gatsby builds to this folder, Netlify should serve all these files statically
-
-[[plugins]]
-  package = "netlify-plugin-gatsby-cache" # gatsby fast build
