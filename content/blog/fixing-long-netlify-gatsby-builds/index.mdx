@@ -17,7 +17,7 @@ In run the build on my local machine, the same build runs in 2 minutes so clearl
 
 The first weird thing is that the cache is huge:
 ![Cache is huge](./cache_log.png "Cache is huge")
-On my local machine the `.cache` + `public` folders are under 60Mb. Where are the other 900Mb coming from?
+On my local machine the `.cache` + `public` folders are under 60Mb. Where are the other 900Mb coming from? After further investigation I've found that this cache keeps other things also, like the `node_modules` :)
 
 The other weird thing is that the `Caching HTML renderer compilation` takes most of the build time:
 ![Caching HTML renderer compilation](./build_log.png "Caching HTML renderer compilation")
@@ -42,5 +42,6 @@ Which was ironically making my build slow.
 I've removed it, and from the my website's Plugins page I've added "Essential Gatsby" plugin:
 ![Plugins](./plugins.png "Plugins")
 
-That's all. 
-Hope this helps.
+> If you use this plugin, the cache will be created again, but a bit smaller this time
+
+After these changes, the build time is back to 3 minutes. 
