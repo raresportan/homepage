@@ -58,7 +58,7 @@ src/
     main.js
 ```
 We can use main.js like this inside a ".njk" file:
-```njk
+```nunjucks
 {% set js %}
   {% include "main.js" %}
 {% endset %}
@@ -109,7 +109,7 @@ module.exports = config => {
 };
 ```
 The finally we can use it:
-```njk
+```nunjucks
 {% set js %}
   {% include "main.js" %}
 {% endset %}
