@@ -45,8 +45,7 @@ Looking at my site's `netlify.toml` I see that I use a deprecated plugin for cac
 ```
 Which was ironically making my build slow.
 
-I've removed it.
-
-> If you use this plugin, the cache will be created again, but a bit smaller this time.
+I've removed it. I've tried using the "Essential Gatsby" plugin but I have the same issue.
 
 After these changes, the build time is now 5 minutes. Not 3 as before but still better then 13.
+![Builds](./builds.png "Builds")
