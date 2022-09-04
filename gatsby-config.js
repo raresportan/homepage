@@ -170,7 +170,7 @@ module.exports = {
         short_name: `Rares Portan`,
         start_url: `/`,
         background_color: `#ffffff`,
-        theme_color: `#663399`,
+        theme_color: `#0077aa`,
         display: `minimal-ui`,
         icon: `content/assets/raresportanicon.png`,
       },
