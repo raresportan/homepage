@@ -178,7 +178,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        siteUrl: `https://raresportan.com`,
+        siteUrl: `https://www.raresportan.com`,
       },
     },
     {
