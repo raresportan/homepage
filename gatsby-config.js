@@ -170,7 +170,7 @@ module.exports = {
         short_name: `Rares Portan`,
         start_url: `/`,
         background_color: `#ffffff`,
-        theme_color: `#663399`,
+        theme_color: `#0077aa`,
         display: `minimal-ui`,
         icon: `content/assets/raresportanicon.png`,
       },
@@ -178,7 +178,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        siteUrl: `https://raresportan.com`,
+        siteUrl: `https://www.raresportan.com`,
       },
     },
     {
