@@ -1,71 +1,83 @@
 ---
 title: A short intro to Partytown
-date: 2022-3-31
+date: 2022-03-31
 description: Partytown is a solution to increase website performance by loading 3rd party JavaScript libraries in a web worker
-keywords: ['JavaScript']
+keywords: ["JavaScript"]
 ---
 
 It happens all the time. We try to optimize our code, optimize how images and CSS are loaded, do code splits, and all kinds of smart techniques. And in most cases, all this effort is meaningless because we need to load a ton of 3rd party libraries.
 
-We have to do that not because we want it but because the business requires it. They need tools to count users, determine what 
-users like and where are they coming from, track them, increase engagement and so. These tools mean 3rd party JavaScript libraries that 
-must be loaded on the website. Typically, the size of 3rd party JavaScript loaded on a company website is much 
-bigger than all the JavaScript used for actual website functionality. 
+We have to do that not because we want it but because the business requires it. They need tools to count users, determine what
+users like and where are they coming from, track them, increase engagement and so. These tools mean 3rd party JavaScript libraries that
+must be loaded on the website. Typically, the size of 3rd party JavaScript loaded on a company website is much
+bigger than all the JavaScript used for actual website functionality.
 
-*It's not uncommon to have several Megabytes of 3rd party JavaScript!*
+_It's not uncommon to have several Megabytes of 3rd party JavaScript!_
 
 I dread those 3rd party scripts. They are mocking me and they ridicule my work: the websites are crazy slow especially on mobile.
 The most ironic part is when some of these tools present graphs with how much money you lose because your website is not fast enough!
 No shit.
 
-Until now. Because now I think I've found a solution to this madness. And it's called [Partytown](https://partytown.builder.io/).  
+Until now. Because now I think I've found a solution to this madness. And it's called [Partytown](https://partytown.builder.io/).
 
-> Partytown's philosophy is that the main thread should be dedicated to your code, and any scripts that are not required to be in the critical path should 
-be relocated to a web worker. Into a sandboxed location, kinda like...a little town for third-party scripts. Some sort of a...Partytown, if you will…  - [Adam Bradley](https://dev.to/adamdbradley/introducing-partytown-run-third-party-scripts-from-a-web-worker-2cnp)
+> Partytown's philosophy is that the main thread should be dedicated to your code, and any scripts that are not required to be in the critical path should
+> be relocated to a web worker. Into a sandboxed location, kinda like...a little town for third-party scripts. Some sort of a...Partytown, if you will… - [Adam Bradley](https://dev.to/adamdbradley/introducing-partytown-run-third-party-scripts-from-a-web-worker-2cnp)
 
 Here is a visual explanation of how Partytown works, it loads 3rd party scripts in a separate thread, a web worker (source https://github.com/BuilderIO/partytown):
 ![How Partytown works](./how-partytown-works.png "Partytown loads 3rd party scripts in a separate thread, a web worker")
 
 ## How to add Partytown to a project
-Partytown uses a web worker and the web worker must run on your website, meaning there is no way to use it from a CDN or another server. 
-I could not find a downloadable archive with all the stuff ready to use, the only way (at least for now) to use Partytown is to create 
+
+Partytown uses a web worker and the web worker must run on your website, meaning there is no way to use it from a CDN or another server.
+I could not find a downloadable archive with all the stuff ready to use, the only way (at least for now) to use Partytown is to create
 an npm project and install the Partytown npm package. I'll use `partytown-demo` folder.
 
 Create a new folder for the project and then initialize it:
+
 ```bash
 npm init
 ```
+
 Inside the project folder install Partytown:
+
 ```bash
 npm install @builder.io/partytown
 ```
+
 Let's also create an `index.html` file inside `partytown-demo` that will use the scripts:
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Partytown demo</title>
-</head>
-<body>
-  <h1>Partytown Demo</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Partytown demo</title>
+  </head>
+  <body>
+    <h1>Partytown Demo</h1>
+  </body>
 </html>
 ```
+
 Now we need to modify the `package.json` to include the command that will copy Partytown files and the index.html in the release folder:
+
 ```json
 "scripts": {
   "start": "npm run partytown && cp index.html ./public",
   "partytown": "partytown copylib public/~partytown"
 },
 ```
+
 To test if all works, run the following command:
+
 ```bash
 npm start
 ```
+
 There will be a `public` folder inside `partytown-demo` with the following content:
+
 ```
 /public
   /~partytown
@@ -73,11 +85,13 @@ There will be a `public` folder inside `partytown-demo` with the following conte
     partytown-media.js
     partytown-sw.js
     partytown.js
-  index.html 
+  index.html
 ```
 
 ## How to use Partytown
+
 Normally 3rd party scripts are loaded on the main thread:
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -98,8 +112,10 @@ Normally 3rd party scripts are loaded on the main thread:
 </body>
 </html>
 ```
+
 In order to use Partytown you need to do two changes:
-1. Import the Partytown script 
+
+1. Import the Partytown script
 2. Set type="text/partytown" for the 3rd party scripts
 
 ```html
@@ -123,17 +139,18 @@ In order to use Partytown you need to do two changes:
 </body>
 </html>
 ```
+
 And you're done.
 
 If you're using a framework check [Partytown docs](https://partytown.builder.io/integrations) because Partytown has several integrations for some frameworks like Gatsby or NextJS, I'm sure more will be added in the future.
 
-
 ## Trade-Offs
-For this to work we need to add a new `6kb` JavaScript library, the Partytown lib. So there are cases when using Partytown will 
+
+For this to work we need to add a new `6kb` JavaScript library, the Partytown lib. So there are cases when using Partytown will
 actually degrade performance. Just to make sure we're not shooting ourselves in the foot we need to do a performance test before and after.
 
 When I'm writing this Partytown is still in Beta, so some things might change.
 
 ## Resources
 
-* [Partytown](https://partytown.builder.io/)
+- [Partytown](https://partytown.builder.io/)

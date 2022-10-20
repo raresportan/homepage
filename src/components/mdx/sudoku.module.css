@@ -1,0 +1,127 @@
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+/* p {
+    margin: 1.5rem 0.5rem 0.5rem;
+} */
+
+.primary,
+.secondary {
+    padding: 0.5rem 4rem;
+    font-size: 1.2rem;
+    border: 5px solid var(--border-color);
+    margin: 8px;
+    /* width: min(566px, calc(100% - 16px)); */
+    box-shadow: var(--shadow-elevation-high);
+    background: linear-gradient(to right, var(--border-color) 50%, #fff 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: all .3s ease-out;
+    height: 60px;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.primary:disabled,
+.secondary:disabled {
+    background-position: right bottom;
+    background: var(--prefilled-color);
+    color: var(--border-color);
+
+}
+
+.primary:focus,
+.primary:not(:disabled):hover {
+    color: #fff;
+    background-position: left bottom;
+}
+
+.primary:active {
+    background-color: #ffdd59;
+}
+
+.primary:not(:disabled)+.secondary {
+    opacity: .2;
+    pointer-events: none;
+}
+
+.primary:disabled+.secondary {
+    opacity: 1;
+    pointer-events: unset;
+}
+
+.secondary {
+    background: #fff;
+    transition: none;
+    text-transform: none;
+}
+
+.secondary:hover {
+    color: var(--border-color);
+}
+
+.sudokuTable {
+    box-shadow: var(--shadow-elevation-high);
+    font-size: clamp(1rem, 10vw, 2.3rem);
+    font-family: monospace;
+    font-weight: bold;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border: 5px solid var(--border-color);
+    background-color: var(--background-color);
+    width: auto;
+}
+
+.sudokuTable colgroup,
+.sudokuTable tbody {
+    border: 5px solid var(--border-color);
+}
+
+.sudokuTable td {
+    border: thin solid var(--inner-border-color);
+    height: calc((100vw - 20px)/9);
+    width: calc((100vw - 20px)/9);
+    text-align: center;
+    vertical-align: bottom;
+    padding: 0;
+}
+
+.sudokuTable td input {
+    color: var(--border-color);
+    font-size: inherit;
+    font-weight: bold;
+    font-family: 'Cousine', sans-serif;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    outline-color: #ffdd59;
+    outline-offset: -2px;
+}
+
+.prefilled {
+    background-color: var(--prefilled-color);
+}
+
+.sudokuTable td input:focus {
+    background-color: #ffdd59;
+}
+
+@media (min-width: 570px) {
+    .sudokuTable td {
+        height: 60px;
+        width: 60px;
+    }
+
+    .primary,
+    .secondary {
+        margin: 1rem auto 1rem;
+    }
+}

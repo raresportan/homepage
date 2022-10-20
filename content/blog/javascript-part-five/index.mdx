@@ -1,12 +1,13 @@
 ---
 title: Let's Learn JavaScript - Data types
 part: V
-date: 2022-1-12
+date: 2022-01-12
 description: Data types in JavaScript
-keywords: ['JavaScript']
+keywords: ["JavaScript"]
 ---
 
-The purpose of any program is to transform data. Any program needs data. In JavaScript, when we talk about the program's data we talk about *values*:
+The purpose of any program is to transform data. Any program needs data. In JavaScript, when we talk about the program's data we talk about _values_:
+
 ```JavaScript
 42
 "Deep Thought"
@@ -16,9 +17,11 @@ true
 undefined
 null
 ```
-Using values like this is perfectly fine, but we don't have their meaning (values like these are called *magic values* because nobody knows why they are what they are, they just work like magic).
+
+Using values like this is perfectly fine, but we don't have their meaning (values like these are called _magic values_ because nobody knows why they are what they are, they just work like magic).
 
 To solve this problem we can bind values to names so we can reference them and understand their purpose and meaning:
+
 ```JavaScript
 const answer = 42;
 const superComputerName = "Deep Thought";
@@ -26,20 +29,21 @@ let isThisTheAnswer = true;
 const emptyness = {};
 const empty = [];
 let bookName = undefined;
-let author = null;  
+let author = null;
 ```
 
-One thing you can notice in both examples is that we don't say what is the *type* of a value.
-So what does this mean? Do the values have no type? The type is implied by value? It doesn't matter? 
+One thing you can notice in both examples is that we don't say what is the _type_ of a value.
+So what does this mean? Do the values have no type? The type is implied by value? It doesn't matter?
 
 We'll answer all these questions.
 
 ## Every value has a type
+
 Data can have different roles or meanings, can be of different types. A value is a piece of data of a specific type.
 Values are things that are. Types are things that could be.
 
 ```JavaScript
-42 // type number 
+42 // type number
 "Deep Thought" // type string
 true // type boolean
 {} // type Object
@@ -47,7 +51,9 @@ true // type boolean
 undefined // type undefined
 null // type null
 ```
+
 To find the type of a value, we use the built-in `typeof` operator:
+
 ```JavaScript
 typeof 42 // "number"
 typeof "Deep Thought" // "string"
@@ -57,15 +63,18 @@ typeof [] // "object" (should be "array")
 typeof undefined // "undefined"
 typeof null // "object" (should be "null")
 ```
+
 The operator always returns a string value! For example, it returns the "number" string for numbers.
 
 Sadly `typeof` operator has some bugs and returns the wrong value for some of the types:
-* for array, it returns "object" instead of "array"
-* for null it returns "object" instead of "null"
 
-*These bugs are from the early days of JavaScript and cannot be fixed because some part of the Internet relies on them. All new versions of JavaScript are perfectly compatible with old ones, old code will never break when JavaScript changes.*
+- for array, it returns "object" instead of "array"
+- for null it returns "object" instead of "null"
+
+_These bugs are from the early days of JavaScript and cannot be fixed because some part of the Internet relies on them. All new versions of JavaScript are perfectly compatible with old ones, old code will never break when JavaScript changes._
 
 What about bindings? Can we find the type of the bound value? Yes, `typeof` operator works with bindings also:
+
 ```JavaScript
 const answer = 42;
 typeof answer // "number"
@@ -85,52 +94,62 @@ typeof empty // "object"
 let bookName = undefined;
 typeof bookName // "undefined"
 
-let author = null;  
+let author = null;
 typeof author // "object"
 ```
+
 What if we just declare a binding without a value?
+
 ```JavaScript
 let x;
 typeof x;
 ```
-The type of `x` is undefined. Try it out!
-*Everything that is not initialized by you, is initialized by JavaScript with `undefined`.*
 
+The type of `x` is undefined. Try it out!
+_Everything that is not initialized by you, is initialized by JavaScript with `undefined`._
 
 ## Primitive values and objects
+
 JavaScript types can be primitive types or objects.
 
-*The big difference is that the primitive type values are immutable, they cannot be changed*
+_The big difference is that the primitive type values are immutable, they cannot be changed_
 
 If you have the value `1` there is no way to change it to value `2`. If you have the value `"Hello"` you can't change it to `"Hey"`. No way.
 
 You can use bindings to change the bound value, but that doesn't mean you change the value `1` into value `2`, it means you bind `2` where `1` was bound:
+
 ```JavaScript
 let x = 1; // x is bound to 1
 x = 2; // x is bound to 2
 ```
-What happens to `1`? It is *garbage collected*, removed from memory, wiped. 
 
-Same with strings, you can't change `"Hey"` to  `"Hello"`, only bind a new value:
+What happens to `1`? It is _garbage collected_, removed from memory, wiped.
+
+Same with strings, you can't change `"Hey"` to `"Hello"`, only bind a new value:
+
 ```JavaScript
-let greeting = "Hey"; 
+let greeting = "Hey";
 greeting = "Hello"; // you can only bind another value
 
 const firstname = "Jon";
 const surname = "Snow";
 const name = firstname + " " + surname;
 ```
+
 Strings have methods, will see that in a bit, but all those methods return new strings, they don't change the string they are called on:
+
 ```JavaScript
 const name = "Jon Snow";
 name.toUpperCase();
 console.log("Name:", name); // still "Jon Snow"
 
-// you need to get the new string 
+// you need to get the new string
 const upper  = name.toUpperCase();
 console.log("NAME:", upper); // JON SNOW
 ```
+
 On the other hand, objects are mutable, their "content" can be changed:
+
 ```JavaScript
 // a person object with a "name" property
 const person = {
@@ -141,23 +160,26 @@ console.log(person);
 person.name = "JON SNOW";
 console.log(person);
 ```
-Programming with immutable values and mutable values are two different development paradigms. 
-Both have advantages and issues. While there are programming languages that only work with immutable values by design, most 
+
+Programming with immutable values and mutable values are two different development paradigms.
+Both have advantages and issues. While there are programming languages that only work with immutable values by design, most
 have immutable primitives and objects, just like JavaScript.
 
 Working with immutable values means creating new values all the time you need a new value. Working with mutable values means changing an existing value.
 
-From my experience, using immutable values (and pure functions) as much as possible improves the resilience and understanding of the program. But the downside is you create a lot of values. 
-Working with mutable objects has the big downside that you don't know what piece of code changed the objects, especially in a multithread environment this is a nightmare. 
+From my experience, using immutable values (and pure functions) as much as possible improves the resilience and understanding of the program. But the downside is you create a lot of values.
+Working with mutable objects has the big downside that you don't know what piece of code changed the objects, especially in a multithread environment this is a nightmare.
 
 ## Numbers
+
 JavaScript has two types for all the numbers, integers, floating-point numbers, etc.:
-* Number - 64-bit floating-point doubles
-* BigInt - double-precision floating-point approximation of the integer values
+
+- Number - 64-bit floating-point doubles
+- BigInt - double-precision floating-point approximation of the integer values
 
 Special numbers are `NaN` (Not a Number), `Infinity` and `-Infinity`.
-`Number.MAX_SAFE_INTEGER`  ( 2<sup>53 - 1</sup> ) and `Number.MIN_SAFE_INTEGER` -(2<sup>53 - 1</sup>),
-`Number.MAX_VALUE` (1.79E+308, or  2<sup>1024</sup>) and `Number.MIN_VALUE` (5E-324), are the Number limits.
+`Number.MAX_SAFE_INTEGER` ( 2<sup>53 - 1</sup> ) and `Number.MIN_SAFE_INTEGER` -(2<sup>53 - 1</sup>),
+`Number.MAX_VALUE` (1.79E+308, or 2<sup>1024</sup>) and `Number.MIN_VALUE` (5E-324), are the Number limits.
 
 If you need numbers over that limit you need to use BigInts. Note that BigInt is a new addition to the language and it doesn't work in older browsers.
 
@@ -185,19 +207,19 @@ const minutes = parseInt("08");
 console.log("Minutes:", minutes); // 0 NOT 8 in some browsers!
 
 const hours = parseInt("08", 10); // always set radix
-console.log("Hours:", hours); 
+console.log("Hours:", hours);
 
 // Another way to convert strings to numbers using Number function
 // (Yes, it's a function not a class even if it starts with capital N)
 const seconds = Number("08");
-console.log("Seconds:", seconds); 
+console.log("Seconds:", seconds);
 
 // And yet another way
 const millis = +'123';
-console.log("Millis:", millis); 
+console.log("Millis:", millis);
 
 // To create BigInts, you need to add 'n' after the number;
-const bigInt = 2n ** 53n + 1n; 
+const bigInt = 2n ** 53n + 1n;
 console.log("Type of bigInt", typeof bigInt);
 console.log("bigInt", bigInt);
 
@@ -217,7 +239,9 @@ console.log("typeof Infinity:", typeof Infinity) // typeof Infinity: number
 console.log("typeof -Infinity:", typeof -Infinity) // typeof -Infinity: number
 
 ```
+
 Basic operations:
+
 ```JavaScript
 let sum = 1 + 2;
 
@@ -227,13 +251,13 @@ let product = 2 * 3;
 
 let quotient = 6 / 2;
 
-let pow = 2 ** 10; 
+let pow = 2 ** 10;
 
 let isLower = 3 > 2;
 
-let reminder = 13 % 5; 
+let reminder = 13 % 5;
 
-// we also got assignment versions of most of the operators 
+// we also got assignment versions of most of the operators
 sum += 3; // same as: sum = sum + 3;
 
 diff -= 10; // same as: diff = diff - 10;
@@ -246,10 +270,12 @@ pow **= 10;  // same as: pow = pow ** 10;
 
 reminder %= 5; // same as: reminder = reminder % 5;
 ```
+
 We can also do bitwise operators.
 
-Not a number, `NaN` is a very very special number. Yes, NaN *is a number* and is called *not a number*. You get NaN when you try to get a number 
+Not a number, `NaN` is a very very special number. Yes, NaN _is a number_ and is called _not a number_. You get NaN when you try to get a number
 from something that can't be a number. NaN is supposed to denote the result of a nonsensical computation.
+
 ```JavaScript
 // When strings cannot be converted to numbers you get NaN
 const time = Number("01:02:08.123");
@@ -267,6 +293,7 @@ console.log("typeof NaN:", typeof NaN) // typeof NaN: number  ¯\_(ツ)_/¯
 ```
 
 Another small weirdness is the number `-0`. I'll mention it just so you're aware of it.
+
 ```JavaScript
 let zero = 0; // 0
 let plus0 = +0; // 0
@@ -281,6 +308,7 @@ Math.atan2(0, -0); // PI
 ```
 
 `Math` object provides mathematical operations that work with numbers, here are some of them:
+
 ```JavaScript
 Math.random(); // Random number between 0 and 1
 Math.PI
@@ -297,14 +325,15 @@ Math.sqrt(x) // Positive square root of x
 Math.trunc(x) // Integer part of x, removing any fractional digits.
 ```
 
-
 ## Summary
-* Every value has a type
-* Some times produce immutable values, some not
-* Working with numbers is relatively easy, but there are some gotchas.
+
+- Every value has a type
+- Some times produce immutable values, some not
+- Working with numbers is relatively easy, but there are some gotchas.
 
 ### Previously on "Let's Learn JavaScript"
-* [How JavaScript compares to other programming languages](/javascript-part-one/) and the mindset you need to learn JavaScript
-* ["Hello, World!"](/javascript-part-two/) in JavaScript
-* JavaScript [values and bindings](/javascript-part-three/)
-* How to [name things](/javascript-part-four/) in JavaScript
+
+- [How JavaScript compares to other programming languages](/javascript-part-one/) and the mindset you need to learn JavaScript
+- ["Hello, World!"](/javascript-part-two/) in JavaScript
+- JavaScript [values and bindings](/javascript-part-three/)
+- How to [name things](/javascript-part-four/) in JavaScript
