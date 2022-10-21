@@ -1,6 +1,5 @@
 import Glitch from "./glitch"
-import Sudoku from "./sudoku";
 
-const shortcodes = { Glitch, Sudoku }
+const shortcodes = { Glitch }
 
 export default shortcodes;
