@@ -1,6 +1,11 @@
 :root {
     --yellow: #ffc100;
     --yellow-light: #fee488;
+    --border-color: #000;
+    --inner-border-color: #485460;
+    --color: #1e272e;
+    --background-color: #fff;
+    --prefilled-color: #d2dae2;
 }
 
 html, body {
@@ -21,6 +26,11 @@ body.light {
     --link-color: #FF0054;
     --hover-color: #FF0054;
     --bulbPath: rgba(97, 150, 204, 0.56);
+    --border-color: #1e272e;
+    --inner-border-color: #485460;
+    --color: #1e272e;
+    --background-color: #fff;
+    --prefilled-color: #d2dae2;
 }
 
 body.dark {
