@@ -5,45 +5,43 @@ description: How I've build a program that solves any Sudoku
 keywords: ["Sudoku"]
 ---
 
-I became interested in the Sudoku game after a failed oportunity to build it for a client.
+I became interested in the Sudoku game after a failed opportunity to build it for a client.
 I've never played Sudoku before (I'm a video game fan) but soon I found how complex this
 little game is and how many things must be implemented for a great experience.
 
-So I started to build it for myself. Soon I've found that I need:
+So I started to build it for myself. Soon I found that I need a lot of things:
 
-- a solver: program that solves the game by finding all the missing digits
-- a generator: program that can generate games of different difficulty, idealy automated, new games every day.
-- a great UI: candidates support, lot of helper functions like hints, auto check for mistakes,
-  check if a cell is correct, check if all the cells are correct and so on.
+- a solver: a program that solves the game by finding all the missing digits
+- a generator: a program that can generate games of different difficulty, ideally automated, new games every day.
+- a great UI: candidates support, a lot of helper functions like hints, auto check for mistakes,
+  check if a cell is correct, check if all the cells are correct, and so on.
 
-For the moment I've implemented the solver, and this post we'll detail how it was done.
-If you want to test it, here it is, find a Sudoku somewhere, put the digits in and press
-the "Solve" button. If the Sudoku can be solved you'll see the solution:
+For the moment I've implemented the solver, and in this post, we'll detail how it was done. If you want to test it, find a Sudoku somewhere, put the digits in and press the “Solve” button. If the Sudoku can be solved you'll see the solution:
 
 <Sudoku />
 
 ## Inspiration
 
-I've found the ultra elegant solution done by Peter Norvig, [Solving Every Sudoku Puzzle](http://norvig.com/sudoku.html)
-written in Python. Sadly I needed the JavaScript version, and an obvious port of that Python code
-is not possible because JavaScript doesn't have the same iterators and built in functions.
+I've found the ultra-elegant solution done by Peter Norvig, [Solving Every Sudoku Puzzle](http://norvig.com/sudoku.html)
+written in Python. Sadly I needed the JavaScript version, and an easy port of that Python code is not possible because JavaScript doesn't
+have the same iterators and built-in functions.
 
 The solving strategy is:
 
-1. For each cell with single digit (known digit from the start) eliminate that digit
-   from all the peer cells (the row, the column and the box that contain the digit).
+1. For each cell with a single digit (known digit from the start) eliminate that digit
+   from all the peer cells (the row, the column, and the box that contains the digit).
 2. After these initial eliminations, is possible to have new cells with single digits,
-   so we need to repeat step 1 for them. In the end we'll have some cells with single digit,
-   some maybe with 2 or 3 digits, some still with 9 digits - representing all the posible
+   so we need to repeat step 1 for them. In the end, we'll have some cells with a single digit,
+   some maybe with 2 or 3 digits, and some still with 9 digits - representing all the possible
    digits that might go in that cell.
-3. Do a brute force search for the solution by looping trough each cell digit
+3. Do a brute-force search for the solution by looping through each cell digit
    until we have the solution. (For example, using the above grid, we try 4,1,1,1...,
    then 4,6,1,1...).
 
 ## Data models
 
-To create the data models we'll use a fuction that creates the "cross product"
-of two array. Cross `[A, B]` with `[1, 2]` will result in `[A1, A2, B1, B2]`
+To create the data models we'll use a function that creates the "cross product"
+of two arrays. Cross `[A, B]` with `[1, 2]` will result in `[A1, A2, B1, B2]`
 
 ```JavaScript
 function cross(A, B){
@@ -72,11 +70,11 @@ const squares = cross(rows, cols);
 
 ### Board units
 
-When you fill a Sudoku the rule is that one digit can appear once in a `row`, a `column`
+When you fill a Sudoku the rule is that one digit can appear once in a `row`, a `column`,
 or a `box`. So these are the `unitlist` we care about:
 
 ```JavaScript
-// all colums, all rows and all 3x3 boxes
+// all columns, all rows, and all 3x3 boxes
 const unitlist = [];
 
 // add all columns
@@ -91,7 +89,7 @@ boxRows.forEach(rs => boxCols.forEach(cs => unitlist.push(cross(rs, cs))));
 
 ### Square units
 
-Add the row, col and box each square belongs to:
+Add the row, col, and box each square belongs to:
 
 ```JavaScript
 const units = {};
@@ -134,10 +132,7 @@ in each square.
 123456789  123456789  123456789 | 123456789  123456789  123456789 | 123456789  123456789  123456789
 ```
 
-Each sudoku gives us some digits, so we know from the start the digit in some squares. We can safely
-remove those digits from the rest of the square peers. For example if we know that 4 is the digit
-that goes in the first cell, A1, then we can remove 4 from all the row, column and box squares that
-contain A1:
+Each sudoku gives us some digits, so we know the digit in some squares from the start. We can safely remove those digits from the rest of the square peers. For example, if we know that 4 is the digit that goes in the first cell, A1, then we can remove 4 from all the row, column, and box squares that contain A1:
 
 ```
 4         12356789  12356789  | 12356789  12356789  12356789  | 12356789  12356789  12356789
@@ -169,8 +164,14 @@ After we reduce all the digits we know we end up with something like this:
 1       6789    4       | 589     579     5789    | 23569   23589   23689
 ```
 
-This is done by the `parseGrid`, `assign` and `eliminate` functions (full code at the end).
-Afte this phase is done, `solve` function does a brute force search for a solution.
+This is done by the `parseGrid`, `assign`, and `eliminate` functions (full code at the end).
+
+After this phase is done, the `solve` function does a brute-force search for a solution:
+
+1. Search for a square with the fewest digits (more than one).
+2. Assume one of those digits is the correct one.
+3. Try to eliminate the digit from peers and continue until we have a solution.
+   If at some point the eliminations fail, go back to step 1.
 
 ## Full code
 
