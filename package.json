@@ -45,7 +45,7 @@
     "gatsby-remark-responsive-iframe": "^4.11.0",
     "gatsby-remark-smartypants": "^4.11.0",
     "gatsby-source-filesystem": "^3.14.0",
-    "gatsby-transformer-remark": "^4.11.0",
+    "gatsby-transformer-remark": "^5.25.1",
     "gatsby-transformer-sharp": "^3.14.0",
     "http-proxy-middleware": "^2.0.6",
     "netlify-lambda": "^2.0.15",
