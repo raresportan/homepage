@@ -1,0 +1,35 @@
+---
+import Lightbulb from "./Lightbulb.astro";
+import Waves from "./Waves.astro";
+import { SITE_TITLE } from "../config";
+
+const { title, isOnHomePage } = Astro.props;
+---
+
+<>
+	{
+		isOnHomePage ? (
+			<Waves
+				id="gentle-wave-header"
+				wave1X="48"
+				wave2X="48"
+				wave3X="48"
+				wave4X="48"
+			/>
+		) : (
+			<Waves
+				id="gentle-wave-header"
+				wave1X="0"
+				wave2X="48"
+				wave3X="120"
+				wave4X="68"
+			/>
+		)
+	}
+	<header role="banner" class="main-header centered-content">
+		<Lightbulb />
+		<div class={"site-name"}>
+			{isOnHomePage ? SITE_TITLE : <a href="/">{SITE_TITLE}</a>}
+		</div>
+	</header>
+</>

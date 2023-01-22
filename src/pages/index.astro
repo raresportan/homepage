@@ -1,0 +1,64 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+import Bio from "../components/Bio.astro";
+import Header from "../components/Header.astro";
+import { formatDate, slug, slugify } from "../lib/utils";
+
+// Use Astro.glob() to fetch all posts, and then sort them by date.
+const posts = (await Astro.glob("../content/*/*.{md,mdx}")).sort(
+	(a, b) =>
+		new Date(b.frontmatter.pubDate).valueOf() -
+		new Date(a.frontmatter.pubDate).valueOf()
+);
+
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header isOnHomePage={true}/>
+		<Bio />
+		<main>
+			<div class="centered-content">
+				{
+					posts.map((post) => (						
+						<article>
+							<header>
+								<h2>
+									<a href={slug(post)}>
+										{post.frontmatter.title}
+									</a>
+								</h2>
+								<time datetime={post.frontmatter.pubDate}>
+									{formatDate(post.frontmatter.pubDate)} •{" "}
+									{post.frontmatter.minutesRead}
+									{post.frontmatter.keywords ? (
+										<>
+											{" "}
+											•{" "}
+											<em>
+												{" "}
+												{post.frontmatter.keywords.map(k => <a href={`/tags/${slugify(k)}`}>{k}</a>)}
+											</em>
+										</>
+									) : (
+										""
+									)}
+								</time>
+							</header>
+							<section>
+								<p>{post.frontmatter.excerpt}&#8230;</p>
+							</section>
+						</article>
+					))
+				}
+			</div>
+		</main>
+		<Footer isOnHomePage={true}/>
+	</body>
+</html>

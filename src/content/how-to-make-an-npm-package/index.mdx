@@ -1,0 +1,381 @@
+---
+title: How to create an NPM package
+pubDate: 2020-06-05
+description: All the steps you need to follow to share your JavaScript code with the world as an NPM package
+keywords: ["npm", "node.js", "Github", "JavaScript"]
+---
+
+I’ve written some code that I thought might be useful to others, so I decided to share the code as NPM packages.
+I ended up creating two packages and made some mistakes on the way.
+
+One thing I want to point out is that I'm hosting my code on GitHub. This is not required, you can host your code anywhere you want.
+But since I'm using GitHub I'll also provide some (optional) GitHub related tips.
+
+## Install Node.js
+
+If you didn't have it already, you need to get Node.js from [https://nodejs.org/en/](https://nodejs.org/en/). I recommend the LTS edition.
+Type `node -v` and `npm -v` in a terminal if you are not sure if you have it:
+
+```bash
+$ node -v
+v11.15.0
+$ npm -v
+6.7.0
+```
+
+npm comes with node. (npm is an abbreviation for Node Package Manager.)
+
+## Choose the Package Name
+
+Think a bit about your package name. Make sure the name conveys the package purpose as best as possible.
+When you decided on the name, check if the name is available, for example by going to [npmjs.org](https://www.npmjs.com/)
+and searching for your package name or using `npm search`. If it is taken, you'll need to come up with another one.
+
+Tip: You should use the kebab-case naming for your package if its name consists of several words. All lowercase with - separating words.
+
+Let's assume you decided to go with `dates-and-times`: an npm package with utility functions related to date and time.
+
+## Start the project
+
+I prefer to first create a new project on [Github](https://github.com/). Of course, you need to have a GitHub account if you want to do the same.
+There are some settings I prefer to do from the start because otherwise, I forget about them.
+Then I just clone it the project on my local machine by running `git clone <repo-url>.git` in a terminal.
+
+Assuming the GitHub URL is https://github.com/janedoe/dates-and-times/, to clone it, you run:
+
+```bash
+git clone https://github.com/janedoe/dates-and-times.git
+```
+
+This creates the `dates-and-times` folder with the repository content.
+
+Or, you can create a new folder somewhere on the disk and move inside it:
+
+```bash
+$ mkdir dates-and-times
+$ cd dates-and-times
+dates-and-times$
+```
+
+Now, to initialize the project, type the following while you are inside the `dates-and-times` folder:
+
+```bash
+npm init
+```
+
+Answer the questions, don't worry, you can change them later. The result is the creation of a file called `package.json`
+that should look like this:
+
+```json
+{
+  "name": "dates-and-times",
+  "version": "0.1.0",
+  "description": "A collection of date and time related functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jane Doe",
+  "license": "MIT"
+}
+```
+
+### Implement the main file
+
+Whatever you choose to be your main file (like `index.js`) will be loaded by the projects that will use your npm package.
+Here you export all the functionality provided by your package.
+
+For instance, let's assume we want to create a package that provides a greeting function:
+
+```js
+const greeting = (date = new Date()) => {
+  const weekDay = date.toLocaleDateString("default", { weekday: "long" });
+  return `Enjoy the rest of your ${weekDay}!`;
+};
+
+module.exports = greeting;
+```
+
+The code that will use the package will import the functionality like this:
+
+```js
+const greeting = require("dates-and-times");
+
+// use it
+console.log(greeting());
+console.log(greeting(new Date("2020-06-01"))); // Enjoy the rest of your Sunday!
+```
+
+### Write tests
+
+I prefer to use [jest](https://jestjs.io/) but feel free to use what you like.
+First, install the test library as a dev dependency:
+
+```bash
+dates-and-times$ npm i --save-dev jest
+```
+
+Then change the test script from `package.json`:
+
+```json
+{
+  "name": "dates-and-times",
+  "version": "0.1.0",
+  "description": "A collection of date and time related functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Jane Doe",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^26.0.1"
+  }
+}
+```
+
+Create a `index.test.js` with tests for your code:
+
+```js
+const greeting = require("dates-and-times");
+
+test("week day is correct", () => {
+  expect(greeting(new Date("2020-06-01"))).toEqual(
+    "Enjoy the rest of your Sunday!"
+  );
+  expect(greeting(new Date("2020-12-25"))).toEqual(
+    "Enjoy the rest of your Friday!"
+  );
+});
+```
+
+Run the tests:
+
+```bash
+dates-and-times$ npm test
+```
+
+### Specify what files to publish
+
+A project can contain a lot of files that should not be part of the published package.
+For example the test files, the development dependencies, and so on.
+
+You should specify which files need to be shipped.
+
+```json
+{
+  "name": "dates-and-times",
+  "version": "0.1.0",
+  "description": "A collection of date and time related functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "files": ["index.js"],
+  "author": "Jane Doe",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^26.0.1"
+  }
+}
+```
+
+### Add a README
+
+You should add a README.md file where you explain how to install the package and how to use it.
+Users will read this to decide if your package suits their needs. So spend some time on this and
+make a compelling offer.
+
+Provide examples and explain each option when the package takes parameters or configurations.
+
+This file must be written in Markdown language. You might not no Markdown but is very easy to pick up.
+[Here](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) is a cheat sheet if you need it.
+
+### Test your package like a user
+
+You can create a separate test project and add your package as a dependency.
+To do this first pack you package as it will be done when published.
+
+```bash
+$ npm pack
+npm notice
+npm notice 📦  dates-and-times@0.1.0
+npm notice === Tarball Contents ===
+npm notice 939B  package.json
+npm notice 2.1kB index.js
+npm notice 1.1kB LICENSE
+npm notice 5.3kB README.md
+npm notice === Tarball Details ===
+npm notice name:          dates-and-times
+npm notice version:       0.1.0
+npm notice filename:      dates-and-times-0.1.0.tgz
+npm notice package size:  5.0 kB
+npm notice unpacked size: 15.4 kB
+npm notice shasum:        574b4bb33f49679c89283211b1a336d4a5fa512a
+npm notice integrity:     sha512-/QiwJPZKUxOHu[...]5s106I5TyJ0lQ==
+npm notice total files:   5
+npm notice
+dates-and-times-0.1.0.tgz
+```
+
+This is a good way to verify that you are not shipping unwanted files.
+Note that some files like `package.json` must always be in the package.
+
+Then create a new project in a different folder and add your tgz as a dependency:
+
+```bash
+$ mkdir proof
+$ cd proof
+proof$ npm init -y
+proof$ npm i <path-to-file>dates-and-times-0.1.0.tgz
+```
+
+Create a proof.js file and use your package:
+
+```js
+const greeting = require("dates-and-times");
+console.log(greeting());
+```
+
+Finally, run it:
+
+```bash
+$ node proof.js
+Enjoy the rest of your Monday!
+```
+
+## Create an npm account
+
+You only need to login once, so if you logged in before, you don't need to do it again.
+To check if you are already logged in type:
+
+```bash
+$ npm whoami
+```
+
+It prints your username if you are logged in already.
+
+If you don't have an npm account, go to [npmjs](https://www.npmjs.com/) and create an [account](https://www.npmjs.com/signup) if you don't have one.
+You will receive a confirmation email, don't forget to confirm it, otherwise, you cannot publish your package.
+
+Login from the terminal:
+
+```bash
+$ npm login
+Username: janedoe
+Password:
+Email: (this IS public) janedoe@gmail.com
+Logged in as janedoe on https://registry.npmjs.org/
+```
+
+## Publish the package
+
+Confirm the code works as expected. Once you publish your package you cannot unpublish it, you can only publish new versions.
+Check that the `test` script is not throwing errors, which does by default (`"test": "echo \"Error: no test specified\" && exit 1"`)
+
+From the project folder, run:
+
+```bash
+dates-and-times$ npm publish
+```
+
+If there are no errors, go to [npmjs](https://www.npmjs.com/) and the new package should be among your packages.
+
+## Publish a new version
+
+There's a good chance that you'll find some small issues later. Like typos, missing stuff from README, console.logs left in the code, etc.
+You'll want to fix them, and each time you'll have to publish a new version.
+
+You should start at version 0.0.0 or 0.1.0. Your fixes will go in 0.0.1 or 0.1.1, etc.
+When your package is ready for usage, bump the version to 1.0.0. (One mistake I did was to start from 1.0.0)
+
+The package version should follow the [_semantic versioning_](https://semver.org/) system, MAJOR.MINOR.PATCH:
+
+- increase PATCH version for small bug fixes, typos, documentation updates, etc.
+- increase MINOR version when you add new functionality, compatible with the last version. Or when you add important performance improvements.
+  performance improvements.
+- increase MAJOR version when you make major changes, incompatible with the last version. Or when you add new features.
+
+But there are several things that you need to do each time you publish a new version:
+
+- Update version in package.json
+- Push the package to Github
+- Push the package to npm
+- Create release notes for the new version
+
+You might forget about some of them (as I did 😞) so you might need a tool that helps you with this, like [np](https://www.npmjs.com/package/np)
+or [GitHub Actions](https://github.com/features/actions).
+
+### np
+
+np works only with a remote Git repository, like GitHub. Also, you must have pushed to the remote repository at least once.
+
+1. Install it once globally, then you can use it in multiple projects:
+
+```bash
+$ npm install --global np
+```
+
+2. Run it inside your project when you want to publish a new version:
+
+```bash
+dates-and-times$ np
+```
+
+If there are no errors your new package will be published.
+
+### Github Actions
+
+If you are using Github, you might use the Github Actions:
+
+import { Picture } from "@astrojs/image/components";
+
+<Picture
+  src={import("./github-actions.png")}
+  widths={[480, 800]}
+  formats={["webp"]}
+  sizes="(max-width: 600px) 480px, 800px"
+  alt="Github Actions on github.com"
+/>
+
+The idea is to add a `.github/workflows` folder inside your project with a .yml configuration file.
+For details see https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
+
+Note that in this case, you will have to get an auth token from npmjs, and add it to your GitHub repository as a Secret.
+Plus, you need to do this for each of your repositories.
+
+Here is an example:
+
+```yml
+name: Node.js Package
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: yarn
+      - run: yarn test
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - run: yarn
+      - run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+```

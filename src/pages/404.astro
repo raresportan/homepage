@@ -1,0 +1,22 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    </head>
+    <body>
+        <Header />
+        <div class="four-oh-four centered-content">
+            <h1>404</h1>
+            <p>
+                Oops! Guess what, there's no such page. <br />
+                <a href="/">Let's go home</a>
+            </p>
+        </div>
+    </body>
+</html>
