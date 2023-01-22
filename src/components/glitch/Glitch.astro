@@ -1,0 +1,281 @@
+---
+const { version = 0 } = Astro.props;
+
+let containerClass;
+switch (version) {
+    case 1:
+        containerClass = "container1";
+        break;
+    case 2:
+        containerClass = "container2";
+        break;
+    case 3:
+        containerClass = "container3";
+        break;
+    default:
+        containerClass = "container";
+}
+---
+
+<style>
+    .container,
+    .container1,
+    .container2,
+    .container3 {
+        max-width: 100%;
+        position: relative;
+        overflow: hidden;
+        --time: "";
+    }
+    .container > img,
+    .container1 > img,
+    .container2 > img,
+    .container3 > img {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .container1 {
+        background-color: khaki;
+    }
+    .container1 > img {
+        opacity: 0;
+    }
+
+    .container2 .overlay,
+    .container3 .overlay {
+        background-color: mediumspringgreen;
+        background-image: none;
+    }
+    .container3::before {
+        animation-name: timer;
+    }
+    .container3::before,
+    .container3 .overlay {
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+        animation-timing-function: steps(21, jump-start);
+    }
+
+    .container3::before {
+        content: var(--time);
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        color: #fff;
+        padding: 0.2rem;
+        clip-path: none;
+        z-index: 1000;
+        text-shadow: 1px 1px 4px black;
+    }
+
+    .overlay {
+        display: block;
+        animation-duration: 2s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-name: glitch;
+        animation-direction: alternate;
+        background-image: url("/cyberpunk.jpg");
+        transform: rotate(-2deg);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: 100%;
+        background-position: top;
+        background-repeat: no-repeat;
+    }
+
+    .warning {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.6);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        font-style: italic;
+        font-size: 1.2rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .container3,
+        .overlay {
+            animation: none;
+        }
+        .warning {
+            display: flex;
+        }
+    }
+
+    @keyframes timer {
+        0% {
+            --time: "0s";
+        }
+        5% {
+            --time: "1s";
+        }
+        10% {
+            --time: "2s";
+        }
+        15% {
+            --time: "3s";
+        }
+        20% {
+            --time: "4s";
+        }
+        25% {
+            --time: "5s";
+        }
+        30% {
+            --time: "6s";
+        }
+        35% {
+            --time: "7s";
+        }
+        40% {
+            --time: "8s";
+        }
+        45% {
+            --time: "9s";
+        }
+        50% {
+            --time: "10s";
+        }
+        55% {
+            --time: "10s";
+        }
+        60% {
+            --time: "12s";
+        }
+        65% {
+            --time: "13s";
+        }
+        70% {
+            --time: "14s";
+        }
+        75% {
+            --time: "15s";
+        }
+        80% {
+            --time: "16s";
+        }
+        85% {
+            --time: "17s";
+        }
+        90% {
+            --time: "18s";
+        }
+        95% {
+            --time: "19s";
+        }
+        100% {
+            --time: "20s";
+        }
+    }
+
+    @keyframes glitch {
+        0% {
+            opacity: 1;
+            transform: translateZ(0) rotate(-2deg);
+            clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%);
+        }
+        2% {
+            clip-path: polygon(0 78%, 100% 78%, 100% 100%, 0 100%);
+            transform: translate(-5px) rotate(-2deg);
+        }
+        6% {
+            clip-path: polygon(0 78%, 100% 78%, 100% 100%, 0 100%);
+            transform: translate(5px) rotate(-2deg);
+        }
+        8% {
+            clip-path: polygon(0 78%, 100% 78%, 100% 100%, 0 100%);
+            transform: translate(-5px) rotate(-2deg);
+        }
+        9% {
+            clip-path: polygon(0 78%, 100% 78%, 100% 100%, 0 100%);
+            transform: translate(0) rotate(-2deg);
+        }
+        10% {
+            clip-path: polygon(0 54%, 100% 54%, 100% 44%, 0 44%);
+            transform: translate3d(5px, 0, 0) rotate(-2deg);
+        }
+        13% {
+            clip-path: polygon(0 54%, 100% 54%, 100% 44%, 0 44%);
+            transform: translateZ(0) rotate(-2deg);
+        }
+        13.1% {
+            clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+            transform: translate3d(5px, 0, 0) rotate(-2deg);
+        }
+        15% {
+            clip-path: polygon(0 60%, 100% 60%, 100% 40%, 0 40%);
+            transform: translate3d(5px, 0, 0) rotate(-2deg);
+        }
+        20% {
+            clip-path: polygon(0 60%, 100% 60%, 100% 40%, 0 40%);
+            transform: translate3d(-5px, 0, 0) rotate(-2deg);
+        }
+        20.1% {
+            clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+            transform: translate3d(5px, 0, 0) rotate(-2deg);
+        }
+        25% {
+            clip-path: polygon(0 85%, 100% 85%, 100% 40%, 0 40%);
+            transform: translate3d(5px, 0, 0) rotate(-2deg);
+        }
+        30% {
+            clip-path: polygon(0 85%, 100% 85%, 100% 40%, 0 40%);
+            transform: translate3d(-5px, 0, 0) rotate(-2deg);
+        }
+        30.1% {
+            clip-path: polygon(0 0, 0 0, 0 0, 0 0) rotate(-2deg);
+        }
+        35% {
+            clip-path: polygon(0 63%, 100% 63%, 100% 80%, 0 80%);
+            transform: translate(-5px) rotate(-2deg);
+        }
+        40% {
+            clip-path: polygon(0 63%, 100% 63%, 100% 80%, 0 80%);
+            transform: translate(5px) rotate(-2deg);
+        }
+        45% {
+            clip-path: polygon(0 63%, 100% 63%, 100% 80%, 0 80%);
+            transform: translate(-5px) rotate(-2deg);
+        }
+        50% {
+            clip-path: polygon(0 63%, 100% 63%, 100% 80%, 0 80%);
+            transform: translate(0) rotate(-2deg);
+        }
+        55% {
+            clip-path: polygon(0 10%, 100% 10%, 100% 0, 0 0);
+            transform: translate3d(5px, 0, 0) rotate(-2deg);
+        }
+        60% {
+            clip-path: polygon(0 10%, 100% 10%, 100% 0, 0 0);
+            transform: translateZ(0) rotate(-2deg);
+            opacity: 1;
+        }
+        60.1% {
+            clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+            opacity: 1;
+        }
+        to {
+            clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+            opacity: 1;
+        }
+    }
+</style>
+
+<div class={containerClass}>
+    <img src={"./cyberpunk.jpg"} alt="Cyberpunk 2077 screenshot" />
+    <span class="overlay"> </span>
+    <span class="warning">
+        Animation blocked because you prefer reduced motion.
+    </span>
+</div>

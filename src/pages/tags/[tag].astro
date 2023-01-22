@@ -1,0 +1,62 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import { formatDate, slug, slugify, slugifyAll, getUniqueTags } from "../../lib/utils";
+
+export async function getStaticPaths() {
+    const posts = await Astro.glob("../../content/*/*.{md,mdx}");
+    const tags = getUniqueTags(posts);
+
+    return tags.map(tag => {
+        return {
+            params: { tag: slugify(tag) },
+            props: { tag },
+        };
+    });
+}
+
+const { tag } = Astro.props;
+const posts = (await Astro.glob("../../content/*/*.{md,mdx}")).sort(
+		(a, b) =>
+			new Date(b.frontmatter.pubDate).valueOf() -
+			new Date(a.frontmatter.pubDate).valueOf()
+);
+
+const getPostsByTag = (posts, tag) => posts.filter(post => post.frontmatter.keywords)
+                                            .filter(post => slugifyAll(post.frontmatter.keywords).includes(slugify(tag)));
+
+const tagPosts = getPostsByTag(posts, tag);
+---    
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>		
+        <BaseHead title={`Tag: ${tag}`} description={''} />
+	</head>
+
+	<body class:list={["light"]}>
+		<Header title={tag} isOnHomePage={false} />
+		<main id="main" role="main">            
+			<section class="post tag flow centered-content">
+				<header>
+					<h1 class="title">Tag: {tag}</h1>					
+				</header>			
+                {tagPosts.map(post => {
+                    return (<article>							
+								<h2>
+									<a href={'../'+slug(post)}>
+										{post.frontmatter.title}
+									</a>
+								</h2>	
+								<time datetime={post.frontmatter.pubDate}>
+									{formatDate(post.frontmatter.pubDate)}
+								</time>										
+							<section>
+								<p>{post.frontmatter.excerpt}&#8230;</p>
+							</section>
+						</article>)
+                })}	
+			</section>
+		</main>
+	</body>
+</html> 

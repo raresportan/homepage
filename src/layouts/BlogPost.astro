@@ -1,0 +1,110 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Waves from "../components/Waves.astro";
+import Newsletter from "../components/Newsletter.astro";
+import TwitterShare from "../components/TwitterShare.astro";
+
+export interface Props {
+	content: {
+		title: string;
+		description: string;
+		pubDate?: string;
+		updatedDate?: string;
+		heroImage?: string;
+		keywords?: Array<string>;
+		minutesRead?: string;
+		twitterImage?: string;
+	};
+}
+
+export const formatDate = (dateString) => {
+	if (!dateString) {
+		return "";
+	}
+	const options = { year: "numeric", month: "long", day: "2-digit" };
+	const date = new Date(dateString);
+	try {
+		return date.toLocaleDateString("default", options);
+	} catch (err) {
+		// handle IE 11
+		return date.toLocaleDateString();
+	}
+};
+
+const {
+	content: {
+		title,
+		description,
+		pubDate,
+		updatedDate,
+		keywords,
+		minutesRead,
+		twitterImage
+	},
+} = Astro.props as Props;
+---
+
+<html lang="en">
+	<head>
+		<link href="./prism-dark.css" rel="stylesheet" />
+		<BaseHead title={title} description={description} twitterImage={twitterImage} />
+	</head>
+
+	<body class:list={["light"]}>
+		<Header title={title} isOnHomePage={false} />
+		twitterImage={twitterImage}
+		<main id="main" role="main">
+			<article class="post flow centered-content">
+				<header>
+					<h1 class="title">{title}</h1>
+					{
+						pubDate && (
+							<time>
+								{formatDate(pubDate)}{" "}
+								{minutesRead && (
+									<>
+										{" "}
+										• <em>{minutesRead}</em>
+									</>
+								)}
+								{keywords && (
+									<>
+										{" "}
+										• <em>{keywords.join(" ")}</em>
+									</>
+								)}
+							</time>
+						)
+					}
+					{
+						updatedDate && (
+							<div>
+								Last updated on <time>{updatedDate}</time>
+							</div>
+						)
+					}
+				</header>
+				<slot />
+				
+			</article>
+
+			<section class="post-footer">
+				<Waves
+					id="gentle-wave-login"
+					className="footer"
+					wave1X="0"
+					wave2X="48"
+					wave3X="120"
+					wave4X="68"
+				/>
+				<TwitterShare title={title} />
+				<div class="centered-content">
+					<Newsletter/>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

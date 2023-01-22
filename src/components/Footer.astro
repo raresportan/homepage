@@ -1,0 +1,36 @@
+---
+import { SITE_SOCIAL } from "../config";
+
+const { isOnHomePage } = Astro.props;
+---
+
+<footer class={isOnHomePage ? 'home' : ''}>
+	<!-- <p>&copy;2020-present Rares Portan. All Rights Reserved.</p> -->
+	<ul class="centered-content">
+		<li><a href="/rss.xml" target="_blank" rel="noreferrer">rss</a></li>
+		<li>
+			<a
+				href={`https://twitter.com/${SITE_SOCIAL.twitter}`}
+				target="_blank"
+				rel="noreferrer"
+				>twitter
+			</a>
+		</li>
+		<li>
+			<a
+				href={`https://github.com/${SITE_SOCIAL.github}`}
+				target="_blank"
+				rel="noreferrer"
+				>github
+			</a>
+		</li>
+		<li>
+			<a
+				href={`https://www.linkedin.com/in/${SITE_SOCIAL.linkedin}`}
+				target="_blank"
+				rel="noreferrer"
+				>linkedin
+			</a>
+		</li>
+	</ul>
+</footer>
