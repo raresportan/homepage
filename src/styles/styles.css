@@ -221,6 +221,9 @@ time > em > a{
 .dark time > em > a{
     background: rgba(0,0,0,.5);
 } 
+.dark time > em > a:hover{
+    color:#fff;
+}
 
 header {
     margin-bottom: 1em;
