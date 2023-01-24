@@ -1,6 +1,6 @@
 ---
 title: Switching from Gatsby to Astro
-pubDate: 2023-01-22
+pubDate: 2023-01-24
 description: I've switched my blog from Gatsby to Astro. It was not as easy as I dreamed. 
 keywords: ["Astro"]
 ---
