@@ -440,6 +440,15 @@ declare module 'astro:content' {
   data: any
 },
 },
+"switch-to-astro": {
+"index.md": {
+  id: "index.md",
+  slug: "index",
+  body: string,
+  collection: "switch-to-astro",
+  data: any
+},
+},
 "the-future-of-code-is-no-code": {
 "index.mdx": {
   id: "index.mdx",
