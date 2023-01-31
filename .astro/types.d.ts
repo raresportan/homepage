@@ -80,6 +80,15 @@ declare module 'astro:content' {
   data: any
 },
 },
+"chatgpt-for-web-developers": {
+"index.md": {
+  id: "index.md",
+  slug: "index",
+  body: string,
+  collection: "chatgpt-for-web-developers",
+  data: any
+},
+},
 "covid-tracker": {
 "index.md": {
   id: "index.md",
