@@ -1,6 +1,6 @@
 ---
 title: ChatGPT for web developers
-pubDate: 2023-01-30
+pubDate: 2023-02-04
 description: Explorations on how ChatGPT can help us, the web developers.
 keywords: ["ChatGPT"]
 ---
