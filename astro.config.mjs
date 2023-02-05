@@ -14,12 +14,12 @@ export default defineConfig({
     extendDefaultPlugins: true,
     syntaxHighlight: 'prism',
     remarkPlugins: [remarkSocialImage],
-    rehypePlugins: [remarkReadingTime, rehypeSlug, rehypeAutolinkHeadings],    
+    rehypePlugins: [remarkReadingTime, rehypeSlug, [rehypeAutolinkHeadings, {behavior:'append' }]],    
   },
   integrations: [
     mdx({
       remarkPlugins: [remarkSocialImage],
-      rehypePlugins: [remarkReadingTime, rehypeSlug, rehypeAutolinkHeadings],
+      rehypePlugins: [remarkReadingTime, rehypeSlug, rehypeAutolinkHeadings, [rehypeAutolinkHeadings, {behavior:'append'}]],
     }), 
     sitemap(),   
     image()]

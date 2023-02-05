@@ -1,7 +1,7 @@
 {
-  "name": "@example/blog",
-  "version": "0.0.1",
-  "private": true,
+  "name": "raresportan.com",
+  "version": "1.0.0",
+  "private": false,
   "scripts": {
     "build": "npm run build:lambda & npm run build:app",
     "build:app": "astro build",
@@ -12,13 +12,13 @@
     "astro": "astro"
   },
   "devDependencies": {
-    "@astrojs/image": "^0.12.2-beta.0",
-    "@astrojs/mdx": "^1.0.0-beta.2",
+    "@astrojs/image": "^0.13.1",
+    "@astrojs/mdx": "^0.15.2",
     "@astrojs/rss": "^1.0.0",
-    "@astrojs/sitemap": "^1.0.0",
-    "astro": "^2.0.0-beta.3",
+    "@astrojs/sitemap": "^1.0.1",
+    "astro": "^2.0.4",
     "encoding": "^0.1.13",
-    "puppeteer": "^15.1.1",
+    "puppeteer": "^18.1.1",
     "rehype-slug": "^5.1.0"
   },
   "dependencies": {

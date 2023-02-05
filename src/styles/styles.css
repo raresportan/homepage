@@ -1,3 +1,4 @@
+@import url(https://fonts.bunny.net/css?family=kalam:300);
 :root {
     --yellow: #ffc100;
     --yellow-light: #fee488;
@@ -75,21 +76,22 @@ h4 a {
 }
 
 a[aria-hidden=true]:not([class]){
-    opacity: 0;
-    transition: opacity .5s ease-in-out;
+    /* opacity: 0; */
+    /* transition: opacity .5s ease-in-out; */
     background: none;
+    color: var(--yellow);
 }
 a[aria-hidden=true]:before{
-    content: '🔗';
-    margin-left: -1.2em;
-    padding-right: 0.2em;       
+    content: '#';
+    margin-left: .2em;
+    /* padding-right: 0.2em;        */
 }
-h1:hover a[aria-hidden=true],
+/* h1:hover a[aria-hidden=true],
 h2:hover a[aria-hidden=true],
 h3:hover a[aria-hidden=true],
 h4:hover a[aria-hidden=true]{
     opacity: 1;
-}
+} */
 
 
 
@@ -141,9 +143,10 @@ hr {
     border-top: 1px solid var(--separator-color);
 }
 
-ul {
+ol, ul {
     padding: 0 0 0 1rem;
     list-style: square;
+    margin-top: 1rem !important;
 }
 
 nav ul {
@@ -200,10 +203,16 @@ pre > code {
     }
 }    
 
-
 blockquote {
     margin: 2rem;
-    font-style: italic;
+    font-family: 'Kalam';
+}
+blockquote > ul {
+    margin: 0;
+}
+blockquote > ul > li {
+    margin: 0;
+    padding-bottom: 0;
 }
 
 time {
@@ -755,6 +764,13 @@ table {
 
 thead {
     text-align: left;
+}
+
+iframe {
+    width: 100%;
+    height: 500px;
+    border: 0;
+    border-radius: 5px;
 }
 
 :not(pre)>code[class*="language-"] {
