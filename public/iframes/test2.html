@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: repeating-linear-gradient(45deg, #faf0e6, #faf0e6 10px, #f0e6fa 10px, #f0e6fa 20px);
+            font-family: 'Lato', sans-serif;
+            color: #333;
+            text-align: center;
+            }
+
+            header {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 50px 0;
+            animation: moveIn 1s ease-out;
+            }
+
+            .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            animation: moveIn 1s ease-out;
+            }
+
+            nav {
+            margin: 50px 0;
+            animation: moveIn 1s ease-out;
+            }
+
+            .social-link {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0 10px;
+            animation: moveIn 1s ease-out;
+            }
+
+            @keyframes moveIn {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            }
+
+            @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+    </style>
+    <title>My Profile Page</title>
+  </head>
+  <body>
+    <header>
+      <img src="./jon.jpeg" alt="Jon" class="profile-img">
+      <h1>Jon Snow</h1>
+      <p>Lorem ipsum dolor sit amet</p>
+    </header>
+    <main>
+      <nav>
+        <a href="https://linkedin.com/in/yourusername" class="social-link">LinkedIn</a> | 
+        <a href="https://github.com/yourusername" class="social-link">GitHub</a> | 
+        <a href="mailto:youremail@example.com" class="social-link">Email</a>
+      </nav>
+    </main>
+  </body>
+</html>

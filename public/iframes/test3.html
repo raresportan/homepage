@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.bunny.net/Great-Vibes');
+
+body {
+  font-family: 'Great Vibes', cursive;
+  background: linear-gradient(to right, #43cea2, #185a9d);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.light-theme {
+  background: linear-gradient(to right, #f1c40f, #16a085);
+  color: #333;
+}
+
+.dark-theme {
+  background: linear-gradient(to right, #2c3e50, #34495e);
+  color: #fff;
+}
+
+.profile-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+nav {
+  margin-top: 1rem;
+}
+
+.social-link {
+  color: inherit;
+  text-decoration: none;
+  margin-right: 1rem;
+}
+
+    </style>
+    <title>My Profile Page - Jon Snow - Web Developer</title>
+    <meta name="description" content="This is the personal profile page of Jon Snow, a web developer. Here you can find his skills, experience and contact information">
+  </head>
+  <body class="light-theme">
+    <header>
+      <img src="jon.jpeg" alt="Jon Snow, Web Developer" class="profile-img">
+      <h1>Jon Snow</h1>
+       <p>Web Developer</p>
+    </header>
+    <main>
+      <nav>
+        <a href="https://linkedin.com/in/jonsnow" class="social-link">LinkedIn</a> | 
+        <a href="https://github.com/jonsnow" class="social-link">GitHub</a> | 
+        <a href="mailto:jonsnow@example.com"" class="social-link">Email</a>
+      </nav>
+    </main>
+    <button id="theme-toggle-button">Toggle Theme</button>
+    <script>
+      const toggleButton = document.getElementById('theme-toggle-button');
+      const body = document.querySelector('body');
+
+      toggleButton.addEventListener('click', () => {
+        body.classList.toggle('light-theme');
+        body.classList.toggle('dark-theme');
+      });
+    </script>
+  </body>
+</html>
+

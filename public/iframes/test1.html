@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://bunnycdn.com/font/lovely-font.css');
+
+        body {
+        background: linear-gradient(to right, #f857a6, #ff5858);
+        font-family: 'LovelyFont', sans-serif;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+
+        .container {
+        background-color: rgba(255, 255, 255, 0.8);
+        max-width: 800px;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        animation: move-up 0.5s ease-out;
+        }
+
+        @keyframes move-up {
+        from {
+            transform: translateY(40px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        }
+    </style>
+    <title>My Profile Page</title>
+  </head>
+  <body>
+    <div class="container">
+      <img src="jon.jpeg" alt="Jon" style="width: 200px; height: 200px; border-radius: 50%;">
+      <h1>Jon Snow</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p>
+        <a href="https://linkedin.com/in/yourusername">LinkedIn</a> | 
+        <a href="https://github.com/yourusername">GitHub</a> | 
+        <a href="mailto:youremail@example.com">Email</a>
+      </p>
+    </div>
+  </body>
+</html>
