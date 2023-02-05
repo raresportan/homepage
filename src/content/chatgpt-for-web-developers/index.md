@@ -130,7 +130,7 @@ My prompt was:
 ### HTML and CSS
 After some back and forth he generated this
 
-<iframe src="./iframes/test1.html"></iframe>
+<iframe src="/iframes/test1.html"></iframe>
 
 Then I told him to "Add SVG icons to all links" but that took too long. It generates each SVG path character by character... 
 
@@ -183,7 +183,7 @@ ChatGPT was able to provide some recommendations:
 
 
 Here is the result. Why in the world would he replace the entire look & feel with an uglier version? People associate only inaccessible sites with beauty?
-<iframe src="./iframes/test2.html" ></iframe>
+<iframe src="/iframes/test2.html" ></iframe>
 
 
 But the HTML is much better now:
@@ -279,7 +279,7 @@ I've asked to add a light and dark theme and implement a toggle button between t
 
 So I've asked first for the HTML, then for the CSS, and the for the JavaScript.
 
-<iframe src="./iframes/test3.html" ></iframe>
+<iframe src="/iframes/test3.html" ></iframe>
 
 Here is how the toggle button works:
 ```js
