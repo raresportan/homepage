@@ -1,0 +1,372 @@
+---
+title: "10 ways to render a webpage"
+pubDate: 2023-02-16
+description: "I'm lost at the sea of webpage rendering modes: SPA, MPA, SSR, SSG, ISR, OMG, WAT. It's time to clear things up."
+keywords: ["JavaScript"]
+---
+There used to be a new JavaScript library every day. That was fine, I didn't care, I continued to implement my web apps using Angular or React or 
+whatever it was. 
+
+But "everyone" agreed on which was the best way to render a web app. It was not the ideal way but at least everyone was happy 
+to do the same mistake. Now there is a new problem. Even if you continue to use just React or Angular or whatever, you still have to decide what is 
+the best way to *render* your web pages. 
+
+Here I will document the options available at the beginning of the year 2023. The list may be much longer this time next year.
+
+What do I mean by a *rendering way/mode/pattern/style*? __Is the way code and data are transformed in HTML.__ You can think of rendering
+as a glorified pure function that takes some data as input and returns HTML as output.
+
+Concrete examples:
+- Blog posts are created from markdown (data) by some generator(code)
+- User access is granted based on the response(data) from an API(code)
+- Tweets are rendered by a React(code) from user-entered small texts(data) and the number of interactions(data)
+- Marketing pages are created using a template(code) and a Content management system (data)
+- Youtube renders with a custom framework(code) a list of recommended videos based on what you watch and searches
+
+__HTML.__ The backbone of the Internet for decades. 
+
+It is still that because it has many advantages, most important is available 
+on almost any device with a screen - it's the true [Write once, run anywhere](https://en.wikipedia.org/wiki/Write_once,_run_anywhere) 
+Holy Grail of software. Another major advantage of HTML is [accessibility](https://www.w3.org/standards/webdesign/accessibility). 
+
+Also, HTML doesn't break. It's very forgiving. Is compatible with the first page of the internet and will be compatible with the last.
+
+There are many ways to render the HTML for a website. So many that I've lost track.
+
+I'm lost in the sea of cryptic rendering modes: SPA, MPA, SSR, SSG, ISR, OMG, and WAT. It's time to clear things up.
+
+When I think of rendering, the key issues that are at stake:
+* how fast the website loads
+* how interactive it is
+* how much it costs to run it
+
+The list is ordered by the time each technology gains popularity. It might not be an exhaustive list, somewhere someone might already come up with a different way to render it. As with JavaScript libraries, this is becoming a never ending story.
+
+## 1. Static website
+*The original way* of rendering web pages. The data is text and the text is in HTML. There is no code.
+
+import staticImage from "./static.svg";
+
+<img src={staticImage} alt="Static website" />
+
+
+These days, besides the text we can also add some CSS to make the page look better and maybe some JavaScript to add some 
+small interaction flourish like light & dark mode theme switch or big tracking and analytics libraries.
+
+You put the HTML files on a [CDN](https://en.wikipedia.org/wiki/Content_delivery_network) and the files will be 
+sent to browsers exactly as they are.
+
+The classic example is the [first page of the internet](http://info.cern.ch/hypertext/WWW/TheProject.html). Many blogs are static websites. Many marketing websites.
+
+Pros:
+* Performance: These websites are super fast.
+* Cache: Once the page reaches the browser it can be cached for a long time, this means the browser will load it from its cache(your file system) instead of loading it from the network.
+* Security: The pages cannot be hacked because there is nothing to hack. If you're not sure how to configure a server, just make sure you use a CDN instead of your server and you'll be fine.
+* Resilience: No downtime. Similar performance on every device works without JavaScript, no database or lambdas to worry about.
+* Cheap: There is nothing cheaper than a CDN, there are even a lot of free options.
+
+
+Cons:
+* No dynamic data: Don't use this for websites that show things that change often like news, stock prices, payments, account information, etc. 
+* Maintenance: It can be a nightmare to update all pages - you will dread New Year’s Eve because you’ll have to update the Copyright year on all pages.
+* Interaction: Except for links there is nothing to interact with. No buttons to push, no forms to submit.
+* Personalization: Everyone will see the same website. No way to remember any progress or preferences.
+
+
+### 1.1 ✨ Using a static site generator 
+If you're using (relatively) static data  - like blogs, marketing sites, ranking sites, magazines, etc. - the most pressing issue of maintenance can be solved using a static site generator - a tool that takes some code, templates, and 
+data source to generate the HTML pages of the website. 
+
+The advantage of using a static site generator is not only maintenance (by making changes in a single place), but you can keep your content in different formats (like markdown) or CMSs.
+
+Popular options are Hugo, Jekyl, and 11ty.
+
+Pros:
+* You get the static website pros
+* Maintenance: It's easy to update the template and regenerate the pages.
+
+Cons:
+* Static website cons except for maintenance
+
+
+## 2. Multi-page application (MPA)
+Sometimes your website needs pages rendered with data that changes. When a page is requested, the server loads data and creates the HTML on the fly 
+based on that data. 
+
+*There is code that runs on request.* 
+
+import multipageImage from "./multipage.svg";
+
+<img src={multipageImage} alt="Multi-page website" />
+
+A classic example is Amazon.com. Another notable example is any [WordPress](https://wordpress.com/) site that powers [43% off all internet](https://blog.hubspot.com/website/wordpress-stats#:~:text=(W3Techs%2C%202022),increase%20from%2039.5%25%20in%202021.).
+
+For this kind of website, you use a **server framework** like Express, Rails, Laravel, ASP.Net, and an actual **server computer.**
+The server framework you choose depends on the programming language you use to write the code. Today (almost) no one has an actual server, they 
+use Cloud providers.
+
+Pros:
+* Performance: These websites are slower than static websites, but still fast because the server is fast and not much is happening on the client. 
+For each request the server has to fetch data from a database, format it, create the HTML, and return the HTML to the client.
+* Dynamic data: Pages always render the latest available data
+* Personalization: Everyone can see a different website. You can save user preferences and provide custom content.
+* Interaction: You can add buttons to push, forms to submit, put something in the shopping cart, or write a review.
+
+Cons:
+* Security: If you use a Cloud provider, your server can be secured - however sometimes critical vulnerabilities are discovered in server frameworks and you need to patch them. 
+* Resilience: similar performance on every device, works without JavaScript, but there is a database and a server that can go down, and there can be downtime.
+* Maintenance: You have bigger problems than the header & footer, you now need to maintain a server.
+* Price: you need to understand the pricing you chose. Sadly the Cloud providers don't stop your servers if they are overused, there are a lot 
+of stories about unexpectedly big Cloud bills. 
+
+
+## 3. Single Page Application (SPA)
+A more general name for this technique is Client-Side Rendering(CSR). I'm using the SPA term because it's more popular.
+
+When [AJAX](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started) started to gain popularity, many websites 
+started to transform into *web apps*. AJAX provides a way to make a server call to get some data without the need for a full page refresh. 
+
+These web apps have a single page. __A blank page initially.__ Then the JavaScript loads and it creates the HTML. And makes 
+the HTML interactive (by adding listeners.)
+
+When you click a button, something happens, maybe a call is made to the server ([API](https://en.wikipedia.org/wiki/API)) and the data returned by the call is used to 
+update a part of the page.
+
+import spaImage from "./spa.svg";
+
+<img src={spaImage} alt="Single Page Application" />
+
+The goal of this technique is to do as much as possible in the browser. It imitates mobile apps. You have to wait for mobile apps only once when they are installed.
+
+Classic examples are Gmail and Google Maps. 
+
+This way of rendering is the _front-end developer's_ favorite. The rise of SPAs was boomed by web frameworks/libraries like React, Angular, Vue, and many others.
+
+Pros:
+* Performance: Reduced network traffic once the website is loaded, you don't load that header and footer over and over again.
+* Security: The pages are very secure, but API might not be. 
+* Interaction: Very interactive
+* Personalization: Custom content is easy as long as you accept a spinner.
+* Maintenance: Developers love working on SPAs
+* Web apps: It allows the creation of app-like websites.
+* Cheap: There is nothing cheaper than a CDN
+
+Cons:
+* Performance: Initial page load is slow because the app loads a huge amount of JavaScript. Further loading of the app can be optimized using PWA technology.
+* Unresponsive: Until the JavaScript libraries are loaded and the entire HTML is generated nothing is interactive, the app seems frozen.
+* Resilience: The site is not working if JavaScript is disabled or if there is a JavaScript error.
+* Bad for SEO: Search engines see the initial empty HTML and no content. Search engines have improved in recent years but indexing SPAs is still unreliable.
+* Resilience: worse performance on mobile devices.
+
+## 4. Server-side rendering with Hydration(SSR)
+When people realized that sending empty HTML and a ton of JavaScript to the browser is not the best idea ever, a new way of rendering 
+was born: Server-side rendering with hydration.
+
+__Instead of a CDN, you need a Server that runs code.__
+
+The Server generates the initial HTML - full page content and sends it to the browser together with JavaScript.
+
+Before JavaScript is loaded people can still use the webpage: read content, scroll, and use links - just like a static page. 
+But when JavaScript is loaded it provides interactivity to the page. The process of JavaScript adding interactivity to 
+a static page is called [_hydration_.](https://en.wikipedia.org/wiki/Hydration_(web_development))
+
+__Instead of creating the page on the client, you now create the page twice, once on the server and again on the client.__
+
+import ssrImage from "./ssr-hydration.svg";
+
+<img src={ssrImage} alt="Server side rendering with Hydration" />
+
+This technique is a combination of a "Multi-page application" and a "Single Page Application". A website like this has more than one page, but hydration is used on all.
+
+Popular meta frameworks that work this way are Next.js, Nuxt.js, and SvelteKit.
+
+Pros:
+* Dynamic data: Pages always render the latest available data
+* Interaction: Very interactive
+* Personalization: Custom content is easy.
+* SEO: since full HTML is sent from the server, the page can be indexed by search engines
+
+Cons:
+* Performance: These websites are slower than static websites and SPAs. Probably slower than most MPAs too. The big issue is that you have to wait for the server to create the page and then for JavaScript to add interaction.
+* Unresponsive: Until the JavaScript libraries are loaded and the entire HTML is generated nothing is interactive, the app seems frozen.
+* Security: If you use a Cloud provider, your server can be secured - however sometimes critical vulnerabilities are discovered in server frameworks and you need to patch them. 
+* Resilience: worse performance on mobile devices because of JavaScript load, there can be downtime.
+* Maintenance: While now you can use the same header & footer on any page, you now need to maintain a server and think about which code runs on the server and which on the client.
+* Price: Similar to MPAs.
+
+
+## 5. Server0side generation with Hydration(SSG)
+Servers cost money, many times you don't even have control over how much. Because this was a problem for many reasonable people a new 
+technique was born: "Server-side generation with Hydration (SSG)". The core of [Jamstack.](https://en.wikipedia.org/wiki/Jamstack)
+
+To get rid of the server, you "build" all pages to HTML and then put the HTML on a CDN. Just as in the case of "Server side rendering with Hydration",
+HTML contains JavaScript that hydrates the page after it is loaded.
+
+Since all this is static, you still need a way to provide personalization, data persistence, and all the things a server is capable of.
+For this you have [APIs](https://en.wikipedia.org/wiki/API). Meaning your website uses servers that don't respond with HTML but with 
+some form of data like JSON, XML, streams, and so on.  
+
+import ssgImage from "./ssg.svg";
+
+<img src={ssgImage} alt="Server side generation with Hydration" />
+
+Popular meta frameworks that work this way are the same as before Gatsby.js, Next.js, Nuxt.js, and SveltKit.
+
+Pros:
+* Serverless: You only need a CDN, since the HTML and JavaScript are static
+* Performance: These websites are super fast.
+* Security: The static pages are secure, you just need to care about the API security
+* Maintenance: Easy to maintain, you can use the same header & footer on any page.
+* Cheap: CDN is cheap, and APIs can be cheap
+* Interaction: Very interactive
+* Personalization: Custom content is possible through APIs
+
+Cons:
+* Builds: You need to do a new build every time something on a page needs to change
+* Unresponsive: Until the JavaScript libraries are loaded and the entire HTML is generated nothing is interactive, the app seems frozen.
+* Resilience: worse performance on mobile devices because of JavaScript load. Some functionality doesn't work without JavaScript. There can be downtime.
+
+
+## 6. Incremental static regeneration (ISR)
+The most important drawback of the SSG is that you need to build the whole site every time one page needs an update. It would be 
+nice if you would rebuild(regenerate) only the page that needs the update. That's exactly what Next.js thought and implemented.
+
+How this works is that they set a limited [Cache](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control) life. 
+While the page is cached, the server is not doing any work. When the cache expires, the server rebuilds the page.
+
+import isrImage from "./isr.svg";
+
+<img src={isrImage} alt="Incremental static regeneration" />
+
+One downside is that for the moment you need to use Next.js to go this route. Deployment and hosting options for this technique are limited.
+
+Pros & cons: similar to Server side rendering with Hydration(SSR). 
+
+
+## 7. Deferred Static Generation (DSG)
+A somehow similar take to ISR is the "Deferred Static Generation(DSG)."
+
+When you have a lot of pages(say 100.000) - and you're using SSG - the build takes hours. To fix the build time, they invented Deferred Static Generation, 
+which means you can make some pages "deferred" and these pages will 
+not be included in the build. 
+
+Any deferred page is built (generated) the first time somebody requests it. The nice thing is that a missing page is created only once, 
+and is it not recreated over and over as in the ISR case. DSG is just an enhanced SSG.
+
+One downside is that for the moment you need to use Gatsby.js to go this route. And deploy it on only Gatsby Cloud.
+
+Pros & cons: similar to Server side generation with Hydration(SSG)
+
+
+## 8. Islands
+In most of the above techniques, the page is not interactive until the JavaScript is loaded and event listeners
+are added to the HTML. 
+
+A crazy problem is that this happens on all pages, including those that are only HTML! And in most cases, the 
+size of the JavaScript that is loaded for no reason is bigger than the size of the HTML & CSS combined. This is bad for 
+performance!
+
+So there are a few possible situations:
+* you use extensively JavaScript on the page: use lazy loading to load some of the JavaScript only when needed
+* you use JavaScript just in a part of the page: hydrate only the interactive part
+* you don't use JavaScript at all on the page: don't load any JavaScript
+
+import islandsImage from "./islands.svg";
+
+<img src={islandsImage} alt="Islands" />
+
+A solution to hydrate only a part of the page is called _Partial Hydration_.
+
+This idea was taken further by the _Islands'_ way of rendering heavily pushed forward by Astro. 11ty is another builder that has islands.
+An Island is a part of the page that is interactive by using JavaScript (e.g. a React component) while the rest of the page is static content.
+
+What's even nicer is that Islands can be lazy loaded and hydrate only when you scroll to them - further improving the performance.
+
+Pros:
+* Performance: Faster pages since almost 0 bytes of JavaScript are loaded
+* Resilience: While a part of the page might not work without JavaScript, the rest is usable.
+* All the pros of static websites/SSR
+* Supports both SSG/SSR
+
+Cons:
+* If you have a lot of pages that load the same type of Island (e.g. you load React.js on each page) then you should try something else
+* If you need to share state between Islands things get hairier
+* There must be more but I can't think of any right now
+
+
+## 9. Streaming SSR
+Another way to tackle the problem of hydration is Streaming SSR. The idea is that you split the page rendering in chunks, when
+a chunk is ready on the server, it is sent to the client and it is also hydrated.
+
+import streamingImage from "./streaming.svg";
+
+<img src={streamingImage} alt="Streaming SSR" />
+
+So this is just an enhanced SSR. This feature can be used with Marko, Next.js, or Shopify's Hydrogen.
+
+Pros:
+* Performance: These websites are fasters then regular SSR, almost as fast as static websites. 
+* All the pros of SSR
+
+Cons:
+* Security: As always with server
+* Resilience: worse performance on mobile devices because of JavaScript load, there can be downtime.
+* Maintenance: Besides maintaining a server, debugging bugs can be a bit harder.
+* Price: servers can be pricy
+
+
+## 10. Resumability
+Finally, there is a solution that solves the pesky problem of hydration.
+
+Resumability is about pausing execution in the server and resuming it in the browser. But without 
+having to replay and download all of the application logic.
+
+The trick is that they serialize the server state in the HTML when the page is generated (SSR or SSG). 
+
+The result is that Resumability looks very much like static website rendering:
+<img src={staticImage} alt="Static website" />
+
+Event listeners (that are added by hydration without Resumability) are serialized also. For example, here we have a button, 
+its click listener function is called `handler_symbol` and the function is inside `chunk.js`
+```html
+<button on:click="./chunk.js#handler_symbol">click me</button>
+````
+Resumability implies the existence of a global listener that works like this:
+* Captures all DOM events
+* Checks if the DOM element is supposed to handle the event   
+* If yes, it loads the handler and executes it
+
+In our case, when the user clicks the "click me" button the global listerner looks at that `on:click` button attribute. Then it loads `chunk.js`, 
+and executes `handler_symbol`.
+
+The result is that this type of website has a lot of small JavaScript chunks instead of big ones. Also, only the necessary chunks are loaded. 
+
+
+Pros:
+* Performance: These websites are just as fast as static
+* Flexibility: You can generate the page with either SSR or SSG
+
+Cons:
+* For now, only one framework supports this, Qwik from builder.io
+* Resilience:
+    1. When you click that button, the chunk must be downloaded and function executed fast, just as a regular listener would do.
+    2. Doesn't work without JavaScript
+    3. In areas with spotty internet, the application could be weird, on the same page some things work, and some do not.
+
+
+## Conclusion
+As I'm writing this, a new technique is making waves on Twitter, Server functions, a sort of [RPC](https://en.wikipedia.org/wiki/Remote_procedure_call) incarnation. 
+Who knows what will be all the rage in a month? Things are moving too quickly for my taste.
+
+For years the only solutions were static websites, MPA, SPA, SSG, or SSR. (Not that I'm complaining.)
+
+The introduction of [React Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) opened the way for new techniques. Which 
+then will influence even newer techniques.
+
+Today we have a lot of good options for rendering a website. And more will arrive soon 😊. I just hope some of the mistakes will 
+be figured out earlier.
+
+As we can see from the new wave of techniques, SSR was a headache. It caused a lot of bloatware - why do you need to load a ton of JavaScript if you generate the page on the server?!
+And now everybody tries to fix that.
+
+If the "next big thing" will be better or worse... we will see.
