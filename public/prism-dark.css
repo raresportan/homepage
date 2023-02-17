@@ -4,6 +4,9 @@
 pre[class*="language-"] {
 	padding: 1rem;
 	margin: .5rem 0;	
+	overflow: hidden;
+}
+code[class*="language-"]{
 	overflow: auto;
 }
 
