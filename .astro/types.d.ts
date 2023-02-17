@@ -75,6 +75,15 @@ declare module 'astro:content' {
   data: any
 },
 },
+"10-ways-to-render-a-webpage": {
+"index.mdx": {
+  id: "index.mdx",
+  slug: "index",
+  body: string,
+  collection: "10-ways-to-render-a-webpage",
+  data: any
+},
+},
 "a-short-intro-to-partytown": {
 "index.mdx": {
   id: "index.mdx",
