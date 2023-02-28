@@ -179,8 +179,8 @@ article:first-of-type {
 }
 
 pre[class*="language-"] {
-    margin-left: -1rem;
-    margin-right: -1rem;
+    margin-left: 0;
+    margin-right: 0;
     padding-top: 1rem;
     padding-bottom: 1rem;
     position: relative;
@@ -203,10 +203,6 @@ pre > code {
     }
 }    
 
-blockquote {
-    margin: 2rem;
-    font-family: 'Kalam';
-}
 blockquote > ul {
     margin: 0;
 }
@@ -220,12 +216,15 @@ time {
 }
 time > em {
     font-style: normal;    
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: .5rem;
 }
 time > em > a{
+    white-space: nowrap;
     background: rgba(0,0,0,.05);
     padding: 0.1rem 0.5rem;
-    text-decoration: none;
-    margin-right: .2rem;
+    text-decoration: none;    
 }    
 .dark time > em > a{
     background: rgba(0,0,0,.5);

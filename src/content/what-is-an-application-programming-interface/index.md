@@ -1,7 +1,7 @@
 ---
 title: What is an application programming interface?
 pubDate: 2020-06-19
-description:
+description: API is an acronym for Application Programming Interface. It is a technical term that all programmers should know
 keywords: ["API", "JAMstack", "programming"]
 ---
 

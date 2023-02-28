@@ -89,6 +89,7 @@ select {
 body {
 	line-height: 1.5;
 	padding: 2rem 0;
+	font-size: var(--size-500);
 }
 
 a:not([class]) {
@@ -179,6 +180,11 @@ li {
 	--flow-space: var(--size-900);
 }
 
+blockquote {
+	margin: var(--flow-space,1em);
+	font-family: 'Kalam';
+}
+
 @media (min-width: 45em) {
 	h1 {
 		font-size: var(--size-900);
@@ -193,9 +199,18 @@ li {
 		font-size: var(--size-500);
 	}
 
+	blockquote{ 
+		font-size: var(--size-500);
+	}
+
 	code[class*="language-"],
 	pre[class*="language-"] {
-		font-size: var(--size-400);
+		font-size: var(--size-400);		
+	}
+	
+
+	pre[class*="language-"]{
+		overflow: hidden;
 	}
 
 	figcaption {
