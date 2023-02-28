@@ -181,7 +181,8 @@ li {
 }
 
 blockquote {
-	margin: var(--flow-space,1em);
+	margin-left: 1rem;
+	margin-right: 1rem;
 	font-family: 'Kalam';
 }
 
@@ -200,6 +201,8 @@ blockquote {
 	}
 
 	blockquote{ 
+		margin-left: 2rem;
+		margin-right: 2rem;
 		font-size: var(--size-500);
 	}
 
