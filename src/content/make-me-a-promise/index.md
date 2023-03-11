@@ -1,7 +1,7 @@
 ---
 title: Make me a Promise
 pubDate: 2020-08-10
-description:
+description: What is a Promise in JavaScript and how it works
 keywords: ["JavaScript"]
 ---
 

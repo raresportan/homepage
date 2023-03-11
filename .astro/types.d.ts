@@ -498,6 +498,15 @@ declare module 'astro:content' {
   data: any
 },
 },
+"the-story-of-a-rec-button": {
+"index.mdx": {
+  id: "index.mdx",
+  slug: "index",
+  body: string,
+  collection: "the-story-of-a-rec-button",
+  data: any
+},
+},
 "two-styles-of-writing-code": {
 "index.md": {
   id: "index.md",
