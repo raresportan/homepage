@@ -1,0 +1,191 @@
+---
+title: The story of a REC button
+pubDate: 2023-03-08
+description: How I found and contributed to a beautiful Lo-fi beats generator
+keywords: ["AI", "JavaScript"]
+---
+Since I got the MacBook Air with the A1 chip I wanted to see if it can be used to do some AI work. So I've looked around for a 
+small project that could run on it. (Yes I know, MacBook Air, it ain't much but it's honest work.)
+
+And thus, one day, I found a beautiful Lo-fi music generator on GitHub called rather 
+unsurprising, [Lofi](https://github.com/jacbz/Lofi):
+
+import { Picture } from "@astrojs/image/components";
+
+<Picture
+  src={import("./lofi.png")}
+  widths={[480, 800]}
+  formats={["png"]}
+  sizes="(max-width: 600px) 480px, 800px"
+  alt="Lofi generator"
+/>
+
+You agree it looks beautiful, right?
+
+But what is this LoFi app?
+> LOFI is an ML-supported lo-fi music generator. We trained a VAE model in PyTorch to represent a lo-fi track as a vector of 100 features. A lo-fi track consists of chords, melodies, and other musical parameters. The web client uses Tone.js to make a dusty lo-fi track out of these parameters.
+
+It generates [lofi style music](https://en.wikipedia.org/wiki/Lo-fi_music) tracks, each for about 1 minute and 30-40 seconds. There are 100 parameters you can manually adjust or randomize with a button click! 
+And best of all it's open source.
+
+Perfect project to play with: Make lofi music for fun and profit!
+
+So I went ahead and downloaded the code and tried to run it...
+
+## Training attempt
+
+The thing is the server and the model training are implemented in Python. Oh no, panic! I never programmed in Python before.
+But I did a lot of programming over the years in several languages and Python is supposed to be very friendly. 
+
+The plan was to run the model training. The project provides guidelines for this - like what file to run - but it assumes 
+I'm a Python developer. I don't know what is the preferred Python IDE, or how a Python project is set up. There 
+is no `package.json`, `make`, `maven`, or something similar. There are some empty __init__.py files but I'm sure they mean nothing/
+
+So I've just run `python prepocessor.py` and fixed errors one by one and managed to create the dataset. So it is true, Python is not so hard after all.
+
+Then I started the model training. But here I got stuck.
+
+The project uses [PyTorch](https://pytorch.org/) for the training. And defaults to "cuda" mode expecting an Nvidia GPU which 
+of course I didn't have. Of course, hours later, I found that I should use the "mps" mode for my MacBook M1.
+
+When I finally made the code run in "mps" mode - and thought what an awesome Python developer I am - I run into a big issue.
+It turns out the PyTorch support for M1 is not complete, that there are [a lot of things that are not implemented yet](https://github.com/pytorch/pytorch/issues/77764)
+
+And with that, I gave up on training AI on my shiny MacBook. Too bad, Python is nice and looks easy to learn for me.
+
+## Adding support for music export
+
+I played with the client for a while and soon enough I realized there is no way to download the tracks I liked. No way to run 
+the project on my Mac, and no way to download tracks. Several hours wasted and not much progress.
+
+Lucky me, the client was built in TypeScript and I found  an issue on the same topic: [Need option to export the audio files](https://github.com/jacbz/Lofi/issues/1). Even better the issue provided a hint 
+for a solution. So if I can modify the UI to let me download tracks, I could still do something useful.
+
+The solution mentioned in the issue has a big drawback: it cannot record sounds from tracks that are not played! Which means I need to create something like a real recorder. 
+
+My idea for exporting the music was to add a new button on the UI, a REC button that works like this:
+* the first time you click on it, it starts recording
+* you play some tracks
+* the second time you click on it downloads the recording with the played sounds
+
+I've started with the following [example](https://tonejs.github.io/docs/14.7.39/Recorder):
+```js
+const recorder = new Tone.Recorder();
+const synth = new Tone.Synth().connect(recorder);
+// start recording
+recorder.start();
+// generate a few notes
+synth.triggerAttackRelease("C3", 0.5);
+synth.triggerAttackRelease("C4", 0.5, "+1");
+synth.triggerAttackRelease("C5", 0.5, "+2");
+// wait for the notes to end and stop the recording
+setTimeout(async () => {
+	// the recorded audio is returned as a blob
+	const recording = await recorder.stop();
+	// download the recording by creating an anchor element and blob url
+	const url = URL.createObjectURL(recording);
+	const anchor = document.createElement("a");
+	anchor.download = "recording.webm";
+	anchor.href = url;
+	anchor.click();
+}, 4000);
+```
+What the above code does:
+* It creates a `Tone.Recorder`
+* It connects the Tone.Recorder to a player 
+* It starts recording
+* Music is played
+* It stops the recording
+* It downloads the recording as a .webm file
+
+Once I found out how the music is being played in the Lofi project and what to connect to everything started to make sense.
+
+When recording starts it connects [Tone.Recorder](https://tonejs.github.io/docs/14.7.39/Recorder) to a [Tone.Gain](https://tonejs.github.io/docs/14.7.39/Gain):
+```js
+class Player {
+  
+
+  gain: Tone.Gain;
+
+  private _recorder: Tone.Recorder;
+  private _isRecording: boolean = false;
+
+  // when the REC button is clicked
+  // we either start or stop the recording
+  set isRecording(isRecording: boolean) {
+     if (this._isRecording !== isRecording) {
+       this._isRecording = isRecording;
+       if (!this._recorder) {
+         // create recorder
+         this._recorder = new Tone.Recorder();
+         this._recorder.start();
+       }
+ 
+       if (this.gain) {
+         if (this._isRecording) {
+           // connect gain to recorder to receive music
+           this.gain.connect(this._recorder);
+         } else {
+            // disconnect gain to recorder
+           this.gain.disconnect(this._recorder);
+         }
+       }
+
+       // download the file when the recording is done
+       if (!this._isRecording) {
+         this.downloadRecording();
+       }
+     }
+   }
+```
+
+It might be possible that when you press REC no sound is played yet. This means we need to connect the recorder also when 
+the player starts.
+
+A new Tone.Gain is created every time a track is loaded. So if the recording was on, I had to connect to the new Gain:
+```js
+async load() {
+    if (!this.currentTrack) {
+      return;
+    }
+    this.isLoading = true;
+
+    this.gain = new Tone.Gain();
+
+    ... 
+    
+    if (this._isRecording) {
+      this.gain.connect(this._recorder);
+    }
+```
+
+Here is how the download works, based on my tests each browser records a different audio format, and I try to detect it from the 
+recording type:
+```js
+   // transform the recording in a downloadable file 
+   async downloadRecording() {
+     if (this._recorder) {
+       const recording = await this._recorder.stop();
+       // detect recording type, differs from browser to browser
+       const type = recording?.type?.split(';')[0]?.split('/')[1] || 'webm';
+
+       // doesn't download empty file
+       if (recording?.size > 0) {
+         const url = URL.createObjectURL(recording);
+         const anchor = document.createElement('a');
+         anchor.download = `lofi-record.${type}`;
+         anchor.href = url;
+         anchor.click();
+       }
+       this._recorder = null;
+     }
+   }
+}
+```
+
+## Wrapping Up
+While I was not able to run the training on my machine, I still learned some interesting things. Python and PyTorch 
+are the standards for AI work and I'm not familiar enough with them. And for a while (until the PyTorch MPS missing code is not implemented)
+I'm stuck.
+
+LoFi is a nice project, I'm glad I had the opportunity to contribute to it. I'm sure some people found my little contribution useful.
