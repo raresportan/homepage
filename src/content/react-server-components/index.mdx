@@ -1,0 +1,337 @@
+---
+title: React Server Components
+pubDate: 2023-05-05
+description: 
+keywords: ["React", "RSC", "JavaScript"]
+---
+
+There is a lot of talk these days about React Server Components(RSC). [Next.js](https://nextjs.org/blog/next-13-4) has just 
+announced that their support for React Server Components(RSC) is now stable. Other frameworks will follow soon for sure, so it is 
+time to learn what React Server Components(RSC) bring to the table. 
+
+I'm using React for years now, but so far only to build the front end. With RSC, we can write server-side code also.
+You might say that we already did that if we used Server Side Rendering(SSR), and you are right. But RSC it's much more than 
+rendering HTML on the fly.
+
+We can [build a website in a lot of ways](https://www.raresportan.com/10-ways-to-render-a-webpage/), each with its 
+pros and cons. Nothing is perfect, but some ways are better than others depending on what you need to build. The main problem is 
+that we tend to create highly interactive websites/web apps that load a lot of JavaScript. And a lot of JavaScript causes slow and sluggish 
+webpages. Some people say that each line of JavaScript that ends up in the browser adds 1ms of lag on low-end devices. 1000 lines = 1s lag. 60000 lines...
+
+Some frameworks like [Astro](https://astro.build/) and Eleventy(https://www.11ty.dev/) build websites that ship 0 bytes of JavaScript by default. 
+Lots of people like these frameworks because they allow a high level of control of the content that reaches the browser. But if you need 
+to generate pages dynamically, create highly interactive content, or share state between pages, you need a SPA-like solution.
+
+## Why React Server Components was created
+As you probably know, React was created at Facebook(Meta) to solve the problems of the *facebook.com* website and later *instagram.com*. If you didn't see it yet, I
+recommend watching [React.js: The Documentary](https://www.youtube.com/watch?v=8pDqJVdNa44) which provides some nice insights into how React evolved.
+
+RSC idea was started in 2016 by Sebastian Markbåge. At that point the architecture at Facebook used GraphQl and Relay for data access, 
+*the problem was that the client bundle grew continuously*. They loaded too much data and code, even when it was not needed for a specific case.
+It was an efficiency problem. In time the problem was partially solved by code splitting and lazy loading, but a better solution was required. 
+
+Their question was: if you own the server anyway why not have view models that massage the data on the server and send only what the client needs?
+
+Facebook used PHP on the server, in particular an extension called [XHP](https://engineering.fb.com/2010/02/09/developer-tools/xhp-a-new-way-to-write-php/)
+that allowed Components to be async or not, *meaning some parts of the page were rendered later*.
+
+So, inspired by XHP, React team set up to create a React Components based server architecture with the following goals:
+- Components can be rendered on the client or the server (build-time or SSR)
+- Components rendered on the server send only HTML to the client, no data, no code
+- Split a server response into multiple parts
+- Start hydrating client components as early as possible
+- Streaming data and code
+- Load on the client only data and code needed on the client, automatic bundle splitting
+- Colocating data with components that use that data
+
+In a nutshell, React Server Components try to move as much as possible code from client to server.
+
+To do all this, React Server Components architecture needs to be implemented by a server-side framework. React team provides the specification
+but not the implementation.
+
+*You might find the name "React Server Components" is a bit controversial, everyone has a different opinion about how they should be called.*
+
+## How React Server Components work
+RCS looks a lot like a PHP/Ruby on Rails server with a React front end. RSC allows you to replace PHP/Ruby on Rails with React too, so 
+now you have React both on the front end and the back end. Same language, same paradigm in both places.
+
+Remix uses React both on server and client so RSC looks a lot like Remix also. But the difference is that in Remix the entire front end is 
+rehydrated, just like any other SSR solution does. In Remix is not possible to have components that are not "client".
+
+React Server Components also looks a lot like [Astro Islands](https://docs.astro.build/en/concepts/islands/) in the way it combines server and client components.
+
+If you want to test RSC your best bet right now is to use Next.js. That said, the examples provided here are generic and don't assume you use a particular framework.
+
+### Server components
+This is a RCS page that is rendered server-side:
+```js
+// the default export function returns the page content
+export default async function ServerRoot() {
+  return (
+    <>
+      <h1>Page Title</h1>
+      <PageBody />
+    </>
+  )
+}
+
+function PageBody() {	
+  return (<p>Page Body</p>)
+}
+```
+How this code is executed:
+* The default export function, `ServerRoot`, returns the page content
+* `H1` and `P` are sent to the client in one go.
+
+This is a slightly different version that renders the page in two steps:
+```js
+// the default export function returns the page content
+export default async function ServerRoot() {
+  return (
+    <>
+      <h1>Page Title</h1>
+      <PageBody />
+    </>
+  )
+}
+
+// this component is async! 
+async function PageBody() {
+  const data = await getDataFromSomewhere();
+  return (
+    <ul>
+      {data.map(d) => <li key={d.id}>{d.id}</li>}
+    </ul>
+  )
+}
+```
+How this code is executed:
+* The default export function, `ServerRoot`, returns the page content
+* Initially, only the `H1` element is sent to the client since the `PageBody` component is async 
+* When the `PageBody` is done, it is sent to the client and displayed on the page 
+
+One question you might ask: how the page knows there are still things to load? After the initial page render with the H1, how it knows that 
+there is a PageBody still pending? The server is streaming data to the browser in a special format, the RSC Wire Format.
+
+Here is a (not very accurate) example:
+```
+1:[["$", "h1", null, {"children": "Page Title"}], "$L2"]
+
+2:["$", "ul", null, {"children: [["$", "li", "data-id1", {"children": "data-id1"}], ["$", "li", "data-id2", {"children": "data-id2"}]]} ],
+```
+When the initial page is loaded, along with the H1, a $L2 is sent. That $L2 instructs that another component is pending.
+React is always loaded on the client, so it is used to recreate the components in the client.
+
+If you need to show skeletons/spinners while the async parts are loading, you can use Suspense (yes, not Suspense works server-side too!)
+```js
+// the default export function returns the page content
+export default async function ServerRoot() {
+  return (
+    <>
+      <h1>Page Title</h1>
+      <Suspense fallback = { Fetching...} />
+        <PageBody />
+      </Suspense>
+    </>
+  )
+}
+
+// this component is async! 
+async function PageBody() {
+  ...
+}
+```
+This is a basic example, but to get an idea of how this will work in practice think about how a YouTube page loads:
+* first, the video is loaded and starts playing as soon as possible
+* then the comments section is loaded later
+* then the recommended videos section is loaded 
+
+If you would implement that using RSC you would have something like this:
+```js
+export default async function ServerRoot() {
+  return (
+    <>
+      <h1>Page Title</h1>
+      <Video />
+    </>
+  )
+}
+
+// not async!
+function Video() {
+  ...
+}
+
+// this component is async! 
+async function Comments() {
+  ...
+}
+// this component is async! 
+async function Recommendations() {
+  ...
+}
+```
+
+
+### Client components
+You need to put each client component in it's own file because to make a component client rendered, you need to add "use client" as the first line in the file:
+
+```js
+// button.jsx
+"use client"
+
+import { useState } from "react";
+
+export default function ClientButton() {
+  const [count, setCount] = useState(0);
+  return (
+    <button onClick={e => setCount(count++)}>
+        Count {count}
+    </button>
+  )
+}
+```
+You can use client components just any other components:
+```js
+export default async function ServerRoot() {
+  return (
+    <>
+      <h1>Page Title</h1>
+      <ClientButton />
+    </>
+  )
+}
+```
+Some hooks like `useState` work only in client components. Since the server components just sent HTML to client, nothing can be changed by 
+the user, so it doesn't makes sense to use `useState`. If you try to use these hooks in server components, you should get an error.
+
+* Client code and server code are separated
+* Client code is bundled and sent to the client, the server doesn't know what is in there. In the same way, the client code doesn't know what is on the server
+* You can use components in both client and server components, in that case, it is sent to the client.
+* The root component must be a server component but anything else can be a client component (although not recommended)
+
+Here is a (not very accurate) example of RSC wire data for the above example:
+```
+1:[["$", "h1", null, {"children": "Page Title"}], "$L2"]
+
+2:{"id": "/dist/ClientButton.js","chunks": [], "name": default, "async": false }
+```
+In the client component case, the path to the source code is also sent and the source is loaded similar to how React.lazy loads components.
+
+### Server components inside client components
+The crazy thing is that you can use server components inside client components! 
+The secret is to use "slots" inside the client component and send the server component(s) as children!
+
+Let's implement the following component tree:
+```js
+/*
+   [[ServerRoot]] // server side 
+         |
+  (ClientContainer) // client side 
+         |
+ [[ServerAccountInfo]] // server side 
+*/
+```
+
+Page render component:
+```js
+export default async function ServerRoot() {
+  return (
+    <>
+      <h1>Page Title</h1>
+      <ClientContainer>
+         <ServerAccountInfo />
+      </ClientContainer>
+    </>
+  )
+}
+
+// this component loads the account
+async function ServerAccountInfo() {
+  const account = await getAccountDataFromSomewhere();
+  return (
+    <p>Name: {account.name}</p>
+  )
+}
+```
+
+ClientContainer.jsx must be in a separate file:
+```js
+// ClientContainer.jsx
+"use client"
+
+export default function ClientContainer({children}) {
+  return (
+    <>
+       Here is the client container!
+       {children}
+    </>
+  )
+}
+```
+
+
+## Upcoming Server Actions
+Next.js takes this further with its [Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions).
+You can add "use server" inside any async function and that function will be executed server side. (Server actions are still in alpha, maybe this functionality will change)
+
+```js
+import { cookies } from 'next/headers';
+ 
+export default function AddToCart({ productId }) {
+  async function addItem(data) {
+    'use server';
+ 
+    const cartId = cookies().get('cartId')?.value;
+    await saveToDb({ cartId, data });
+  }
+ 
+  return (
+    <form action={addItem}>
+      <button type="submit">Add to Cart</button>
+    </form>
+  );
+}
+```
+While this is very convenient, it can [leak secrets if you are not careful](https://twitter.com/tomus_sherman/status/1654211227172716545)
+
+React Server Components looks a lot like PHP and Ruby on Rails. Unlike regular React apps, React Server Components can be "API-less", meaning
+you can execute [SQL directly inside React](https://vercel.com/changelog/vercel-postgres) components:
+```js
+import { sql } from '@vercel/postgres';
+import { redirect } from 'next/navigation';
+
+async function create(formData: FormData) {
+  'use server';
+  const { rows } = await sql`
+    INSERT INTO products (name)
+    VALUES (${formData.get('name')})
+  `;
+  redirect(`/product/${rows[0].slug}`);
+}
+
+export default function Page() {
+  return (
+    <form action={create}>
+      <input type="text" name="name" />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
+I'm not sure if that is a good idea. We have a long history of PHP SQL injections, why not learn anything from it?
+
+## Conclusion
+React Server Components is a nice alternative to building a website, but it comes with its drawbacks.
+
+Of course, the main drawback is that you need a server now, and, if you are a front-end developer like me, that sounds a little scary (I know an awful lot about building front-ends and I assume a good back-end dev knows just as much about building APIs and databases). Also, there is no “Network tab” to see and debug server-side requests. Things are just more different from what were before.
+
+Another drawback is that even if you just use server-side components, React is still loaded on the client side. I would prefer Astro which ships 0 JavaScript when not necessary. Still, a lot of code used server side is not sent to the client, which is excellent.
+
+From what I’m reading, RSC doesn’t click for a lot of people. It adds a new layer of complexity to an already complex situation. Not many see the benefit of RSC, but the truth is not many people were very excited either when React was open-sourced when JSX was presented, and so on. RSC was in the works for years, so it should be a mature architecture by now.
+
+
+## Resources
+* [Dan Abramov explores React Server Components with us!](https://www.youtube.com/watch?v=Fctw7WjmxpU)
+* [React.js: The Documentary](https://www.youtube.com/watch?v=8pDqJVdNa44)
+* [React Essentials](https://nextjs.org/docs/getting-started/react-essentials)
