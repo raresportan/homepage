@@ -30,7 +30,7 @@ const posts = (await Astro.glob("../content/*/*.{md,mdx}")).sort(
 						<article>
 							<header>
 								<h2>
-									<a href={slug(post)}>
+									<a href={'/'+slug(post)}>
 										{post.frontmatter.title}
 									</a>
 								</h2>
