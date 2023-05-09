@@ -1,8 +1,7 @@
 ---
 title: The <link> element
 pubDate: 2021-04-03
-description: Let's learn to use the link element, it's one of the most important elements. Using link's power
-you can create a better website.
+description: Let's learn to use the link element, it's one of the most important elements. Using link's power you can create a better website.
 keywords: ["HTML"]
 ---
 

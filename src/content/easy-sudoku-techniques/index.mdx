@@ -70,7 +70,7 @@ Here is an example where we display all the candidates in all empty cells:
 import { Image } from "@astrojs/image/components";
 import pencilMarks from "./pencil-marks.png";
 
-<Image src={pencilMarks} width={500} alt="Pencil marks on a Sudoku" />
+<Image src={pencilMarks} width={612} aspectRatio={1/1} alt="Pencil marks on a Sudoku" />
 
 
 At first glance, these candidates don't look very helpful, and indeed most people don't bother
@@ -134,7 +134,7 @@ I've highlighted for your benefit one of the candidates:
 
 import nakedSingleImg from "./naked-single.png";
 
-<Image src={nakedSingleImg} width={500} alt="Naked single on a Sudoku" />
+<Image src={nakedSingleImg} width={612} aspectRatio={1/1} alt="Naked single on a Sudoku" />
 
 This is the ideal (easiest) case.
 
@@ -143,7 +143,7 @@ other candidates, making it much harder to spot. Here are a bunch of hidden sing
 
 import nakedHiddenSingles from "./naked-hidden-singles.png";
 
-<Image src={nakedHiddenSingles} width={500} alt="Naked/Hidden singles on a Sudoku" />
+<Image src={nakedHiddenSingles} width={612} aspectRatio={1/1}  alt="Naked/Hidden singles on a Sudoku" />
 
 
 Spotting singles is the most important technique because they are the solution. You can add the
@@ -197,7 +197,7 @@ In the following example we have a naked pair (8 and 9) and a hidden pair (2 and
 
 import nakedHiddenPairs from "./naked-hidden-pairs.png";
 
-<Image src={nakedHiddenPairs} width={500} alt="Naked/Hidden pairs on a Sudoku" />
+<Image src={nakedHiddenPairs} width={612} aspectRatio={1/1}  alt="Naked/Hidden pairs on a Sudoku" />
 
 
 _Note: We label the rows from top to bottom A to I, and columns from left to right 1 to 9. So the first square of the boars, in the top left corner is A1, and the last, in the bottom right corner, is I9._
@@ -322,7 +322,7 @@ Just as pairs, we can have naked or hidden triples. Let's see an example of a na
 
 import nakedTriples from "./naked-triples2.png";
 
-<Image src={nakedTriples} width={500} alt="Naked triples on a Sudoku" />
+<Image src={nakedTriples} width={612} aspectRatio={1/1}  alt="Naked triples on a Sudoku" />
 
 Candidates 3, 5, and 8 are present only in three cells in box 1. So we can safely remove the
 3s, 5s and 8s from the rest of the candidates from column 1. In this case, we have an XYZ XY YZ
@@ -333,7 +333,7 @@ the candidates from their own cells.
 
 import hiddenTriples from "./hidden-triples.png";
 
-<Image src={hiddenTriples} width={500} alt="Hidden triples on a Sudoku" />
+<Image src={hiddenTriples} width={612} aspectRatio={1/1} alt="Hidden triples on a Sudoku" />
 
 
 This is the most complicated code, those combinations killed me.
@@ -450,7 +450,7 @@ the column 7, so we can remove the other 9s from the column:
 
 import poitingPairs from "./pointing-pairs.png";
 
-<Image src={poitingPairs} width={500} alt="Poiting pairs on a Sudoku" />
+<Image src={poitingPairs} width={612} aspectRatio={1/1}  alt="Poiting pairs on a Sudoku" />
 
 
 Here is the code.
@@ -540,7 +540,7 @@ a 2 in one of those cells and it cannot have 2 in the rest of the cells.
 
 import boxLineReduction from "./box-line-reduction.png";
 
-<Image src={boxLineReduction} width={500} alt="Box/line reduction on a Sudoku" />
+<Image src={boxLineReduction} width={612} aspectRatio={1/1} alt="Box/line reduction on a Sudoku" />
 
 
 Here it is, in all its glory.
