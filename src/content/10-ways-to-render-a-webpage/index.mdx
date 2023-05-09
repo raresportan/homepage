@@ -48,7 +48,6 @@ The list is ordered by the time each technology gains popularity. It might not b
 import { Image } from "@astrojs/image/components";
 import staticImage from "./static.svg";
 
-<img src={staticImage} alt="Static website" />
 <Image src={staticImage} width={600} alt="Static website" />
 
 
@@ -99,7 +98,7 @@ based on that data.
 
 import multipageImage from "./multipage.svg";
 
-<img src={multipageImage} alt="Multi-page website" />
+<Image src={multipageImage} width={600} alt="Multi-page website" />
 
 A classic example is Amazon.com. Another notable example is any [WordPress](https://wordpress.com/) site that powers [43% off all internet](https://blog.hubspot.com/website/wordpress-stats#:~:text=(W3Techs%2C%202022),increase%20from%2039.5%25%20in%202021.).
 
@@ -136,7 +135,8 @@ update a part of the page.
 
 import spaImage from "./spa.svg";
 
-<img src={spaImage} alt="Single Page Application" />
+<Image src={spaImage} width={600} alt="Single Page Application" />
+
 
 The goal of this technique is to do as much as possible in the browser. It imitates mobile apps. You have to wait for mobile apps only once when they are installed.
 
@@ -176,7 +176,7 @@ __Instead of creating the page on the client, you now create the page twice, onc
 
 import ssrImage from "./ssr-hydration.svg";
 
-<img src={ssrImage} alt="Server side rendering with Hydration" />
+<Image width={600} src={ssrImage} alt="Server side rendering with Hydration" />
 
 This technique is a combination of a "Multi-page application" and a "Single Page Application". A website like this has more than one page, but hydration is used on all.
 
@@ -210,7 +210,7 @@ some form of data like JSON, XML, streams, and so on.
 
 import ssgImage from "./ssg.svg";
 
-<img src={ssgImage} alt="Server side generation with Hydration" />
+<Image width={600} src={ssgImage} alt="Server side generation with Hydration" />
 
 Popular meta frameworks that work this way are the same as before Gatsby.js, Next.js, Nuxt.js, and SveltKit.
 
@@ -238,7 +238,7 @@ While the page is cached, the server is not doing any work. When the cache expir
 
 import isrImage from "./isr.svg";
 
-<img src={isrImage} alt="Incremental static regeneration" />
+<Image width={600} src={isrImage} alt="Incremental static regeneration" />
 
 One downside is that for the moment you need to use Next.js to go this route. Deployment and hosting options for this technique are limited.
 
@@ -275,7 +275,7 @@ So there are a few possible situations:
 
 import islandsImage from "./islands.svg";
 
-<img src={islandsImage} alt="Islands" />
+<Image width={600} src={islandsImage} alt="Islands" />
 
 A solution to hydrate only a part of the page is called _Partial Hydration_.
 
@@ -302,7 +302,7 @@ a chunk is ready on the server, it is sent to the client and it is also hydrated
 
 import streamingImage from "./streaming.svg";
 
-<img src={streamingImage} alt="Streaming SSR" />
+<Image width={600} src={streamingImage} alt="Streaming SSR" />
 
 So this is just an enhanced SSR. This feature can be used with Marko, Next.js, or Shopify's Hydrogen.
 
@@ -326,7 +326,7 @@ having to replay and download all of the application logic.
 The trick is that they serialize the server state in the HTML when the page is generated (SSR or SSG). 
 
 The result is that Resumability looks very much like static website rendering:
-<img src={staticImage} alt="Static website" />
+<Image width={600} src={staticImage} alt="Static website" />
 
 Event listeners (that are added by hydration without Resumability) are serialized also. For example, here we have a button, 
 its click listener function is called `handler_symbol` and the function is inside `chunk.js`
