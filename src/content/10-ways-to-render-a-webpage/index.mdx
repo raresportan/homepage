@@ -45,9 +45,11 @@ The list is ordered by the time each technology gains popularity. It might not b
 ## 1. Static website
 *The original way* of rendering web pages. The data is text and the text is in HTML. There is no code.
 
+import { Image } from "@astrojs/image/components";
 import staticImage from "./static.svg";
 
 <img src={staticImage} alt="Static website" />
+<Image src={staticImage} width={600} alt="Static website" />
 
 
 These days, besides the text we can also add some CSS to make the page look better and maybe some JavaScript to add some 
