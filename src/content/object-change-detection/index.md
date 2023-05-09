@@ -1,7 +1,7 @@
 ---
 title: How to detect object changes in JavaScript
 pubDate: 2020-11-20
-description:
+description: Being able to understand what happens in a complex system is very important. Most problems can be fixed correctly only if you understand what's going on. Object changes in JavaScript are hard to debug.
 keywords: ["JavaScript"]
 ---
 

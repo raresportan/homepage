@@ -1,7 +1,7 @@
 ---
 title: Let's Learn JavaScript - Data types
 pubDate: 2022-1-12
-description: Data types in JavaScript
+description: Data types in JavaScript. What is a value and a type. What is immutable and what is not.
 keywords: ["JavaScript"]
 ---
 

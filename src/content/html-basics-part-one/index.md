@@ -1,7 +1,7 @@
 ---
 title: HTML Basics
 pubDate: 2021-02-20
-description: What are the basic HTML parts of a web page
+description: You might be surprised, but not many web developers know what are the basic HTML parts of a web page. It's time to changed that
 keywords: ["HTML"]
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Let's Learn JavaScript - Strings
 pubDate: 2022-1-31
-description: Strings in JavaScript
+description: A very important primitive data type is the String. Strings are composed of one or more characters and are used to keep words and texts. Mastering them is a must.
 keywords: ["JavaScript"]
 ---
 
