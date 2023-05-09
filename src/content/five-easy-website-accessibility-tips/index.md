@@ -1,7 +1,7 @@
 ---
 title: Five easy website accessibility tips
 pubDate: 2020-09-28
-description: Things I've learned from Inclusive Design 24 2020
+description: The most important things I've learned about accessibility from Inclusive Design 24 2020
 keywords: ["a11y", "HTML", "CSS"]
 ---
 

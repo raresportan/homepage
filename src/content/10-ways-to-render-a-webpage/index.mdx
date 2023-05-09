@@ -45,9 +45,7 @@ The list is ordered by the time each technology gains popularity. It might not b
 ## 1. Static website
 *The original way* of rendering web pages. The data is text and the text is in HTML. There is no code.
 
-import staticImage from "./static.svg";
-
-<img src={staticImage} alt="Static website" />
+<img src="/static.svg" width={600} alt="Static website" />
 
 
 These days, besides the text we can also add some CSS to make the page look better and maybe some JavaScript to add some 
@@ -95,9 +93,7 @@ based on that data.
 
 *There is code that runs on request.* 
 
-import multipageImage from "./multipage.svg";
-
-<img src={multipageImage} alt="Multi-page website" />
+<img src="/multipage.svg" width={600} alt="Multi-page website" />
 
 A classic example is Amazon.com. Another notable example is any [WordPress](https://wordpress.com/) site that powers [43% off all internet](https://blog.hubspot.com/website/wordpress-stats#:~:text=(W3Techs%2C%202022),increase%20from%2039.5%25%20in%202021.).
 
@@ -132,9 +128,8 @@ the HTML interactive (by adding listeners.)
 When you click a button, something happens, maybe a call is made to the server ([API](https://en.wikipedia.org/wiki/API)) and the data returned by the call is used to 
 update a part of the page.
 
-import spaImage from "./spa.svg";
+<img src="/spa.svg" width={600} alt="Single Page Application" />
 
-<img src={spaImage} alt="Single Page Application" />
 
 The goal of this technique is to do as much as possible in the browser. It imitates mobile apps. You have to wait for mobile apps only once when they are installed.
 
@@ -172,9 +167,8 @@ a static page is called [_hydration_.](https://en.wikipedia.org/wiki/Hydration_(
 
 __Instead of creating the page on the client, you now create the page twice, once on the server and again on the client.__
 
-import ssrImage from "./ssr-hydration.svg";
 
-<img src={ssrImage} alt="Server side rendering with Hydration" />
+<img src="/ssr-hydration.svg" width={600} alt="Server side rendering with Hydration" />
 
 This technique is a combination of a "Multi-page application" and a "Single Page Application". A website like this has more than one page, but hydration is used on all.
 
@@ -206,9 +200,7 @@ Since all this is static, you still need a way to provide personalization, data 
 For this you have [APIs](https://en.wikipedia.org/wiki/API). Meaning your website uses servers that don't respond with HTML but with 
 some form of data like JSON, XML, streams, and so on.  
 
-import ssgImage from "./ssg.svg";
-
-<img src={ssgImage} alt="Server side generation with Hydration" />
+<img width={600} src="/ssg.svg" alt="Server side generation with Hydration" />
 
 Popular meta frameworks that work this way are the same as before Gatsby.js, Next.js, Nuxt.js, and SveltKit.
 
@@ -234,9 +226,7 @@ nice if you would rebuild(regenerate) only the page that needs the update. That'
 How this works is that they set a limited [Cache](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control) life. 
 While the page is cached, the server is not doing any work. When the cache expires, the server rebuilds the page.
 
-import isrImage from "./isr.svg";
-
-<img src={isrImage} alt="Incremental static regeneration" />
+<img width={600} src="/isr.svg"  alt="Incremental static regeneration" />
 
 One downside is that for the moment you need to use Next.js to go this route. Deployment and hosting options for this technique are limited.
 
@@ -271,9 +261,7 @@ So there are a few possible situations:
 * you use JavaScript just in a part of the page: hydrate only the interactive part
 * you don't use JavaScript at all on the page: don't load any JavaScript
 
-import islandsImage from "./islands.svg";
-
-<img src={islandsImage} alt="Islands" />
+<img width={600} src="/islands.svg" alt="Islands" />
 
 A solution to hydrate only a part of the page is called _Partial Hydration_.
 
@@ -298,9 +286,7 @@ Cons:
 Another way to tackle the problem of hydration is Streaming SSR. The idea is that you split the page rendering in chunks, when
 a chunk is ready on the server, it is sent to the client and it is also hydrated.
 
-import streamingImage from "./streaming.svg";
-
-<img src={streamingImage} alt="Streaming SSR" />
+<img width={600} src="/streaming.svg" alt="Streaming SSR" />
 
 So this is just an enhanced SSR. This feature can be used with Marko, Next.js, or Shopify's Hydrogen.
 
@@ -324,7 +310,7 @@ having to replay and download all of the application logic.
 The trick is that they serialize the server state in the HTML when the page is generated (SSR or SSG). 
 
 The result is that Resumability looks very much like static website rendering:
-<img src={staticImage} alt="Static website" />
+<img width={600} src="/static.svg" alt="Static website" />
 
 Event listeners (that are added by hydration without Resumability) are serialized also. For example, here we have a button, 
 its click listener function is called `handler_symbol` and the function is inside `chunk.js`

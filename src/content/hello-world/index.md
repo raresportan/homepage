@@ -1,7 +1,7 @@
 ---
 title: Hello, World!
 pubDate: 2020-05-01
-description: What I'm writing about
+description: What is this blog about? It's abouut programming, web and software blues
 ---
 
 Turns out there is good side to this pandemic situation we all have to live with in 2020: I finally have time to start a blog.

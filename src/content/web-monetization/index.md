@@ -1,7 +1,7 @@
 ---
 title: How to make some money with a simple metadata
 pubDate: 2021-02-13
-description: Web monetization is here (kind of)
+description: Web monetization is here (kind of). I don't know if this will catch up or disappear in the future, but I think is a good idea.
 keywords: ["Monetization"]
 ---
 

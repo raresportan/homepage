@@ -1,7 +1,7 @@
 ---
 title: What makes good code good
 pubDate: 2020-06-12
-description: What is good code? Ask ten people and you’ll get ten different answers. Read ten books and you’ll find ten different answers. Different people, different experience, different problems, different contexts, different answers. Truth is there is no good answer. Context matters, timeframe matters, money matters.
+description: What is good code? Ask ten people and you’ll get ten different answers. Read ten books and you’ll find ten different answers. Different people, different experience, different problems, different contexts, different answers.
 keywords: ["How to Write Better Software"]
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Using Fetch
 pubDate: 2020-08-01
-description:
+description: Fetch API is one of the most important feature added in the browsers in the recent years. But they have some gotchas
 keywords: ["JavaScript", "fetch"]
 ---
 
