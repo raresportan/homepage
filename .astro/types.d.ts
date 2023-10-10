@@ -390,6 +390,15 @@ declare module 'astro:content' {
   data: any
 },
 },
+"midjourney": {
+"index.mdx": {
+  id: "index.mdx",
+  slug: "index",
+  body: string,
+  collection: "midjourney",
+  data: any
+},
+},
 "migrate-to-gatsby-3": {
 "index.md": {
   id: "index.md",
