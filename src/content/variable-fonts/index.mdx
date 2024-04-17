@@ -90,6 +90,8 @@ Registered/Standardazied axes:
 4. **italic (ital) / font-style: italic**: ital axis can be set in the range [0-1], where 0 specifies "not italic," 0.5 specifies "halfway italic," and 1 specifies "fully italic."
 5. **optical size (opsz) / font-optical-sizing**: sets the overall stroke thickness of letterforms. 
 
+### font-variation-settings
+
 There are no CSS properties for custom axes, but there is a special new property that can be used to set values for custom axes: "font-variation-settings"
 
 ```css
@@ -103,6 +105,43 @@ font-variation-settings: 'wght' 100;
 ```
 
 Tip: In case you set both font-weight and font-variation-settings 'wght', the wght value always wins! font-variation-settings always win!
+
+```css
+h1 {	
+	font-variation-settings: 'wght' 800; 
+	font-weight: 600;
+}
+```
+
+It's a common practice to use font families with variable axes settings. Using CSS Variables we can overwrite each axis if needed:
+```css
+:root {
+	--font-weight-regular: "wght" 400;
+	--font-weight-medium: "wght" 500;
+	--font-weight-bold: "wght" 700;
+
+	--font-size-small: "opsz" 16;
+	--font-size-medium: "opsz" 20;
+}
+
+@font-face {
+	font-family: 'BDOGrotesk';
+	src: url('/fonts/BDOGrotesk-VF.woff2') format('woff2-variation');
+	font-display: swap;
+}
+
+h1 {
+	font-family: 'BDOGrotesk';
+	font-variation-settings: var(--font-weight-bold) var(--font-size-medium); 
+}
+
+/* wght axes will change, but opsz with stay the same */
+h1.secondary {
+	--font-weight-bold: "wght" 800;
+}
+```
+
+
 
 font-variation-settings allows a greater control over the values, for example for optical size `font-optical-sizing` allows only auto/none while opsz allows a numeric value from a range.
 
