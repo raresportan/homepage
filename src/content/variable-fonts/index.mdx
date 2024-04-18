@@ -5,13 +5,13 @@ description: Variable fonts allow something that was incredibly hard before, mag
 keywords: ["Fonts"]
 ---
 
-When we build a website we need some variations of a font: a bold style version for headers, a regular version for body text, italic variation for some small details, a condensed version sometimes and so on. Usually for each of these versions we need to load a separate font file: AwesomeFontBold.woff2, AwesomeFontRegular.woff2, AwesomeFontItalic.woff2 etc.    
+When we build a website, we need some variations of a font: a bold style version for headers, a regular version for body text, italic variation for some small details, a condensed version sometimes, and so on. Usually, for each of these versions, we need to load a separate font file: AwesomeFontBold.woff2, AwesomeFontRegular.woff2, AwesomeFontItalic.woff2 etc.    
 
-A single file can also be used for all variations, in which case the browser will synthesize a missing style, but that produces suboptimal results. If you ever worked with a UX designer you know they will not be happy. 
+A single file can also be used for all variations, in which case the browser will synthesize a missing style, but it produces suboptimal results. If you ever worked with a UX designer, you know they will not be happy. 
 
-So to make the UX happy and make a great website copy we use different font files. But we soon enter a rabbit hole: What if we also need a condensed bold version and an expanded italic version? We load two new font files? 
+So to make the UX happy and make a great website copy we use different font files. But we soon enter a rabbit hole: What if we also need a condensed bold version and an expanded italic version? Do we load two new font files? 
 
-There is a solution to this issue: one font to rule them all, a special type of font that supports any variation we need. A font that can be used from ultra light weight to a strong bold weight. That can be used condensed or expanded. That font is called a *variable font*. A variable font is a font that supports a lot of variations using a single font file. It has all the styles build in a single file. 
+There is a solution to this issue: one font to rule them all, a special type of font that supports any variation we need. A font that can be used from ultra light weight to a strong bold weight. That can be used condensed or expanded. That font is called a *variable font*. A variable font is a font that supports a lot of variations using a single font file. It has all the styles built in a single file. 
 
 Note: since the introduction of variable fonts, the non-variable fonts are now called "static" or "standard" fonts. I'll use this term too.
 
@@ -23,42 +23,42 @@ Here is a quick demo of how variable fonts work:
 
 ## When to consider variable fonts?
 
-The downside of the variable font file is that is much bigger than the size of a standard single style file. You need to do some math and decide if standard fonts are sufficient for you.
+The downside of the variable font file is that is much bigger than the size of a standard single-style file. You need to do some math and decide if standard fonts are sufficient.
 
-If you only use bold, regular and italic version of a font, this means you load 3 files, assuming a size of 20Kb each, you'll load 60Kb. If the variable font file is 300Kb - 5x the size of the others - it's not worth using the variable font. So use your own judgement based on your needs.
+If you only use bold, regular, and italic versions of a font, this means you load 3 files, assuming a size of 20Kb each, you'll load 60Kb. If the variable font file is 300Kb - 5x the size of the others - it's not worth using the variable font. Use your own judgment based on your needs.
 
 When you compare non-variable fonts with variable fonts make sure you compare the same type of fonts, e.g. TTF with TTF, WOFF2 with WOFF2. For websites always use the WOFF2 version of the fonts as it provides the best compression available these days. 
 
 In case you can only find the TTF version of a font (many font makers provide only TTF format) you should convert it to WOFF2. There are different ways to do this but you need to be careful when converting variable fonts as some converters will make the font standard (non-variable.) 
 
 To convert use the following steps:
-1. First check if a font is variable using a tool, like https://wakamaifondue.com/
+1. First, check if a font is variable using a tool like https://wakamaifondue.com/
 
-2. Then use a converter (like https://everythingfonts.com/ttf-to-woff2) to convert the TTF(or OTF, or WOFF) to WOFF2. Download the converted WOFF2 font.
+2. Then, use a converter (like https://everythingfonts.com/ttf-to-woff2) to convert the TTF(or OTF, or WOFF) to WOFF2. Download the converted WOFF2 font.
 
-3. Finally check again if the converted font is still variale (using https://wakamaifondue.com/)
+3. Finally, check again if the converted font is still variable (using https://wakamaifondue.com/)
 
-Note: Another way to optimize the variable fonts (and standard fonts) is by removing the glyphs you don't use. Most of the fonts provide glyphs for a lot of alphabets, like Latin, Cyrillic, Japanese etc. If your website renders copy using only Latin glyphs, the non-Latin glyphs are loaded for no reason.
+Note: Another way to optimize the variable fonts (and standard fonts) is by removing the glyphs you don't use. Most of the fonts provide glyphs for a lot of alphabets, like Latin, Cyrillic, Japanese, etc. If your website renders copy using only Latin glyphs, the non-Latin glyphs are loaded for no reason.
 See [Reduce web font size](https://web.dev/articles/reduce-webfont-size) for more details.
 
-Leaving the file size issue aside, variable fonts allow something that was incredibly hard before: magazine level typographic techniques. 
-(It is typical in a typographic system for a magazine to use 10–15 or more different weight and width combinations throughout the publication) For us developers this ain't much, but is a godsend feature for UX designers who spend hours setting the perfect size, weight and width for each piece of copy.
+Leaving the file size issue aside, variable fonts allow something that was incredibly hard before, magazine-level typographic techniques. 
+(It is typical in a typographic system for a magazine to use 10–15 or more different weight and width combinations throughout the publication) For us developers, this ain't much, but is a godsend feature for UX designers who spend hours setting the perfect size, weight, and width for each piece of copy.
 
 
 ## Where we can find variable fonts?
 
-### Google fonts
-[Google fonts](https://fonts.google.com/?vfonly=true) has a big selection of variable fonts.
-Sadly the GDPR safe alternative - [Bunny fonts](https://fonts.bunny.net/) doesn't provide a way to filter for variable fonts.
+### Google Fonts
+[Google Fonts](https://fonts.google.com/?vfonly=true) has a big selection of variable fonts.
+Sadly, the GDPR-safe alternative - [Bunny fonts](https://fonts.bunny.net/) doesn't provide a way to filter for variable fonts.
 
 ### Variable fonts
 [Variable fonts](https://v-fonts.com/) is another big collection of variable fonts. There are some fonts free for commercial use, you can filter the fonts by license.
 
-### Abobe fonts
-You can find a lot of variable fonts on [Adobe fonts](https://fonts.adobe.com/fonts?browse_mode=default&cc=true&font_technology=vf&max_styles=26&min_styles=1) too. If you're using the Adobe products this can be useful as most of them have support for variable fonts now.
+### Abobe Fonts
+You can find a lot of variable fonts on [Adobe Fonts](https://fonts.adobe.com/fonts?browse_mode=default&cc=true&font_technology=vf&max_styles=26&min_styles=1) too. If you're using the Adobe products this can be useful as most of them have support for variable fonts now.
 
 ### Font foundries/makers
-Many font makers are providing both standard and variable versions of the same fonts. Here is the beautiful example of [Hatton font.](https://pangrampangram.com/products/hatton)
+Many font makers are providing both standard and variable versions of the same fonts. Here is a beautiful example of [Hatton font.](https://pangrampangram.com/products/hatton)
 
 
 ## Using variable fonts
@@ -78,12 +78,12 @@ The above example used the BDOGrotesk variable font. The format is not "woff2" b
 ### Variable font axes 
 The things that are variable in the font are called "axes". There can be registered axes and custom axes. Registered axes are common enough that they were standardized.
 
-Registered axes names are spelled lowercase while the custom axes names are spelled uppercase. For registered axes there are CSS properties, for custom there are not - so changing the custom axis values is a bit more complicated...  
+Registered axes' names are spelled lowercase while the custom axes' names are spelled uppercase. For registered axes there are CSS properties, for custom, there are not - so changing the custom axis values is a bit more complicated...  
 
-Note: **Not all fonts have all the axes.** A font is variable if it has at least one axis! Most fonts have only one or two axes, some have a lot more axes -- for example [Roboto Flex](https://v-fonts.com/fonts/roboto-flex) has 13 axes!
+Note: **Not all fonts have all the axes.** A font is variable if it has at least one axis! Most fonts have only one or two axes, some have a lot more axes -- for example, [Roboto Flex](https://v-fonts.com/fonts/roboto-flex) has 13 axes!
 You can use a tool like https://wakamaifondue.com/ to check what axes are available for a particular font.
 
-Registered/Standardazied axes:
+Registered/Standardized axes:
 1. **weight (wght) / font-weight**: sets the weight (or boldness) of the font.
 2. **width (wdth) / font-stretch**: sets how narrow or wide (condensed or extended, in typographic terms) the letterforms can be.
 3. **slant (slnt) / font-style: oblique**: sets the angle of the letterforms but doesn't perform any kind of character substitution.
@@ -98,7 +98,7 @@ There are no CSS properties for custom axes, but there is a special new property
 font-variation-settings: 'CONT' 100, 'MIDL' -200;
 ```
 
-You can use "font-variation-settings" to set registered axes too. For example for weight axis we can use "wght" setting:
+You can use "font-variation-settings" to set registered axes too. For example, for the weight axis, we can use the "wght" setting:
 
 ```css
 font-variation-settings: 'wght' 100;
@@ -113,7 +113,7 @@ h1 {
 }
 ```
 
-It's a common practice to use font families with variable axes settings. Using CSS Variables we can overwrite each axis if needed:
+It's a common practice to use font families with variable axis settings. Using CSS Variables we can overwrite each axis if needed:
 ```css
 :root {
 	--font-weight-regular: "wght" 400;
@@ -143,12 +143,12 @@ h1.secondary {
 
 
 
-font-variation-settings allows a greater control over the values, for example for optical size `font-optical-sizing` allows only auto/none while opsz allows a numeric value from a range.
+font-variation-settings allows greater control over the values, for example for optical size `font-optical-sizing` allows only auto/none while opsz allows a numeric value from a range.
 
 
 
 ## Fallbacks
-Browser support for variable fonts is excellent, but as a precaution you can use static fonts as fallback using the `@supports` at-rule. 
+Browser support for variable fonts is excellent, but as a precaution, you can use static fonts as a fallback using the `@supports` at-rule. 
 
 ```css
 @font-face {
@@ -177,7 +177,7 @@ h1 {
 ```
 
 
-## Resouces
+## Resources
 
 - [Wakamai Fondue](https://wakamaifondue.com/)
 - [Variable fonts guide](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts/Variable_fonts_guide.)
