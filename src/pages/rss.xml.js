@@ -1,21 +1,7 @@
 import { getCollection } from 'astro:content';
-import rss, { pagesGlobToRssItems } from '@astrojs/rss';
+import rss from '@astrojs/rss';
 import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION } from '../config';
 import { slug } from "../lib/utils";
-
-
-// const posts = await Promise.all(sortedPosts.map(async p => {
-// 	const { remarkPluginFrontmatter } = await render(p);
-// 	const { minutesRead, excerpt } = remarkPluginFrontmatter;
-// 	return ({
-// 		...p,
-// 		data: {
-// 			...p.data,
-// 			minutesRead,
-// 			excerpt
-// 		}
-// 	})
-// }));
 
 export async function GET(context) {
 	const sortedPosts = (await getCollection('post')).sort(

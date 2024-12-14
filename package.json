@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": false,
   "scripts": {
-    "build": "npm run build:lambda & npm run build:app",
-    "build:app": "astro build",
-    "build:lambda": "netlify build src/lambda",
+    "build:all": "npm run build:lambda & npm run build:app",
+    "build": "astro build",
+    "build:lambda": "netlify build",
     "dev": "astro dev",
     "start": "astro dev",
     "preview": "astro preview",
