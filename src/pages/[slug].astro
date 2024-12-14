@@ -28,9 +28,9 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { title, description, pubDate, keywords, twitterImage, updatedDate } = entry.data;
+const { title, description, pubDate, keywords, updatedDate } = entry.data;
 const { Content, remarkPluginFrontmatter } = await render(entry);
-const minutesRead = remarkPluginFrontmatter.minutesRead;
+const { twitterImage, minutesRead } = remarkPluginFrontmatter;
 
 ---    
 
