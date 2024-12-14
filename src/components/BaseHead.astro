@@ -1,4 +1,5 @@
 ---
+import { SITE_TITLE } from '../config';
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import "../styles/global.css";
@@ -23,6 +24,8 @@ const { title, description, twitterImage = 'https://www.raresportan.com/twitter-
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest" crossorigin="anonymous">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL("rss.xml", Astro.site)}
+/>
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#0077aa">
 <meta name="generator" content={Astro.generator} />

@@ -1,10 +1,11 @@
 ---
+import { getCollection, render } from 'astro:content';
 import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
 import { formatDate, slug, slugify, slugifyAll, getUniqueTags } from "../../lib/utils";
 
 export async function getStaticPaths() {
-    const posts = await Astro.glob("../../content/*/*.{md,mdx}");
+    const posts = await getCollection('post');
     const tags = getUniqueTags(posts);
 
     return tags.map(tag => {
@@ -16,16 +17,28 @@ export async function getStaticPaths() {
 }
 
 const { tag } = Astro.props;
-const posts = (await Astro.glob("../../content/*/*.{md,mdx}")).sort(
+
+const posts = (await getCollection('post')).sort(
 		(a, b) =>
-			new Date(b.frontmatter.pubDate).valueOf() -
-			new Date(a.frontmatter.pubDate).valueOf()
+			new Date(b.data.pubDate).valueOf() -
+			new Date(a.data.pubDate).valueOf()
 );
 
-const getPostsByTag = (posts, tag) => posts.filter(post => post.frontmatter.keywords)
-                                            .filter(post => slugifyAll(post.frontmatter.keywords).includes(slugify(tag)));
+const getPostsByTag = (posts, tag) => posts.filter(post => post.data.keywords)
+                                            .filter(post => slugifyAll(post.data.keywords).includes(slugify(tag)));
 
-const tagPosts = getPostsByTag(posts, tag);
+const tagPosts =  await Promise.all(getPostsByTag(posts, tag).map(async p => {
+	const { remarkPluginFrontmatter } = await render(p);
+	const { minutesRead, excerpt } = remarkPluginFrontmatter;
+	return ({
+		...p,
+		data: {
+			...p.data,
+			minutesRead,
+			excerpt
+		}
+	})
+}));
 ---    
 
 <!DOCTYPE html>
@@ -45,14 +58,14 @@ const tagPosts = getPostsByTag(posts, tag);
                     return (<article>							
 								<h2>
 									<a href={'../../'+slug(post)}>
-										{post.frontmatter.title}
+										{post.data.title}
 									</a>
 								</h2>	
-								<time datetime={post.frontmatter.pubDate}>
-									{formatDate(post.frontmatter.pubDate)}
+								<time datetime={post.data.pubDate}>
+									{formatDate(post.data.pubDate)}
 								</time>										
 							<section>
-								<p>{post.frontmatter.excerpt}&#8230;</p>
+								<p>{post.data.excerpt}&#8230;</p>
 							</section>
 						</article>)
                 })}	

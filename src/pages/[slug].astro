@@ -1,4 +1,5 @@
 ---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
@@ -7,30 +8,29 @@ import TwitterShare from "../components/TwitterShare.astro";
 import Waves from "../components/Waves.astro";
 import { formatDate, slug, slugify } from "../lib/utils";
 
-export async function getStaticPaths() {
-    const posts = await Astro.glob("../content/*/*.{md,mdx}")
-
-    return posts.map(post => {
-		const postSlug = slug(post);
-        return {
-            params: { slug: postSlug },
-			props: {...post}
-        }
-    })
+interface Props {
+	entry: CollectionEntry<'post'>;
 }
 
-const {
-	frontmatter: { 
-		title, 
-		description, 
-		pubDate, 
-		minutesRead, 
-		keywords, 
-		updatedDate,
-		twitterImage,
-	}, 	
-	Content
-} = Astro.props;
+export async function getStaticPaths() {
+	const posts = (await getCollection('post')).sort(
+	(a, b) =>
+		new Date(b.data.pubDate).valueOf() -
+		new Date(a.data.pubDate).valueOf()
+	);
+
+	return posts.map((entry, index) => ({		
+		params: { slug: slug(entry) },
+		props: { 
+			entry,			
+		},
+	}));
+}
+
+const { entry } = Astro.props;
+const { title, description, pubDate, keywords, updatedDate } = entry.data;
+const { Content, remarkPluginFrontmatter } = await render(entry);
+const { twitterImage, minutesRead } = remarkPluginFrontmatter;
 
 ---    
 
