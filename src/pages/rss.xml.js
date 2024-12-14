@@ -1,26 +1,40 @@
-import rss from '@astrojs/rss';
+import { getCollection } from 'astro:content';
+import rss, { pagesGlobToRssItems } from '@astrojs/rss';
 import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION } from '../config';
 import { slug } from "../lib/utils";
 
-const postImportResult = import.meta.glob('../content/*/*.{md,mdx}', { eager: true });
-const posts = Object
-				.values(postImportResult)
-				.map(post => {
-					const rssPost = {
-						link: SITE_URL+"/"+slug(post),
-						title: post.frontmatter.title,
-						pubDate: post.frontmatter.pubDate,	
-						content: post.frontmatter.excerpt+'...'
-					}
-					return rssPost;
-				}).sort((a, b) => new Date(b.pubDate).valueOf() - new Date(a.pubDate).valueOf());
 
-export const get = () => {
-	return rss({
-		stylesheet: './styles.xsl',
-		title: SITE_TITLE,
-		description: SITE_DESCRIPTION,
-		site: import.meta.env.SITE,
-		items: posts
-	});
-}	
+// const posts = await Promise.all(sortedPosts.map(async p => {
+// 	const { remarkPluginFrontmatter } = await render(p);
+// 	const { minutesRead, excerpt } = remarkPluginFrontmatter;
+// 	return ({
+// 		...p,
+// 		data: {
+// 			...p.data,
+// 			minutesRead,
+// 			excerpt
+// 		}
+// 	})
+// }));
+
+export async function GET(context) {
+	const sortedPosts = (await getCollection('post')).sort(
+		(a, b) =>
+			new Date(b.data.pubDate).valueOf() -
+			new Date(a.data.pubDate).valueOf()
+	)
+	
+  return rss({
+	stylesheet: './styles.xsl',
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    site: context.site,
+    items: sortedPosts.map((post) => ({
+		title: post.data.title,
+		pubDate: post.data.pubDate,
+		description: post.data.description,
+		link: SITE_URL+"/"+slug(post),
+	  })),
+    customData: `<language>en-us</language>`,
+  });
+}
