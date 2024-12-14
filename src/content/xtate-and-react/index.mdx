@@ -316,7 +316,7 @@ Tip: Copy the above code in the [XState visualizer](https://xstate.js.org/viz/) 
 Initially, the machine is idle and the first thing we need to do is to connect it.
 The only event available is CONNECT, nothing else is available. _Even if somehow an event like PAUSE or START is received, nothing happens_
 
-import { Picture } from "@astrojs/image/components";
+import { Picture } from "astro:assets";
 
 <Picture
   src={import("./xstate_machine_idle.png")}

@@ -41,7 +41,7 @@ The new algorithm does the following:
 
 Want to see them in action?
 
-import { Picture } from "@astrojs/image/components";
+import { Picture } from "astro:assets";
 import demo from "./demo.png";
 
 <Picture
@@ -67,7 +67,7 @@ We call _candidates_ the numbers that can be the solution of a cell.
 
 Here is an example where we display all the candidates in all empty cells:
 
-import { Image } from "@astrojs/image/components";
+import { Image } from "astro:assets";
 import pencilMarks from "./pencil-marks.png";
 
 <Image src={pencilMarks} width={612} aspectRatio={1/1} alt="Pencil marks on a Sudoku" />

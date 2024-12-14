@@ -25,7 +25,7 @@ Until now. Because now I think I've found a solution to this madness. And it's c
 
 Here is a visual explanation of how Partytown works, it loads 3rd party scripts in a separate thread, a web worker (source https://github.com/BuilderIO/partytown):
 
-import { Picture } from "@astrojs/image/components";
+import { Picture } from "astro:assets";
 import partyTownImage from "./how-partytown-works.png";
 
 <Picture
