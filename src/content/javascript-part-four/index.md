@@ -1,6 +1,6 @@
 ---
 title: Let's Learn JavaScript - Naming things
-pubDate: 2021-12-7
+pubDate: 2021-12-07
 description: How to name things in JavaScript and what names you cannot use
 keywords: ["JavaScript"]
 ---

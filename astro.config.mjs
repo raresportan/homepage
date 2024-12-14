@@ -16,10 +16,7 @@ export default defineConfig({
     rehypePlugins: [remarkReadingTime, rehypeSlug, [rehypeAutolinkHeadings, {behavior:'append' }]],    
   },
   integrations: [
-    mdx({
-      remarkPlugins: [remarkSocialImage],
-      rehypePlugins: [remarkReadingTime, rehypeSlug, rehypeAutolinkHeadings, [rehypeAutolinkHeadings, {behavior:'append'}]],
-    }), 
+    mdx(), 
     sitemap()    
   ]  
 });

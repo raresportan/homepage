@@ -1,7 +1,7 @@
 ---
-title: "CSS units Cheat Sheet"
-pubDate: "2022-5-29"
-description: "There are a lot of ways to specify the size of text or a container, so here is a Cheat Sheet with most the units available"
+title: CSS units Cheat Sheet
+pubDate: 2022-05-29
+description: There are a lot of ways to specify the size of text or a container, so here is a Cheat Sheet with most the units available
 keywords: ["CSS"]
 ---
 

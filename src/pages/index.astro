@@ -1,4 +1,5 @@
 ---
+import { getCollection, render } from 'astro:content';
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
@@ -6,13 +7,24 @@ import Bio from "../components/Bio.astro";
 import Header from "../components/Header.astro";
 import { formatDate, slug, slugify } from "../lib/utils";
 
-// Use Astro.glob() to fetch all posts, and then sort them by date.
-const posts = (await Astro.glob("../content/*/*.{md,mdx}")).sort(
+const sortedPosts = (await getCollection('post')).sort(
 	(a, b) =>
-		new Date(b.frontmatter.pubDate).valueOf() -
-		new Date(a.frontmatter.pubDate).valueOf()
-);
+		new Date(b.data.pubDate).valueOf() -
+		new Date(a.data.pubDate).valueOf()
+)
 
+const posts = await Promise.all(sortedPosts.map(async p => {
+	const { remarkPluginFrontmatter } = await render(p);
+	const { minutesRead, excerpt } = remarkPluginFrontmatter;
+	return ({
+		...p,
+		data: {
+			...p.data,
+			minutesRead,
+			excerpt
+		}
+	})
+}));
 ---
 
 <!DOCTYPE html>
@@ -31,19 +43,19 @@ const posts = (await Astro.glob("../content/*/*.{md,mdx}")).sort(
 							<header>
 								<h2>
 									<a href={'/'+slug(post)}>
-										{post.frontmatter.title}
+										{post.data.title}
 									</a>
 								</h2>
-								<time datetime={post.frontmatter.pubDate}>
-									{formatDate(post.frontmatter.pubDate)} •{" "}
-									{post.frontmatter.minutesRead}
-									{post.frontmatter.keywords ? (
+								<time datetime={post.data.pubDate}>
+									{formatDate(post.data.pubDate)} •{" "}
+									{post.data.minutesRead}
+									{post.data.keywords ? (
 										<>
 											{" "}
 											•{" "}
 											<em>
 												{" "}
-												{post.frontmatter.keywords.map(k => <a href={`/tags/${slugify(k)}`}>{k}</a>)}
+												{post.data.keywords.map(k => <a href={`/tags/${slugify(k)}`}>{k}</a>)}
 											</em>
 										</>
 									) : (
@@ -52,7 +64,7 @@ const posts = (await Astro.glob("../content/*/*.{md,mdx}")).sort(
 								</time>
 							</header>
 							<section>
-								<p>{post.frontmatter.excerpt}&#8230;</p>
+								<p>{post.data.excerpt}&#8230;</p>
 							</section>
 						</article>
 					))

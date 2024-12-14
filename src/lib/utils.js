@@ -12,13 +12,13 @@ export const formatDate = (dateString) => {
 	}
 };
 
-export const slug = (post) => post && post.file.split(/(?<=content\/)(.*)(?=\/index.md)/)[1];
+export const slug = (post) => post?.filePath?.split(/(?<=content\/)(.*)(?=\/index.md)/)[1];
 
 export const slugify = name => name && name.toLowerCase().split(' ').join('-');
 
 export const slugifyAll = names => names && names.map(slugify);
 
 export const getUniqueTags = posts => {
-	const allTags = new Set(posts.filter(post => post.frontmatter.keywords).map(post => post.frontmatter.keywords).flat());
+	const allTags = new Set(posts.filter(post => post.data.keywords).map(post => post.data.keywords).flat());
 	return [...allTags];		
 }
