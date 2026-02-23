@@ -2,7 +2,7 @@
 title: How Markdown became the most powerful programming language in the world
 pubDate: 2026-02-23
 description: In 2026 one little markup language created two decades ago has become the most powerful programming language in the world because of its use by AI Agents
-keywords: ["Markdown", "AI", "AI Agents", "Markdown programming language", "prompt engineering", "AI agent instructions"]
+keywords: ["Markdown", "AI Agents"]
 ---
 
 Most powerful programming language in 2026 is not what you think. It's not C, Rust, or Python, not even Assembly.
