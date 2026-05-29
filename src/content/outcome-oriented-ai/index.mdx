@@ -5,35 +5,36 @@ description: How to make use of AI and still be happy, useful and productive.
 keywords: ["AI"]
 ---
 Subsidized AI inference is slowly becoming a thing of the past. 
-It becomes more and more expensive to use the latest models, at least for non-enterprise users. 
-Running tons of agents in parallel is not a thing anymore; it's just too expensive. 
-Ironically, some start to think that [humans are now cheaper than AI.](https://finance.yahoo.com/sectors/technology/articles/microsoft-data-suggests-using-ai-225900743.html)
+The latest models are getting more expensive, at least for non-enterprise users. 
+Running tons of agents in parallel is no longer something you can do casually; it costs too much. 
 
-Sadly, this means that some "AI-native" companies will have to reduce their headcount and move more money to AI inference. Willy-nilly AI usage will need to fuel their fuzzy fantasy dreams of greatness.
-Others, more intelligent, will demand clear ROI from using AI. They will compare the AI bills with the outcomes they got from using that AI.
+Even so, a lot of companies are still deep in the AI hype cycle. They want AI in every workflow, every PR, every meeting, every task. The expectation is often not _"use AI when it helps,"_ but _"use AI by default."_
 
-The same thing can be applied to us, regular John or Jane Doe. We need to see if our AI usage has any good impact. 
+If you are a developer working inside that kind of environment, you need a way to use AI without letting it waste your time or wreck your codebase.
 
-And I'm not talking about meaningless metrics like _lines of code generated_ or _number of PRs_, or _productivity increase by 20%_. 
+That is what I mean by *"Outcome Oriented AI."* It is a personal way of working: use AI when it helps you achieve a concrete outcome, and ignore it when it does not.
+
+And I am not talking about meaningless metrics like _lines of code generated_, _number of PRs_, or _productivity increase by 20%_. 
 I'm talking about real outcomes, like:
 * I found a critical bug that I would have missed without AI
 * I had more fun working on this project because AI helped me with the boring stuff
 * I learned something new because AI explained it to me in a way that I understood
 
-I call this *"Outcome Oriented AI"*:
 > Do not use AI for the sake of using it, use it to help you achieve a practical outcome.
 
 ## Why Outcome Oriented AI
 
-One can use AI in a lot of different ways, but not all of them are good. 
-In fact, most of them are just a waste of time and money because:
+You can use AI in a lot of different ways, but not all of them are good. 
+Inside a company that is pushing AI too hard, this matters even more, because it becomes easy to confuse activity with value.
+
+In fact, most AI usage patterns are just a waste of time and money because:
 1. The same thing could be done cheaper and faster without AI
 2. The thing AI made is not the thing you actually wanted
 3. The code AI wrote is so bad that you don't have the guts to release it to anyone
 
 **Outcome Oriented AI** is an attempt to avoid these issues: _Decide on an outcome and focus on how to achieve it._
 
-### Clear ROI
+### Clear outcomes
 
 The first thing you need to do is define a _realistic_ outcome you want to achieve. 
 **Use your experience and intuition** to define a clear path to that outcome. 
@@ -41,12 +42,15 @@ The first thing you need to do is define a _realistic_ outcome you want to achie
 If you can't see a clear path, use AI for brainstorming or for suggesting options / alternatives. 
 Use another AI to tear apart those options, and give you feedback on them. 
 
-**Use your judgement** to choose the best option, or to combine them. 
-No matter if you succeed or fail, it's your decision and responsibility! 
-But at least you know what's going on.
+**Use your judgement** to choose the best option, or combine several. 
+Whether you succeed or fail, it is still your decision and your responsibility. 
+At least you know what is going on.
 
 Do not proceed with the implementation until you have a clear enough plan to reach that outcome. 
 If necessary, break down the outcome into smaller sub-outcomes, and define clear paths to achieve each of them.
+
+"Outcome" does not only mean business ROI. It can mean saving time, reducing frustration, learning something important, avoiding a mistake, or finally finishing a task that keeps slipping. 
+Not every AI interaction has to be measurable on a spreadsheet. It does, however, need to lead to something concrete and useful.
 
 > If you don't see a clear way to achieve the outcome, then maybe it's not a good outcome to pursue, or maybe you need to learn more. "$1,000,000 in my bank account" or "be the president of the USA" are not very realistic outcomes for most people.
 
@@ -64,37 +68,38 @@ Here are some realistic outcomes:
 * Create a prototype to test an idea
 * Create internal tools to automate a boring task, to visualize some data, to generate reports, etc.
 
-### Cost savings
+### Cost awareness
 
-I know that it is very tempting to just ask the AI to do any silly idea that comes to your mind. 
-The dopamine rush of seeing the AI generate something is very addictive. But more often than not, you will end up with a lot of wasted tokens, and a lot of frustration.
+It is very tempting to ask AI to execute every silly idea that comes to mind. 
+The dopamine rush of seeing it generate something is real. More often than not, though, you end up with wasted tokens and wasted attention.
 Just like playing a slot machine at the casino, you might get some wins, but most of the time you lose.
 
-Now your boss is asking *"Hey, your AI bill is $5,000 this month, can you explain why? What is the business ROI of that?"* This is very different from the *"Just use AI for everything, it's free and it will make you 10x more productive"* mindset that most bosses had just a few months ago.
-(Non-local) AI usage is not free! People even start avoiding the latest models because they are too expensive.
+If you work in a company that is overdoing the AI hype, you may hear two contradictory messages at the same time: "Use AI for everything" and "Why is our AI bill so high?" That contradiction is exactly why a personal working style matters.
+
+(Non-local) AI usage is not free. People even start avoiding the latest models because they are too expensive.
 
 Just think about it:
-* When you have a clear outcome in mind and how to achieve it, you can better estimate the cost of using AI to achieve that outcome.
-You can compare that cost with the expected benefits of achieving that outcome, and decide if it's worth it or not.
+* When you have a clear outcome in mind and a path to reach it, you can estimate the cost of using AI much more accurately.
+You can compare that cost with the expected benefit and decide whether it is worth it.
 
 * When you don't run agents in a loop day and night, you can save a lot of tokens (money.) 
 
-* When you use AI for small, clear tasks that have a clear impact, you can save a lot of time and effort simply because the chances of AI going off the rails are much smaller!
+* When you use AI for small, clear tasks with a clear impact, you save time and effort because the chances of it going off the rails are much smaller.
 
 * When you don't use AI for unrealistic or fanciful outcomes, you do yourself a favor.
  
-* But when you let the AI build huge codebases you don't understand, you cause yourself and your team a lot of headaches and embarrassment when the codebase inevitably becomes unmaintainable even by AI.
-The context required to make a change in that codebase would be huge. AI costs will be huge.
+* But when you let AI build huge codebases you do not understand, you create long-term pain for yourself and your team.
+The context needed to change that codebase becomes huge. The AI costs do too.
 
-Using AI effectively is a skill that not many people have mastered yet, but just using your common sense and your experience can give you some healthy hints.
+Using AI effectively is a skill that not many people have mastered yet, but common sense and experience already take you surprisingly far.
 
 > *Life Hack:* Read all the code the AI generates, and make sure you understand it. Do not just blindly accept it. 
 This will naturally limit the amount of code you ask the AI to generate and thus the costs associated with it.
 
 ### Quality of life improvements
 
-There are some outcomes that are not directly related to money or ROI, but they can still be very valuable. 
-They can improve your quality of life. By itself, each outcome might not be a big deal, but they _compound over time and can make a big difference._
+Some outcomes are not directly tied to money or ROI, but they still matter. 
+They improve your quality of life. On their own, each one might seem small, but they _compound over time and make a real difference._
 
 How to find small wins?
 * Look at your codebase, your workflows. What bothers you? What have you always wanted to fix but never had the time for? 
@@ -104,8 +109,10 @@ How to find small wins?
 * What information is hard to get?
 * What kind of reports do you need to create that are time-consuming and boring?
 
-Sometimes it is worth spending AI tokens to create internal tools that can save you a lot of time and effort in the long run.
-Since these tools are not public-facing, they don't have to be perfect; they just have to be good enough to help somebody on your team.
+The gist of outcome-oriented usage is simple: you are not using AI because the company wants more AI usage; you are using it because you can see a concrete payoff.
+
+Sometimes it is worth spending AI tokens to create internal tools that save a lot of time and effort in the long run.
+Since these tools are not public-facing, they do not have to be perfect; they just have to be good enough to help somebody on your team.
 
 Some types of internal tools you can create with AI:
 * A private website available on your intranet, that can be used by non-technical people to update various content bits like copy, images, etc. without having to ask the engineering team to do it for them. Or one that generates various reports.
@@ -116,7 +123,7 @@ Some types of internal tools you can create with AI:
 > **Life Hack:** create all kinds of HTML reports, to make them more shareable and interactive.
 
 Everyone uses Markdown files with AI in different ways. 
-But not many people use HTML, which is arguably a much better format than Markdown for sharing and/or for information visualization.
+Not many people use HTML, though, even when it is a better format for sharing and information visualization.
 Here are some ideas of HTML docs:
 - Interactive explainer of code, architecture, workflow, etc. 
 - Feature code workflows with code snippets, diagrams, etc.
@@ -125,20 +132,24 @@ Here are some ideas of HTML docs:
 - Standup report, maybe using JIRA or Github PRs, to create nice reports for managers
 - Slides/decks for presentations, events, etc.
 
-All these little outcomes are not going to make you rich, but they can make your work more enjoyable, and your life a bit easier.
+None of these outcomes will make you rich, but they can make your work more enjoyable and your life a bit easier.
 
 ### Keep control
 
-Pursuing realistic outcomes with a clear path to achieve them is a good way to keep control.
-When you decide what needs to be done, and how to do it, you are in control. 
+Pursuing realistic outcomes with a clear path to achieve them is a good way to stay in control.
+When you decide what needs to be done and how to do it, you stay in control. 
 
-As any programmer will tell you, writing code means taking a lot of small decisions all the time. Writing code implies reading a lot of the existing code.
-You need to decide if existing code must be left alone, or if it needs to be refactored to fit the new code. You think of cons and pros of each decision. You think of various options you have. 
+As any programmer will tell you, writing code means making a lot of small decisions all the time. It also means reading a lot of existing code.
+You need to decide whether the existing code should be left alone or refactored to fit the new code. You weigh the pros and cons. You consider the options. 
 
-When AI writes that code, it is making those decisions for you. You are not aware of those decisions, and you don't understand them.
+When AI writes that code, it is making many of those decisions for you. You are not fully aware of them, and you may not understand them.
 For small changes, this might not be a big deal, but if you don't look at what AI is doing and you just blindly accept it, you go astray.
 
-Look at the code the AI generates, read it, understand it, and make sure it's on the right path. If it is not, correct it!
+Look at the code AI generates. Read it, understand it, and make sure it is on the right path. If it is not, correct it.
 
-> Complexity is the ultimate enemy. Complexity is bad for humans because they don't understand it, and they don't know how to use it. Complexity is bad for AI because it just can't handle it at some point. 
+### Conclusion
+
+That is why I like outcome-oriented AI as a personal working style. It pushes you toward smaller scopes, clearer goals, and shorter feedback loops. That helps you stay effective even when the surrounding company culture is pushing toward bigger automation, more agents, and more AI for its own sake.
+
+If you keep the outcome clear, the scope reasonable, and yourself in control of the decisions, AI can be a useful tool. If you do not, it becomes expensive theater.
 
