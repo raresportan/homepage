@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { remarkReadingTime } from './src/lib/remark-reading-time.mjs';
@@ -10,10 +11,11 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 export default defineConfig({
   site: 'https://raresportan.com',
   markdown: {
-    extendDefaultPlugins: true,
     syntaxHighlight: 'prism',
-    remarkPlugins: [remarkSocialImage],
-    rehypePlugins: [remarkReadingTime, rehypeSlug, [rehypeAutolinkHeadings, {behavior:'append' }]],    
+    processor: unified({
+      remarkPlugins: [remarkSocialImage],
+      rehypePlugins: [remarkReadingTime, rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'append' }]],
+    }),
   },
   integrations: [
     mdx(), 
