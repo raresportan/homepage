@@ -12,10 +12,10 @@
     "astro": "astro"
   },
   "devDependencies": {
-    "@astrojs/mdx": "^6.0.1",
-    "@astrojs/rss": "^4.0.18",
+    "@astrojs/mdx": "^7.0.5",
+    "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^6.4.2",
+    "astro": "^7.1.6",
     "encoding": "^0.1.13",
     "netlify-cli": "^17.38.0",
     "puppeteer": "^23.10.4",
