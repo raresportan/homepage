@@ -1,0 +1,212 @@
+---
+title: Why Pi Agent Harness
+pubDate: 2026-08-04
+description: What is Pi Agent Harness and why it is important
+keywords: ["Pi Agent Harness", "AI", "Agents"]
+---
+
+Strange days have found us, everything changes fast, and AI is the main reason. 2026 feels like the longest year ever, and it is only August.
+The enshitification of everything is only getting worse, everyone claims to have found the perfect AI thingy, but almost nobody has any idea what the hell they are talking about.
+
+The tooling around AI is also changing fast, there are so many options out there that is nearly impossible to keep up,
+no wonder people get burned out trying to keep up. FOMO is a real problem, no matter what you do, you will always feel like you are missing out on something.
+
+So the only sane thing to do is to try to find things that matter, things that are useful today and which will still be useful tomorrow no matter what new model drops or whatever new AI idea gets hyped up.
+
+For me, one of those useful things is [Pi Agent Harness.](https://pi.dev/)
+
+## What is an AI Agent?
+
+Let's start at the beginning, what is our end goal?
+
+**My** end goal is to create *virtual assistants* that can accomplish diverse tasks autonomously. Yes, virtual assistants is another overloaded term, so I'll try to clarify what I mean:
+
+*Imagine you run a small business/project. At first you might be by yourself, handling every task from product development to customer support.
+Eventually, you realize you need help. You have two options: 1. Hire a human assistant to help you with some tasks. 2. Create one or more virtual assistants instead of hiring a human. 3. Use a combination of human and virtual assistants.*
+
+Just to be clear, a virtual assistant is not a human replacement, it's a **task executor replacement.**
+A human can (learn to) do many tasks, and a virtual assistant can be "coded" to do a few specific tasks.
+
+A virtual assistant that can do well a specific task is called an **AI Agent**.
+A virtual assistant that can do many tasks is called an **Orchestrator of AI Agents**.
+
+If you're a software engineer, the best analogy I can give you is the [*Actor Model*](https://www.youtube.com/watch?v=ELwEdb_pD0k). An AI Agent is an Actor, and an Orchestrator of AI Agents is a Supervisor of Actors.
+
+## What is an Agent Harness?
+
+When we say AI these days, we mean Large Language Models (LLMs).
+LLMs are just **next-word predictors**, give them a piece of text and all they can do is predict the next word in a sequence of words that would be the response to the input text.
+Yes, the text they generate is often a small miracle, but that is all they can do: generate text.
+
+An LLM is like a big brain. It can think (predict the next word), but it cannot act. It can generate ideas, but it cannot execute them.
+So for some time we could only "chat" with LLMs.
+
+Even worse, every time you ask it a question, the LLM is like a space traveling brain that just wakes up from cryogenic sleep, it has no idea where it is, what is going on, or what it should do.
+It knows a lot of distant past (cut-off date), but suffers from Anterograde amnesia just like the guy from [Memento.](https://www.imdb.com/title/tt0209144/) With each new question you ask, you need to also provide the entire conversation history (instead of notes and tattoos).
+
+At some point, some modern [Victor Frankenstein](https://en.wikipedia.org/wiki/Victor_Frankenstein) decided it would be a good idea to give the brain hands and feet, so it can act on its ideas.
+We call those hands and feet **tools**. Tools are software functions that can do things like reading a file, sending an email, or making a web request.
+
+So now when we send an input text to an LLM (together with the entire convo history) we also send a list of tools *it can request to use*. The LLM might want us to use a tool and hand it the result of that tool before it can give the final answer.
+So we call the tool, get the result and send it back to the LLM, and then the LLM can give us the final answer... unless it wants us to call another tool...
+
+There are also MCPs, Skills, System prompts, special instruction files... The input text we send to the LLM is limited in size, the output we get is limited too, so we need to "compact" the input if it gets too big...
+
+As you can imagine, all this back and forth can get very complicated, very fast. We needed a way to manage all this complexity, and thus the **Agent Harness** was born.
+
+> The harness is the Frankenstein monster's body and electricity, that connects the brain to the hands and feet. So now it can go off in the dark, scare the shit out of people, and wreak havoc on the world.
+
+## Why Pi Agent Harness?
+
+There are a ton of harnesses out there.
+
+First, all LLM providers have their own harnesses: Claude Code from Anthropic, Codex from OpenAI, Antigravity from Google, Kimi Code from Moonshot AI and so on.
+Then there is Cursor, OpenCode, Hermes Agent, Goose, etc.
+
+Among them, there is a small harness called [Pi Agent Harness.](https://pi.dev/) It's not the most popular, not much hyped, not a bit flashy, but it is the one I like the most. Here's why.
+
+### I can change it as I feel like
+
+The best thing about Pi is that I can change it as I feel like.
+Of course it's open source, written in TypeScript, I can go on and read the code and then create some extensions and themes and modify it as I wish.
+
+But it's even better, I can just ask it to change itself: *"Hey Pi, I want you to do X"* And it does, because the Pi documentation and code is included with the harness itself and referenced in the system prompt.
+Isn't that cute?
+
+### I can run different instances of Pi
+
+I can run different instances of Pi, each with its own configuration, extensions, tools, skills and LLM.
+This is one of the reasons Pi provides just four tools out of the box. Even these four are too much for some use cases.
+
+For me this is important as I need a specific set of tools and skills for developing software, and a different set of tools and skills for running specialized business AI agents.
+For example, I don't want to give my log monitor agent access to Figma via an MCP, or I don't want to scout a codebase using Sol but Luna.
+
+Here is an example of running Pi with just a specific extension, skill, tool and LLM:
+```bash
+pi --no-extensions --no-skills --no-tools -e ./my-extension.ts --skill <path> --tools read --model <llm>
+```
+
+Pi was designed to be tinkered with, it was designed for software engineers, and it shows. 
+It is a tool for building tools, and it does that very well.
+
+
+### Pi is minimalistic
+
+Pi is also very minimalistic, it does not try to do everything, au contraire, it tries to do as little as possible *by
+providing a solid set of primitives on top of which you can build whatever you want.*
+
+import { Picture } from "astro:assets";
+
+<Picture
+  src={import("./pi-architecture.svg")}
+  widths={[480, 800]}
+  formats={["svg"]}
+  sizes="(max-width: 600px) 480px, 800px"
+  alt="Pi architecture"
+/>
+
+Pi code is organized in a few packages:
+1. *pi-ai:* LLM API, handles the communication with the LLM, supports a lot of LLMs. You are never stuck with a single LLM, you can change it at any time, even in the middle of a session.
+2. *pi-agent-core:* the loop that handles the back and forth with the tools and the LLM through pi-ai.
+3. *pi-coding-agent:* the entry point for running Pi, this is the harness (the monster itself!), built on top of pi-agent-core.
+4. *pi-tui:* a simple TUI used by the coding agent, optional, you can use Pi without it
+
+In a few words, this is how a prompt is processed by Pi:
+
+<Picture
+  src={import("./pi-trace.svg")}
+  widths={[480, 800]}
+  formats={["svg"]}
+  sizes="(max-width: 600px) 480px, 800px"
+  alt="Pi trace"
+/>
+
+
+* The coding agent (pi-coding-agent) receives the prompt through CLI, TUI, SDK or RPC.
+* It creates an AgentSession which does the bulk of the work
+    - It builds the context for the session (including the system prompt, list of tools available, etc.)
+    - It manages the agent loop (pi-agent-core) which handles the communication with the LLM through pi-ai and the tools.
+    - It updates the SessionManager, including the conversation history, and any other relevant information.
+    - It notifies all interested parties that subscribe to the session events (like the TUI, SDK, RPC, extensions, etc.)
+
+*The notification system is a secret source of Pi's flexibility, it allows you to hook into the session and do whatever you want, like logging, monitoring, transforming, collecting, or even changing the session on the fly.*
+
+Here's a list of events you can subscribe (shamelessly copied from the [Pi documentation](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/sdk.md#events)):
+
+```ts
+session.subscribe((event) => {
+  switch (event.type) {
+    // Streaming text from assistant
+    case "message_update":
+      if (event.assistantMessageEvent.type === "text_delta") {
+        process.stdout.write(event.assistantMessageEvent.delta);
+      }
+      if (event.assistantMessageEvent.type === "thinking_delta") {
+        // Thinking output (if thinking enabled)
+      }
+      break;
+    
+    // Tool execution
+    case "tool_execution_start":
+      console.log(`Tool: ${event.toolName}`);
+      break;
+    case "tool_execution_update":
+      // Streaming tool output
+      break;
+    case "tool_execution_end":
+      console.log(`Result: ${event.isError ? "error" : "success"}`);
+      break;
+    
+    // Message lifecycle
+    case "message_start":
+      // New message starting
+      break;
+    case "message_end":
+      // Message complete
+      break;
+    
+    // Agent lifecycle
+    case "agent_start":
+      // Agent started processing prompt
+      break;
+    case "agent_end":
+      // Agent finished (event.messages contains new messages)
+      break;
+    
+    // Turn lifecycle (one LLM response + tool calls)
+    case "turn_start":
+      break;
+    case "turn_end":
+      // event.message: assistant response
+      // event.toolResults: tool results from this turn
+      break;
+    
+    // Session events (queue, compaction, retry)
+    case "queue_update":
+      console.log(event.steering, event.followUp);
+      break;
+    case "compaction_start":
+    case "compaction_end":
+    case "auto_retry_start":
+    case "auto_retry_end":
+    case "summarization_retry_scheduled":
+    case "summarization_retry_attempt_start":
+    case "summarization_retry_finished":
+      break;
+  }
+});
+```
+
+### Pi has great people behind it
+
+[Mario Zechner](https://mariozechner.at/) is the main developer behind Pi. 
+Recently Pi has been acquired by [Earendil](https://earendil.com/), a company that is building a platform for AI Agents, lead by [Armin Ronacher](https://lucumr.pocoo.org/), the creator of Flask and Jinja2.
+
+Both are euromaxxing from Vienna, Austria. I read what they [write](https://mariozechner.at/posts/2026-03-25-thoughts-on-slowing-the-fuck-down/) and I like their [view on things.](https://lucumr.pocoo.org/2026/1/18/agent-psychosis/)
+They are two great software engineers, and I hope they can keep Pi alive and kicking for a long time.
+
+--- 
+
+So what do you think? Is Pi Agent Harness something you can use to create some AI agents? 
+That's what I'm doing now, and hopefully I will write about it in the future.
+
