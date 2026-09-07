@@ -1,0 +1,87 @@
+---
+title: Let the Agent Verify Itself
+pubDate: 2026-09-08
+description: Coding agents write a lot of code, and a lot of tests, but somehow they still manage to break things all the time.  
+keywords: ["AI", "Agents", "Code"]
+---
+
+Coding agents can write a lot of code, they write a lot of tests, but somehow they still manage to break things all the time. 
+Once you have a big enough codebase, the probability of something breaking increases significantly. At some point, the agents simply cannot keep in the context 
+all the details, and either hallucinate or forget things, or just leave parts of the code half-done. They enter the *dumb zone.*
+
+This is one of the most frustrating things: even with all the tests, you can never be sure a code change will not break something else. 
+Yes, this was true even when we wrote code by hand, but back then the amount of code changes was much more manageable. 
+
+As anyone who took a look at the code produced by the agents can tell, the quality is not always (if ever) fantastic. 
+Let's assume for now that code doesn't matter anymore (which, of course, is not true.) Agents write a lot of tests too, which is even lower quality, 
+and most of the time the tests are totally useless. Worse, agents rewrite tests constantly, to fit new code, very conveniently rewriting failing tests to pass without actually verifying the correctness of the existing code.
+
+In short, it's a total mess.
+
+## Regression testing
+
+A reliable way (I know) to ensure code changes don't break existing functionality is rigorous [regression testing.](https://en.wikipedia.org/wiki/Regression_testing) 
+Regression tests are designed to catch unintended side effects of code changes by re-running previously successful tests.
+However, if agents are constantly rewriting tests to fit new code, the effectiveness of regression testing is gone.
+
+Another big issue is that the more tests you have, the harder is to refactor the code. When you want to refactor a piece of code or make any significant change, you have to consider the impact on existing tests. 
+How do you approach this dilemma? What you do, and in which order, to not confuse the agent? 
+
+This is where code quality matters the most. If the code is modular, with clear interfaces, maybe you can convince the agent to test only those interfaces rather than the private, messy, inner workings.
+But in order to make the code more modular and maintainable, you need to constantly refactor it! The classic chicken and egg problem.
+
+I have this exact issue on my current project. The project is big enough to not fit in the context, and the agents constantly struggle to keep track of all the details. 
+They constantly break things when they add new code or fix bugs in the existing code.
+
+## The QA Engineer
+
+Then I've remembered that before AI, we relied heavily on *QA engineers* to perform regression testing. 
+QA engineers would design and execute test plans, manually or using automations, or both. They would constantly add new test cases as *new features* were added.
+
+So what's the difference between the way QA engineers do regression testing and the way agents do it? QA engineers don't care about the code! They never see the actual code! 
+
+*They focus solely on the behavior of the application,* making sure that it works as expected from the user's perspective. 
+This makes their testing more reliable in catching regressions, as they are not influenced by the internal implementation details.
+
+## Let the agent verify itself
+
+What if we could make the agent act like a QA engineer for its own code?
+
+Instead of blindly rewriting tests to fit new code, *the agent could verify the behavior of the app.* 
+It goes through each flow, simulates user interactions, and checks if the result is the expected one. Just like a QA engineer would do.
+
+Luckily, I've found a way to do this! 
+
+[Lauren Tan,](https://x.com/poteto) aka [poteto,](https://github.com/poteto) from SpaceXAI had the same issue:
+> The most critical skill to have in your toolbox is a high quality verification skill. This skill is so important to have and maintain that I think of it more like critical infrastructure rather than "just" a skill. A good one will amplify the output of your whole team, including non-engineers. Done well, you will 100-1000x your whole team's output. 
+> If you're not familiar with the term, verification means that an agent can verify its own work. It can keep going until it succeeds at its task, because it can now close the loop without you being the bottleneck. 
+
+
+So she created the [verification skill](https://github.com/cursor/plugins/blob/main/pstack/skills/create-verification-skill/SKILL.md) and the [maintain verification skill](https://github.com/cursor/plugins/blob/main/pstack/skills/maintain-verification-skill/SKILL.md).
+* __create-verification-skill__ purpose is to use the agent to create a *custom skill* for the specific project, allowing it to generate its own verification tests for that particular app.
+* __maintain-verification-skill__ purpose is to use the agent to update and maintain the verification tests as the code evolves.
+
+To be clear, the *verification skill* is not a set of *.test.js* files, or traditional unit tests. It is more similar to a *end-to-end tests*, you can think of something like [playwright](https://playwright.dev/), except playwright is for the web automation. 
+The verification skill can be anything the agent chooses to implement, as long as the "scripts" it creates can be used to verify the behavior of the application in the way a human user would.
+
+Here is how the verification skill instructions start:
+
+> Every serious project needs a scripted way to drive the real app and prove behavior: launch it, exercise a feature the way a user would, and capture evidence. This skill generates that as a project-local skill tailored to the repo. You write the generator's output for the next agent, not for a human: it will be read cold, mid-task, by an agent that has never seen the app.
+
+Think what you use if you were to manually debug the app yourself. The agent should use the same tools: For a web app it might use Chrome DevTools, for an iOS app, it might use the Simulator, for an Android app, it might use Android Emulator. 
+
+In my case, the scripts are horrible and messy, but they work! I can finally refactor some code without worrying that I will break something or manually testing everything over and over again. This is such a good feeling!
+
+Create verification skill is supposed to be run once, to set up the initial verification tests for your project. 
+But your project will grow, and you will add new features. Use the maintain verification skill to add new tests for those new features.
+
+__NOTE:__ Unless you tell the agent to use the maintain verification skill, it should have no reason to touch the verification tests. 
+Keep an eye on changes in the area, make sure the agent is not sneaking around.
+
+## Pi sidenote 
+
+I use [pi agent](https://pi.dev) instead of Cursor, so Lauren's skills had to be adapted to work with pi. There was already a pi extension that included the two skills called [pi-pstack](https://github.com/zenspc/pi-extensions/blob/master/packages/pi-pstack/skills/create-verification-skill/SKILL.md). 
+
+A complication arose because the pi agent's implementation relies on another pi extension called [pi-subagents](https://www.npmjs.com/package/pi-subagents). This means that you also need to have the pi-subagents extension installed and properly configured before you can use the pi-pstack.
+
+If you don't want to deal with installing and configuring multiple pi extensions, you might want to adapt the pi-pstack's [maintain-verification-skill](https://github.com/zenspc/pi-extensions/blob/master/packages/pi-pstack/skills/maintain-verification-skill/SKILL.md) to work without subagents. Just ask your fav clanker to do it for you.
