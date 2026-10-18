@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.4.14",
-    "cssnano": "^6.0.1",
+    "cssnano": "^9.9.0",
     "mdast-util-to-string": "^3.2.0",
     "node-fetch": "^2.6.1",
     "reading-time": "^1.5.0",
